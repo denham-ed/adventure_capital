@@ -12,8 +12,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('whereami')
 
+class Capital
 
 def get_city_details():
+    """
+    Asks for user to guess a capital city.
+    Checks the API for a match and, if found, returns that city's infromation AS CLASS?!?!?!
+    If not found, returns None.
+    """
     worksheet = SHEET.worksheet("capitals")
     city = input("Please guess a capital city: \n")
     cell = worksheet.find(city)
