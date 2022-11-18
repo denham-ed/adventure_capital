@@ -13,7 +13,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('whereami')
 
 class Capital:
-    def __init__(self,city,country,continent,easy,longitude,latitude,hint):
+    def __init__(self, city, country, continent, easy, longitude, latitude, hint):
         self.city = city
         self.country = country
         self.continent = continent
@@ -21,6 +21,14 @@ class Capital:
         self.longitute = longitude
         self.latitude = latitude
         self.hint = hint
+
+class Game:
+    def __init__(self, inProgress, userName, guessCount, difficulty , hintOn):
+        self.inProgress = inProgress
+        self.userName = userName
+        self.guessCount = guessCount
+        self.difficulty = difficulty
+        self.hintOn = hintOn
 
 def get_city_details():
     """
@@ -38,6 +46,9 @@ def get_city_details():
         return None
 
 
-result = get_city_details()
-user_capital = new Capital()
-print(result)
+# result = get_city_details()
+# city, country, continent, easy,longitude, latitude, hint = result
+# userGuess = Capital(city, country, continent, easy,longitude, latitude, hint)
+# print(userGuess.hint)
+
+def main :
