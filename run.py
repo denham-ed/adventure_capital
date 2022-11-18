@@ -12,8 +12,17 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('whereami')
 
-def test():
-    highscores = SHEET.worksheet("scores")
-    highscores.append_row(['Grogg',17])
 
-test()
+def get_city_details():
+    worksheet = SHEET.worksheet("capitals")
+    city = input("Please guess a capital city: \n")
+    cell = worksheet.find(city)
+    if cell is not None:
+        city_stats = worksheet.row_values(cell.row)
+        return city_stats
+    else:
+        return None
+
+
+result = get_city_details()
+print(result)
