@@ -12,7 +12,15 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('whereami')
 
-class Capital
+class Capital:
+    def __init__(self,city,country,continent,easy,longitude,latitude,hint):
+        self.city = city
+        self.country = country
+        self.continent = continent
+        self.easy = easy
+        self.longitute = longitude
+        self.latitude = latitude
+        self.hint = hint
 
 def get_city_details():
     """
@@ -31,4 +39,5 @@ def get_city_details():
 
 
 result = get_city_details()
+user_capital = new Capital()
 print(result)
