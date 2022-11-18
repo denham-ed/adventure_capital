@@ -13,6 +13,9 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('whereami')
 
 class Capital:
+    """ 
+    Initiates a new instance of a capital city
+    """ 
     def __init__(self, city, country, continent, easy, longitude, latitude, hint):
         self.city = city
         self.country = country
@@ -23,6 +26,9 @@ class Capital:
         self.hint = hint
 
 class Game:
+    """ 
+    Initiates an instance of a new game
+    """
     def __init__(self, inProgress, userName, guessCount, difficulty , hintOn):
         self.inProgress = inProgress
         self.userName = userName
@@ -51,4 +57,29 @@ def get_city_details():
 # userGuess = Capital(city, country, continent, easy,longitude, latitude, hint)
 # print(userGuess.hint)
 
-def main :
+def ask_for_hints(userName):
+    """
+    Asks user whether they would like to have a hint displayed before their guess
+    Returns True or False
+    """
+    userHint = input(f"So tell me {userName},would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
+    if (userHint =='y'):
+        return "They're asking for a hint"
+    if (userHint == 'n'):
+        return "They're going it alone!"
+    else:
+        return "Hmm something went wrong"
+
+def main():
+    """
+    Runs game etc.
+    """
+    print("Welcome to Where Am I Hiding? \n")
+    print("I'm hiding in a capital city, somewhere in the world")
+    print("You have to guess where! \n")
+    userName = input("Firstly, what should I call you? \n")
+    print (f"Great, nice to meet you {userName}")
+    hints = ask_for_hints(userName)
+    print(hints)
+
+main()
