@@ -60,15 +60,20 @@ def get_city_details():
 def ask_for_hints(userName):
     """
     Asks user whether they would like to have a hint displayed before their guess
+    Loops until user provides valid input
     Returns True or False
     """
-    userHint = input(f"So tell me {userName},would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
-    if (userHint =='y'):
-        return "They're asking for a hint"
-    if (userHint == 'n'):
-        return "They're going it alone!"
-    else:
-        return "Hmm something went wrong"
+    userHint = input(f"So tell me {userName}, would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
+    while True:
+            if (userHint == 'y'):
+                return True
+            if (userHint == 'n'):
+                return False
+            else:
+                print("I'm sorry I didn't catch that. Please only write 'y' for yes or 'n' for no")
+                continue
+
+
 
 def main():
     """
@@ -80,6 +85,8 @@ def main():
     userName = input("Firstly, what should I call you? \n")
     print (f"Great, nice to meet you {userName}")
     hints = ask_for_hints(userName)
-    print(hints)
+    print("Ok, let's start!")
+    game = Game(True,userName,0,'Normal',hints)
+    print(game.hintOn)
 
 main()
