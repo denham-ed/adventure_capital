@@ -58,14 +58,11 @@ def get_city_by_name(city):
 def get_city_info_by_row(row_num):
     """
     Takes an index or row number and returns city from API from that row
-    Converts information from list to dictionary
-    Returns city information as dictionary
+    Returns city information as a list of values
     """
     capitals_sheet = SHEET.worksheet("capitals")
-    # city_keys = capitals_sheet.row_values(1)
-    city_values = capitals_sheet.row_values(row_num)
-    # city_info = dict(zip(city_keys,city_values))
-    return city_values
+    city_info = capitals_sheet.row_values(row_num)
+    return city_info
 
 
 
