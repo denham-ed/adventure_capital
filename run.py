@@ -61,7 +61,11 @@ def get_city_by_row(row_num):
     Returns information as a list.!?!?!
     """
     capitals_sheet = SHEET.worksheet("capitals")
-    return capitals_sheet.row_values(row_num)
+    city_keys = capitals_sheet.row_values(1)
+    city_values = capitals_sheet.row_values(row_num)
+    city_info = dict(zip(city_keys,city_values))
+    return city_info
+
 
 
 
@@ -91,10 +95,8 @@ def get_random_city():
     Generates a random number which is used to select a city at random from the API
     Returns the city's details as a dictionary
     """
- 
     capitals_sheet = SHEET.worksheet("capitals")
     cities_count = len(capitals_sheet.col_values(1)[1:])
-    # Get Random Number btween 1 and total
     index = random.randint(1,cities_count)
     city = get_city_by_row(index)
     return city
