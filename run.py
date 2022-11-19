@@ -1,4 +1,5 @@
 import gspread
+import random
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -39,20 +40,29 @@ class Game:
     def findDistanceBetweenCapitals(self, userCapital,opponentCapital):
         return "Oh man, that's so far away,"
 
-def get_city_details():
+def get_city_by_name(city):
     """
     Asks for user to guess a capital city.
     Checks the API for a match and, if found, returns that city's infromation AS CLASS?!?!?!
     If not found, returns None.
     """
-    worksheet = SHEET.worksheet("capitals")
-    city = input("Please guess a capital city: \n")
-    cell = worksheet.find(city)
+    capitals_sheet = SHEET.worksheet("capitals")
+    # city = input("Please guess a capital city: \n")
+    cell = capitals_sheet.find(city)
     if cell is not None:
-        city_stats = worksheet.row_values(cell.row)
+        city_stats = capitals_sheet.row_values(cell.row)
         return city_stats
     else:
         return None
+
+def get_city_by_row(row_num):
+    """
+    Takes an index or row number and returns city from API from that row
+    Returns information as a list.!?!?!
+    """
+    capitals_sheet = SHEET.worksheet("capitals")
+    return capitals_sheet.row_values(row_num)
+
 
 
 # result = get_city_details()
@@ -81,6 +91,14 @@ def get_random_city():
     Generates a random number which is used to select a city at random from the API
     Returns the city's details as a dictionary
     """
+ 
+    capitals_sheet = SHEET.worksheet("capitals")
+    cities_count = len(capitals_sheet.col_values(1)[1:])
+    # Get Random Number btween 1 and total
+    index = random.randint(1,cities_count)
+    city = get_city_by_row(index)
+    return city
+
 
 
 
@@ -101,4 +119,10 @@ def main():
     #Ask user for guess
     #  ∏∏
 
-main()
+# main()
+random_city1 = get_random_city()
+print(random_city1)
+random_city2 = get_random_city()
+print(random_city2)
+random_city3 = get_random_city()
+print(random_city3)
