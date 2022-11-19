@@ -35,6 +35,9 @@ class Game:
         self.guessCount = guessCount
         self.difficulty = difficulty
         self.hintOn = hintOn
+    
+    def findDistanceBetweenCapitals(self, userCapital,opponentCapital):
+        return "Oh man, that's so far away,"
 
 def get_city_details():
     """
@@ -73,6 +76,12 @@ def ask_for_hints(userName):
                 print("I'm sorry I didn't catch that. Please only write 'y' for yes or 'n' for no")
                 continue
 
+def get_random_city():
+    """
+    Generates a random number which is used to select a city at random from the API
+    Returns the city's details as a dictionary
+    """
+
 
 
 def main():
@@ -87,6 +96,9 @@ def main():
     hints = ask_for_hints(userName)
     print("Ok, let's start!")
     game = Game(True,userName,0,'Normal',hints)
-    print(game.hintOn)
+    message = game.findDistanceBetweenCapitals('London','Budapest')
+    print(message)
+    #Ask user for guess
+    #  ∏∏
 
 main()
