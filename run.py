@@ -55,16 +55,17 @@ def get_city_by_name(city):
     else:
         return None
 
-def get_city_by_row(row_num):
+def get_city_info_by_row(row_num):
     """
     Takes an index or row number and returns city from API from that row
-    Returns information as a list.!?!?!
+    Converts information from list to dictionary
+    Returns city information as dictionary
     """
     capitals_sheet = SHEET.worksheet("capitals")
-    city_keys = capitals_sheet.row_values(1)
+    # city_keys = capitals_sheet.row_values(1)
     city_values = capitals_sheet.row_values(row_num)
-    city_info = dict(zip(city_keys,city_values))
-    return city_info
+    # city_info = dict(zip(city_keys,city_values))
+    return city_values
 
 
 
@@ -93,13 +94,17 @@ def ask_for_hints(userName):
 def get_random_city():
     """
     Generates a random number which is used to select a city at random from the API
-    Returns the city's details as a dictionary
+    Returns the city's details as an instance of a Capital class
     """
     capitals_sheet = SHEET.worksheet("capitals")
     cities_count = len(capitals_sheet.col_values(1)[1:])
     index = random.randint(1,cities_count)
-    city = get_city_by_row(index)
-    return city
+    city = get_city_info_by_row(index)
+    city, country, continent, easy,longitude, latitude, hint = city
+    random_city = Capital(city, country, continent, easy,longitude, latitude, hint)
+    return random_city
+    
+
 
 
 
@@ -115,16 +120,18 @@ def main():
     print (f"Great, nice to meet you {userName}")
     hints = ask_for_hints(userName)
     print("Ok, let's start!")
-    game = Game(True,userName,0,'Normal',hints)
-    message = game.findDistanceBetweenCapitals('London','Budapest')
-    print(message)
+
+
+    # game = Game(True,userName,0,'Normal',hints)
+    # message = game.findDistanceBetweenCapitals('London','Budapest')
+    # print(message)
     #Ask user for guess
     #  ∏∏
 
 # main()
 random_city1 = get_random_city()
-print(random_city1)
+print(random_city1.hint)
 random_city2 = get_random_city()
-print(random_city2)
+print(random_city2.hint)
 random_city3 = get_random_city()
-print(random_city3)
+print(random_city3.hint)
