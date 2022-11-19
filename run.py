@@ -87,6 +87,7 @@ def ask_for_hints(userName):
             else:
                 print("I'm sorry I didn't catch that. Please only write 'y' for yes or 'n' for no")
                 continue
+            
 
 def get_random_city():
     """
