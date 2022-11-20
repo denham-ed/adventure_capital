@@ -150,26 +150,38 @@ def main():
     """
     Runs game etc.
     """
-    # print("Welcome to Where Am I Hiding? \n")
-    # print("I'm hiding in a capital city, somewhere in the world")
-    # print("You have to guess where! \n")
-    # user_name = input("Firstly, what should I call you? \n")
-    # print (f"Great, nice to meet you {user_name}")
+    print("Welcome to Where Am I Hiding? \n")
+    print("I'm hiding in a capital city, somewhere in the world")
+    print("You have to guess where! \n")
+    user_name = input("Firstly, what should I call you? \n")
+    print (f"Great, nice to meet you {user_name}")
     # hints = ask_for_hints(user_name)
-    # print("Ok, let's start!")
-    
-    # Temporary
-    user_name = "Ed"
+    # print("Ok, let's start!") 
     hints = False
     opponent_capital = get_random_city()
-    user_capital = get_random_city()
-    game = Game(True,user_name,0,'Normal',hints)
-    distance = game.find_distance_between_capitals(user_capital,opponent_capital)
-    message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
-    print(message)
-    #Ask user for guess
-    #  ∏∏
+    print(opponent_capital.city)
+    game = Game(True,user_name,1,'Normal',hints)
 
-# main()
+    while game.inProgress:
+            user_capital = get_user_guess(user_name, game.guessCount)
+            if user_capital.city == opponent_capital.city:
+                game.guessCount = game.guessCount + 1
+                game.inProgress = False
+                print("You found me!")
+                print (f"I was hinding in {opponent_capital.city}! \n")
+            else:
+                print("You are wrong, loser.")
+                distance = game.find_distance_between_capitals(user_capital,opponent_capital)
+                message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
+                print(message)
+                continue
+            
 
-get_user_guess("Ed Denham", 1)
+
+
+
+
+
+main()
+
+
