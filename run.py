@@ -137,7 +137,11 @@ def get_random_city():
 def get_user_guess(user_name, guess_count):
     print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)}")
     initial_guess = input("Please enter a capital city \n")
-    return intitial_guess
+    validated_guess = get_city_by_name(initial_guess)
+    if validated_guess is not None:
+        print (validated_guess)
+    else: 
+        print ("Not a capital city")
 
 
 def main():
@@ -164,4 +168,6 @@ def main():
     #Ask user for guess
     #  ∏∏
 
-main()
+# main()
+
+get_user_guess("Ed Denham", 1)
