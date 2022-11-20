@@ -41,10 +41,10 @@ class Game:
     """ 
     Initiates an instance of a new game
     """
-    def __init__(self, inProgress, user_name, guessCount, difficulty , hintOn):
+    def __init__(self, inProgress, user_name, guess_count, difficulty , hintOn):
         self.inProgress = inProgress
         self.user_name = user_name
-        self.guessCount = guessCount
+        self.guess_count = guess_count
         self.difficulty = difficulty
         self.hintOn = hintOn
     
@@ -151,7 +151,7 @@ def get_user_guess(user_name, guess_count):
 
 def post_high_score(user_name, guess_count):
     score_sheet = SHEET.worksheet("scores")
-    score_sheet.append_row(user_name,guess_count)
+    score_sheet.append_row([user_name,guess_count])
 
 def main():
     """
@@ -169,12 +169,12 @@ def main():
     game = Game(True,user_name,1,'Normal',hints)
 
     while game.inProgress:
-        user_capital = get_user_guess(user_name, game.guessCount)
+        user_capital = get_user_guess(user_name, game.guess_count)
         # Check for Hints
-        if game.hintOn and game.guessCount == 5:
+        if game.hintOn and game.guess_count == 5:
             print ("Not to worry - this is a hard one! Your first hint...\n")
             print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
-        if game.hintOn and game.guessCount == 8:
+        if game.hintOn and game.guess_count == 8:
             print ("OK, you're struggling - your second hint, coming up...\n")
             print (f"I'm hiding somewhere in the capital ciry of {opponent_capital.country}!")
                 
@@ -186,17 +186,13 @@ def main():
             print (f"I was hiding in {opponent_capital.city}! \n")
             post_high_score(user_name, game.guess_count)
         else:
-            game.guessCount = game.guessCount + 1
+            game.guess_count = game.guess_count + 1
             print("You are wrong, loser.")
             distance = game.find_distance_between_capitals(user_capital,opponent_capital)
             message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
             print(message)
             continue
                 
-
-
-
-
 
 
 main()
