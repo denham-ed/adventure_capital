@@ -43,10 +43,10 @@ class Game:
         # https://www.geeksforgeeks.org/program-distance-two-points-earth/
         # The math module contains a function named
         # radians which converts from degrees to radians.
-        lon1 = radians(opponentCapital.longitute)
-        lon2 = radians(userCapital.longitute)
-        lat1 = radians(opponentCapital.latitude)
-        lat2 = radians(userCapital.latitude)
+        lon1 = radians(float(opponentCapital.longitute))
+        lon2 = radians(float(userCapital.longitute))
+        lat1 = radians(float(opponentCapital.latitude))
+        lat2 = radians(float(userCapital.latitude))
         
         # Haversine formula
         dlon = lon2 - lon1
@@ -55,7 +55,7 @@ class Game:
         c = 2 * asin(sqrt(a))
 
         # Radius of earth in kilometers. Use 3956 for miles
-        r = 6371
+        r = 3956
         
         # calculate the result
         return(c * r)
@@ -132,25 +132,30 @@ def main():
     """
     Runs game etc.
     """
-    print("Welcome to Where Am I Hiding? \n")
-    print("I'm hiding in a capital city, somewhere in the world")
-    print("You have to guess where! \n")
-    userName = input("Firstly, what should I call you? \n")
-    print (f"Great, nice to meet you {userName}")
-    hints = ask_for_hints(userName)
-    print("Ok, let's start!")
-
-
-    # game = Game(True,userName,0,'Normal',hints)
-    # message = game.findDistanceBetweenCapitals('London','Budapest')
-    # print(message)
+    # print("Welcome to Where Am I Hiding? \n")
+    # print("I'm hiding in a capital city, somewhere in the world")
+    # print("You have to guess where! \n")
+    # userName = input("Firstly, what should I call you? \n")
+    # print (f"Great, nice to meet you {userName}")
+    # hints = ask_for_hints(userName)
+    # print("Ok, let's start!")
+    
+    # Temporary
+    userName = "Ed"
+    hints = False
+    opponentCapital = get_random_city()
+    userCapital = get_random_city()
+    game = Game(True,userName,0,'Normal',hints)
+    distance = game.findDistanceBetweenCapitals(userCapital,opponentCapital)
+    message = f"{userCapital.city} is {int(distance)} miles from where I am hiding! Try again!"
+    print(message)
     #Ask user for guess
     #  ∏∏
 
-# main()
-random_city1 = get_random_city()
-print(random_city1.hint)
-random_city2 = get_random_city()
-print(random_city2.hint)
-random_city3 = get_random_city()
-print(random_city3.hint)
+main()
+# random_city1 = get_random_city()
+# print(random_city1.hint)
+# random_city2 = get_random_city()
+# print(random_city2.hint)
+# random_city3 = get_random_city()
+# print(random_city3.hint)
