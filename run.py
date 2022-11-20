@@ -4,6 +4,15 @@ from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
 
 
+def get_ordinal(n):
+    # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
+    """
+    COMMENT COMMENT
+    """
+    ordinal = "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
+    return ordinal
+
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -32,9 +41,9 @@ class Game:
     """ 
     Initiates an instance of a new game
     """
-    def __init__(self, inProgress, userName, guessCount, difficulty , hintOn):
+    def __init__(self, inProgress, user_name, guessCount, difficulty , hintOn):
         self.inProgress = inProgress
-        self.userName = userName
+        self.user_name = user_name
         self.guessCount = guessCount
         self.difficulty = difficulty
         self.hintOn = hintOn
@@ -93,13 +102,13 @@ def get_city_info_by_row(row_num):
 # userGuess = Capital(city, country, continent, easy,longitude, latitude, hint)
 # print(userGuess.hint)
 
-def ask_for_hints(userName):
+def ask_for_hints(user_name):
     """
     Asks user whether they would like to have a hint displayed before their guess
     Loops until user provides valid input
     Returns True or False
     """
-    userHint = input(f"So tell me {userName}, would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
+    userHint = input(f"So tell me {user_name}, would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
     while True:
             if (userHint == 'y'):
                 return True
@@ -125,7 +134,10 @@ def get_random_city():
     
 
 
-
+def get_user_guess(user_name, guess_count):
+    print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)}")
+    initial_guess = input("Please enter a capital city \n")
+    return intitial_guess
 
 
 def main():
@@ -135,17 +147,17 @@ def main():
     # print("Welcome to Where Am I Hiding? \n")
     # print("I'm hiding in a capital city, somewhere in the world")
     # print("You have to guess where! \n")
-    # userName = input("Firstly, what should I call you? \n")
-    # print (f"Great, nice to meet you {userName}")
-    # hints = ask_for_hints(userName)
+    # user_name = input("Firstly, what should I call you? \n")
+    # print (f"Great, nice to meet you {user_name}")
+    # hints = ask_for_hints(user_name)
     # print("Ok, let's start!")
     
     # Temporary
-    userName = "Ed"
+    user_name = "Ed"
     hints = False
     opponentCapital = get_random_city()
     userCapital = get_random_city()
-    game = Game(True,userName,0,'Normal',hints)
+    game = Game(True,user_name,0,'Normal',hints)
     distance = game.findDistanceBetweenCapitals(userCapital,opponentCapital)
     message = f"{userCapital.city} is {int(distance)} miles from where I am hiding! Try again!"
     print(message)
@@ -153,9 +165,3 @@ def main():
     #  ∏∏
 
 main()
-# random_city1 = get_random_city()
-# print(random_city1.hint)
-# random_city2 = get_random_city()
-# print(random_city2.hint)
-# random_city3 = get_random_city()
-# print(random_city3.hint)
