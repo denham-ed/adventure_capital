@@ -1,6 +1,8 @@
 import gspread
 import random
 from google.oauth2.service_account import Credentials
+from math import radians, cos, sin, asin, sqrt
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -38,7 +40,26 @@ class Game:
         self.hintOn = hintOn
     
     def findDistanceBetweenCapitals(self, userCapital,opponentCapital):
-        return "Oh man, that's so far away,"
+        # https://www.geeksforgeeks.org/program-distance-two-points-earth/
+        # The math module contains a function named
+        # radians which converts from degrees to radians.
+        lon1 = radians(opponentCapital.longitute)
+        lon2 = radians(userCapital.longitute)
+        lat1 = radians(opponentCapital.latitude)
+        lat2 = radians(userCapital.latitude)
+        
+        # Haversine formula
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+        c = 2 * asin(sqrt(a))
+
+        # Radius of earth in kilometers. Use 3956 for miles
+        r = 6371
+        
+        # calculate the result
+        return(c * r)
+
 
 def get_city_by_name(city):
     """
