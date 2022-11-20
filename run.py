@@ -48,14 +48,14 @@ class Game:
         self.difficulty = difficulty
         self.hintOn = hintOn
     
-    def findDistanceBetweenCapitals(self, userCapital,opponentCapital):
+    def find_distance_between_capitals(self, user_capital,opponent_capital):
         # https://www.geeksforgeeks.org/program-distance-two-points-earth/
         # The math module contains a function named
         # radians which converts from degrees to radians.
-        lon1 = radians(float(opponentCapital.longitute))
-        lon2 = radians(float(userCapital.longitute))
-        lat1 = radians(float(opponentCapital.latitude))
-        lat2 = radians(float(userCapital.latitude))
+        lon1 = radians(float(opponent_capital.longitute))
+        lon2 = radians(float(user_capital.longitute))
+        lat1 = radians(float(opponent_capital.latitude))
+        lat2 = radians(float(user_capital.latitude))
         
         # Haversine formula
         dlon = lon2 - lon1
@@ -108,11 +108,11 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    userHint = input(f"So tell me {user_name}, would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
+    user_hint = input(f"So tell me {user_name}, would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
     while True:
-            if (userHint == 'y'):
+            if (user_hint == 'y'):
                 return True
-            if (userHint == 'n'):
+            if (user_hint == 'n'):
                 return False
             else:
                 print("I'm sorry I didn't catch that. Please only write 'y' for yes or 'n' for no")
@@ -139,9 +139,11 @@ def get_user_guess(user_name, guess_count):
     initial_guess = input("Please enter a capital city \n")
     validated_guess = get_city_by_name(initial_guess)
     if validated_guess is not None:
-        print (validated_guess)
+        city, country, continent, easy,longitude, latitude, hint = validated_guess
+        user_capital = Capital(city,country,continent,easy,longitude,latitude,hint)
+        return user_capital
     else: 
-        print ("Not a capital city")
+        return None
 
 
 def main():
@@ -159,11 +161,11 @@ def main():
     # Temporary
     user_name = "Ed"
     hints = False
-    opponentCapital = get_random_city()
-    userCapital = get_random_city()
+    opponent_capital = get_random_city()
+    user_capital = get_random_city()
     game = Game(True,user_name,0,'Normal',hints)
-    distance = game.findDistanceBetweenCapitals(userCapital,opponentCapital)
-    message = f"{userCapital.city} is {int(distance)} miles from where I am hiding! Try again!"
+    distance = game.find_distance_between_capitals(user_capital,opponent_capital)
+    message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
     print(message)
     #Ask user for guess
     #  ∏∏
