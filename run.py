@@ -188,7 +188,7 @@ def main():
             post_high_score(user_name, game.guess_count)
         else:
             game.guess_count = game.guess_count + 1
-            print("You are wrong, loser.")
+            print(f"Nope! I'm not in {user_capital.city}!")
             distance = game.find_distance_between_capitals(user_capital,opponent_capital)
             message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
             print(message)
