@@ -108,7 +108,7 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    user_hint = input(f"So tell me {user_name}, would you like to have a hint when you make your guess? Write 'y' for yes, and 'n' for no \n")
+    user_hint = input(f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses? Write 'y' for yes, and 'n' for no \n")
     while True:
             if (user_hint == 'y'):
                 return True
@@ -135,15 +135,19 @@ def get_random_city():
 
 
 def get_user_guess(user_name, guess_count):
-    print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)}")
-    initial_guess = input("Please enter a capital city \n")
-    validated_guess = get_city_by_name(initial_guess)
-    if validated_guess is not None:
-        city, country, continent, easy,longitude, latitude, hint = validated_guess
-        user_capital = Capital(city,country,continent,easy,longitude,latitude,hint)
-        return user_capital
-    else: 
-        return None
+    print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
+    while True:
+        initial_guess = input("Please enter a capital city \n")
+        validated_guess = get_city_by_name(initial_guess)
+        if validated_guess is not None:
+            city, country, continent, easy,longitude, latitude, hint = validated_guess
+            user_capital = Capital(city,country,continent,easy,longitude,latitude,hint)
+            return user_capital
+        else: 
+            print("Sorry! I don't think that's a capital city!")
+            print("I only hide in capitals...")
+            print("Please have another gues")
+            continue
 
 
 def main():
@@ -155,27 +159,32 @@ def main():
     print("You have to guess where! \n")
     user_name = input("Firstly, what should I call you? \n")
     print (f"Great, nice to meet you {user_name}")
-    # hints = ask_for_hints(user_name)
-    # print("Ok, let's start!") 
-    hints = False
+    hints = ask_for_hints(user_name)
+    print("Ok, let's start!") 
     opponent_capital = get_random_city()
     print(opponent_capital.city)
     game = Game(True,user_name,1,'Normal',hints)
 
     while game.inProgress:
-            user_capital = get_user_guess(user_name, game.guessCount)
-            if user_capital.city == opponent_capital.city:
-                game.guessCount = game.guessCount + 1
-                game.inProgress = False
-                print("You found me!")
-                print (f"I was hinding in {opponent_capital.city}! \n")
-            else:
-                print("You are wrong, loser.")
-                distance = game.find_distance_between_capitals(user_capital,opponent_capital)
-                message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
-                print(message)
-                continue
+        user_capital = get_user_guess(user_name, game.guessCount)
+        if user_capital.city == opponent_capital.city:
+            # Check for hints
+            if game.hints and game.guessCount == '5':
+                print ("OK - your first hint...\n")
+                print (f"I'm hinding somewhere in the continent of {opponent_capital.continent}!")
             
+ 
+            game.inProgress = False
+            print("You found me!")
+            print (f"I was hiding in {opponent_capital.city}! \n")
+        else:
+            game.guessCount = game.guessCount + 1
+            print("You are wrong, loser.")
+            distance = game.find_distance_between_capitals(user_capital,opponent_capital)
+            message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
+            print(message)
+            continue
+                
 
 
 
