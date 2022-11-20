@@ -28,14 +28,13 @@ class Capital:
     """ 
     Initiates a new instance of a capital city
     """ 
-    def __init__(self, city, country, continent, easy, longitude, latitude, hint):
+    def __init__(self, city, country, continent, easy, longitude, latitude):
         self.city = city
         self.country = country
         self.continent = continent
         self.easy = easy
         self.longitute = longitude
         self.latitude = latitude
-        self.hint = hint
 
 class Game:
     """ 
@@ -128,8 +127,8 @@ def get_random_city():
     cities_count = len(capitals_sheet.col_values(1)[1:])
     index = random.randint(1,cities_count)
     city = get_city_info_by_row(index)
-    city, country, continent, easy,longitude, latitude, hint = city
-    random_city = Capital(city, country, continent, easy,longitude, latitude, hint)
+    city, country, continent, easy,longitude, latitude = city
+    random_city = Capital(city, country, continent, easy,longitude, latitude)
     return random_city
     
 
@@ -140,8 +139,8 @@ def get_user_guess(user_name, guess_count):
         initial_guess = input("Please enter a capital city \n")
         validated_guess = get_city_by_name(initial_guess)
         if validated_guess is not None:
-            city, country, continent, easy,longitude, latitude, hint = validated_guess
-            user_capital = Capital(city,country,continent,easy,longitude,latitude,hint)
+            city, country, continent, easy,longitude, latitude = validated_guess
+            user_capital = Capital(city,country,continent,easy,longitude,latitude)
             return user_capital
         else: 
             print("Sorry! I don't think that's a capital city!")
@@ -152,6 +151,8 @@ def get_user_guess(user_name, guess_count):
 def post_high_score(user_name, guess_count):
     score_sheet = SHEET.worksheet("scores")
     score_sheet.append_row([user_name,guess_count])
+
+
 
 def main():
     """
@@ -187,7 +188,7 @@ def main():
             post_high_score(user_name, game.guess_count)
         else:
             game.guess_count = game.guess_count + 1
-            print("You are wrong, loser.")
+            print(f"Nope! I'm not in {user_capital.city}!")
             distance = game.find_distance_between_capitals(user_capital,opponent_capital)
             message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
             print(message)
