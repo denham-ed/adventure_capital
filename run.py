@@ -149,6 +149,9 @@ def get_user_guess(user_name, guess_count):
             print("Please have another gues")
             continue
 
+def post_high_score(user_name, guess_count):
+    score_sheet = SHEET.worksheet("scores")
+    score_sheet.append_row(user_name,guess_count)
 
 def main():
     """
@@ -167,16 +170,21 @@ def main():
 
     while game.inProgress:
         user_capital = get_user_guess(user_name, game.guessCount)
+        # Check for Hints
+        if game.hintOn and game.guessCount == 5:
+            print ("Not to worry - this is a hard one! Your first hint...\n")
+            print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
+        if game.hintOn and game.guessCount == 8:
+            print ("OK, you're struggling - your second hint, coming up...\n")
+            print (f"I'm hiding somewhere in the capital ciry of {opponent_capital.country}!")
+                
         if user_capital.city == opponent_capital.city:
-            # Check for hints
-            if game.hints and game.guessCount == '5':
-                print ("OK - your first hint...\n")
-                print (f"I'm hinding somewhere in the continent of {opponent_capital.continent}!")
-            
+
  
             game.inProgress = False
             print("You found me!")
             print (f"I was hiding in {opponent_capital.city}! \n")
+            post_high_score(user_name, game.guess_count)
         else:
             game.guessCount = game.guessCount + 1
             print("You are wrong, loser.")
