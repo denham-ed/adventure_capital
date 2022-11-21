@@ -110,9 +110,9 @@ def ask_for_hints(user_name):
     print(f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
     while True:
             user_hint = input("Write 'y' for yes, and 'n' for no \n")
-            if (user_hint == 'y'):
+            if (user_hint.lower() == 'y'):
                 return True
-            if (user_hint == 'n'):
+            if (user_hint.lower() == 'n'):
                 return False
             else:
                 print("I'm sorry I didn't catch that.")
