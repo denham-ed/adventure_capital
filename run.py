@@ -145,7 +145,7 @@ def get_user_guess(user_name, guess_count):
         else: 
             print("Sorry! I don't think that's a capital city!")
             print("I only hide in capitals...")
-            print("Please have another gues")
+            print("Please have another guess")
             continue
 
 def post_high_score(user_name, guess_count):
@@ -184,13 +184,13 @@ def main():
  
             game.inProgress = False
             print("Well done! You found me!")
-            print (f"I was hiding in {opponent_capital.city}! \n")
+            print (f"I was hiding in {opponent_capital.city.title()}! \n")
             post_high_score(user_name, game.guess_count)
         else:
             game.guess_count = game.guess_count + 1
-            print(f"Nope! I'm not in {user_capital.city}!")
+            print(f"Nope! I'm not in {user_capital.city.title()}!")
             distance = game.find_distance_between_capitals(user_capital,opponent_capital)
-            message = f"{user_capital.city} is {int(distance)} miles from where I am hiding! Try again!"
+            message = f"{user_capital.city.title()} is {int(distance)} miles from where I am hiding! Try again!"
             print(message)
             continue
                 
