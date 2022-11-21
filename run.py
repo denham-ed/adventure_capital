@@ -137,7 +137,7 @@ def get_user_guess(user_name, guess_count):
     print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
         initial_guess = input("Please enter a capital city \n")
-        validated_guess = get_city_by_name(initial_guess)
+        validated_guess = get_city_by_name(initial_guess.lower())
         if validated_guess is not None:
             city, country, continent, easy,longitude, latitude = validated_guess
             user_capital = Capital(city,country,continent,easy,longitude,latitude)
