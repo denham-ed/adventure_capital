@@ -107,14 +107,15 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    user_hint = input(f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses? Write 'y' for yes, and 'n' for no \n")
+    print(f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
     while True:
+            user_hint = input("Write 'y' for yes, and 'n' for no \n")
             if (user_hint == 'y'):
                 return True
             if (user_hint == 'n'):
                 return False
             else:
-                print("I'm sorry I didn't catch that. Please only write 'y' for yes or 'n' for no")
+                print("I'm sorry I didn't catch that.")
                 continue
             
 
