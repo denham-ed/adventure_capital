@@ -77,7 +77,7 @@ def get_city_by_name(city):
     """
     capitals_sheet = SHEET.worksheet("capitals")
     # city = input("Please guess a capital city: \n")
-    cell = capitals_sheet.find(city)
+    cell = capitals_sheet.find(city,None,1)
     if cell is not None:
         city_stats = capitals_sheet.row_values(cell.row)
         return city_stats
