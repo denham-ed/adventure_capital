@@ -112,8 +112,10 @@ def ask_for_hints(user_name):
     while True:
             user_hint = input("Write 'y' for yes, and 'n' for no \n")
             if (user_hint.lower() == 'y'):
+                print("Yep, let's have some hints.")
                 return True
             if (user_hint.lower() == 'n'):
+                print("Oh wow - no hints for you. Pretty confident eh?")
                 return False
             else:
                 print("I'm sorry I didn't catch that.")
