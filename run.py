@@ -40,10 +40,11 @@ class Game:
     """ 
     Initiates an instance of a new game
     """
-    def __init__(self, inProgress, user_name, guess_count, difficulty , hintOn):
+    def __init__(self, inProgress, user_name, guess_count, total_miles, difficulty , hintOn):
         self.inProgress = inProgress
         self.user_name = user_name
         self.guess_count = guess_count
+        self.total_miles = total_miles
         self.difficulty = difficulty
         self.hintOn = hintOn
     
@@ -153,7 +154,17 @@ def post_high_score(user_name, guess_count):
     score_sheet = SHEET.worksheet("scores")
     score_sheet.append_row([user_name,guess_count])
 
-
+def get_user_name():
+    print("Firstly, what shall I call you?")
+    while True:
+        user_name = input("Please enter your name \n")
+        if type(user_name) == str and len(user_name) > 0:
+                print (f"Great, nice to meet you {user_name}")
+                return user_name
+        else:
+            print("Sorry! I didn't catch that.")
+            continue
+            
 
 def main():
     """
@@ -162,13 +173,12 @@ def main():
     print("Welcome to Where Am I Hiding? \n")
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
-    user_name = input("Firstly, what should I call you? \n")
-    print (f"Great, nice to meet you {user_name}")
+    user_name = get_user_name()
     hints = ask_for_hints(user_name)
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
     print(opponent_capital.city)
-    game = Game(True,user_name,1,'Normal',hints)
+    game = Game(True,user_name,1,0,'Normal',hints)
 
     while game.inProgress:
         user_capital = get_user_guess(user_name, game.guess_count)
@@ -181,8 +191,6 @@ def main():
             print (f"I'm hiding somewhere in the capital ciry of {opponent_capital.country}!")
                 
         if user_capital.city == opponent_capital.city:
-
- 
             game.inProgress = False
             print("Well done! You found me!")
             print (f"I was hiding in {opponent_capital.city.title()}! \n")
