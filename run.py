@@ -183,7 +183,7 @@ def main():
 
  
             game.inProgress = False
-            print("You found me!")
+            print("Well done! You found me!")
             print (f"I was hiding in {opponent_capital.city}! \n")
             post_high_score(user_name, game.guess_count)
         else:
