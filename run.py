@@ -56,13 +56,21 @@ class Game:
         Returns a DICTIONARY with the azimuth (initial bearing) and distance (in kilometres).
         """
         geod = Geodesic.WGS84
+        lon1 = radians(float(opponent_capital.longitute))
+        lon2 = radians(float(user_capital.longitute))
+        lat1 = radians(float(opponent_capital.latitude))
+        lat2 = radians(float(user_capital.latitude))
+        g = geod.Inverse(lat1, lon1, lat2, lon2)
+        inverse = {
+            "dist":g["s12"],
+            "azimut":g["azi1"]
+        }
+
+        return inverse
         # https://www.geeksforgeeks.org/program-distance-two-points-earth/
         # The math module contains a function named
         # radians which converts from degrees to radians.
-        # lon1 = radians(float(opponent_capital.longitute))
-        # lon2 = radians(float(user_capital.longitute))
-        # lat1 = radians(float(opponent_capital.latitude))
-        # lat2 = radians(float(user_capital.latitude))
+    
         
         # # Haversine formula
         # dlon = lon2 - lon1
@@ -248,9 +256,10 @@ def main():
         else:
             game.guess_count = game.guess_count + 1
             print(f"Nope! I'm not in {user_capital.city.title()}!")
-            distance = game.find_distance_between_capitals(user_capital,opponent_capital)
-            message = f"{user_capital.city.title()} is {int(distance)} miles from where I am hiding! Try again!"
-            print(message)
+            inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
+            print(inverse)
+            # message = f"{user_capital.city.title()} is {int(distance)} miles from where I am hiding! Try again!"
+            # print(message)
             continue
                 
 
