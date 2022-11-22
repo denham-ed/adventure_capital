@@ -2,6 +2,7 @@ import gspread
 import random
 from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
+from geographiclib.geodesic import Geodesic
 
 
 def get_ordinal(n):
@@ -49,25 +50,31 @@ class Game:
         self.hintOn = hintOn
     
     def find_distance_between_capitals(self, user_capital,opponent_capital):
+        """
+        Calculates distance and bearing between two coordinate points.
+        Uses World Geodetic System 1984 (WGS84).
+        Returns a DICTIONARY with the azimuth (initial bearing) and distance (in kilometres).
+        """
+        geod = Geodesic.WGS84
         # https://www.geeksforgeeks.org/program-distance-two-points-earth/
         # The math module contains a function named
         # radians which converts from degrees to radians.
-        lon1 = radians(float(opponent_capital.longitute))
-        lon2 = radians(float(user_capital.longitute))
-        lat1 = radians(float(opponent_capital.latitude))
-        lat2 = radians(float(user_capital.latitude))
+        # lon1 = radians(float(opponent_capital.longitute))
+        # lon2 = radians(float(user_capital.longitute))
+        # lat1 = radians(float(opponent_capital.latitude))
+        # lat2 = radians(float(user_capital.latitude))
         
-        # Haversine formula
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
-        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-        c = 2 * asin(sqrt(a))
+        # # Haversine formula
+        # dlon = lon2 - lon1
+        # dlat = lat2 - lat1
+        # a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+        # c = 2 * asin(sqrt(a))
 
-        # Radius of earth in kilometers. Use 3956 for miles
-        r = 3956
+        # # Radius of earth in kilometers. Use 3956 for miles
+        # r = 3956
         
-        # calculate the result
-        return(c * r)
+        # # calculate the result
+        # return(c * r)
 
 
 def get_city_by_name(city):
@@ -93,6 +100,47 @@ def get_city_info_by_row(row_num):
     capitals_sheet = SHEET.worksheet("capitals")
     city_info = capitals_sheet.row_values(row_num)
     return city_info
+
+def get_text_bearing(azimuth):
+    """
+    Converts azimut (initial bearing in degrees) and returns a compass point direction as a string
+    """
+    # Handles negative azimuths
+    if (azimuth < 0):
+        azimuth = azimuth + 360
+    
+    if 11.25 <= azimuth < 33.75:
+        return "North North East"
+    elif 33.75 <= azimuth < 56.25:
+        return "North East"
+    elif 56.25 <= azimuth < 78.75:
+        return "East North East"
+    elif 78.75 <= azimuth < 101.25:
+        return "East"
+    elif 101.25 <= azimuth < 123.75:
+        return "East South East"
+    elif 123.75 <= azimuth < 146.75:
+        return "South East"
+    elif 146.25 <= azimuth < 168.75:
+        return "South South East"
+    elif 168.75 <= azimuth < 191.75:
+        return "South"
+    elif 191.25 <= azimuth < 213.75:
+        return "South South West"
+    elif 213.75 <= azimuth < 236.25:
+        return "South West"
+    elif 236.25 <= azimuth < 258.75:
+        return "West South West"
+    elif 258.75 <= azimuth < 281.25:
+        return "West"
+    elif 281.25 <= azimuth < 303.75:
+        return "West North West"
+    elif 303.75 <= azimuth < 326.25:
+        return "North West"
+    elif 326.25 <= azimuth < 348.75:
+        return "North North West"
+    else:
+        return ("North")
 
 
 
