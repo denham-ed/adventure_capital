@@ -56,14 +56,14 @@ class Game:
         Returns a DICTIONARY with the azimuth (initial bearing) and distance (in kilometres).
         """
         geod = Geodesic.WGS84
-        lon1 = radians(float(opponent_capital.longitute))
-        lon2 = radians(float(user_capital.longitute))
-        lat1 = radians(float(opponent_capital.latitude))
-        lat2 = radians(float(user_capital.latitude))
+        lon2 = float(opponent_capital.longitute)
+        lon1 = float(user_capital.longitute)
+        lat2 = float(opponent_capital.latitude)
+        lat1 = float(user_capital.latitude)
         g = geod.Inverse(lat1, lon1, lat2, lon2)
         inverse = {
-            "dist":g["s12"],
-            "azimut":g["azi1"]
+            "dist":g["s12"]/1000,
+            "azimuth":g["azi1"]
         }
 
         return inverse
@@ -257,9 +257,11 @@ def main():
             game.guess_count = game.guess_count + 1
             print(f"Nope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
-            print(inverse)
-            # message = f"{user_capital.city.title()} is {int(distance)} miles from where I am hiding! Try again!"
-            # print(message)
+            # print(inverse)
+            print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
+            bearing = get_text_bearing(inverse['azimuth'])
+            print(f"You'll need to head {bearing} to find me...")
+            print("Have another try...")
             continue
                 
 
