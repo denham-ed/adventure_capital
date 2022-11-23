@@ -1,5 +1,6 @@
 import gspread
 import random
+from uuid import uuid4
 from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
 from pprint import pprint
@@ -42,13 +43,14 @@ class Game:
     """ 
     Initiates an instance of a new game
     """
-    def __init__(self, inProgress, user_name, guess_count, total_distance, difficulty , hintOn):
+    def __init__(self,inProgress, user_name, guess_count, total_distance, difficulty , hintOn):
         self.inProgress = inProgress
         self.user_name = user_name
         self.guess_count = guess_count
         self.total_distance = total_distance
         self.difficulty = difficulty
         self.hintOn = hintOn
+        self.game_id = uuid4()
 
     
     def find_distance_between_capitals(self, user_capital,opponent_capital):
@@ -188,12 +190,12 @@ def get_user_guess(user_name, guess_count):
             print("Please have another guess")
             continue
 
-def post_high_score(user_name, guess_count,total_distance):
+def post_high_score(user_name, guess_count,total_distance,game_id):
     """ 
     Add docstring here!
     """
     score_sheet = SHEET.worksheet("scores")
-    score_sheet.append_row([user_name,guess_count,total_distance])
+    score_sheet.append_row([user_name,guess_count,total_distance,game_id])
 
 def get_high_score():
     """ 
@@ -247,7 +249,7 @@ def main():
             print("Well done! You found me!")
             print (f"I was hiding in {opponent_capital.city.title()}! \n")
             print(f"You took a total of {game.guess_count} guesses and a cumulative distance of {game.total_distance}km!")
-            post_high_score(user_name, game.guess_count,game.total_distance)
+            post_high_score(user_name, game.guess_count,game.total_distance,str(game.game_id))
         else:
             print(f"Nope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
@@ -263,8 +265,11 @@ def main():
                 
 
 
-# main()
-scores = get_high_score()
-pprint(scores)
+main()
+# scores = get_high_score()
+# pprint(scores)
+
+# new_game = Game(True,'Ed',0,1,'Easy',True)
+# print(type(new_game.game_id))
 
 
