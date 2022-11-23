@@ -207,6 +207,17 @@ def get_high_score():
     return sorted_scores
 
 
+def show_high_scores(all_scores):
+    for index, score in enumerate(all_scores):
+        if index > 9:
+            break
+
+        print(f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres" )
+
+    
+
+
+
 
 def get_user_name():
     print("Firstly, what shall I call you?")
@@ -265,11 +276,12 @@ def main():
                 
 
 
-main()
+# main()
 # scores = get_high_score()
 # pprint(scores)
 
 # new_game = Game(True,'Ed',0,1,'Easy',True)
 # print(type(new_game.game_id))
 
-
+scores = get_high_score()
+top_list = show_high_scores(scores)
