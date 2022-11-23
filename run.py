@@ -138,13 +138,6 @@ def get_text_bearing(azimuth):
         return ("North")
 
 
-
-
-# result = get_city_details()
-# city, country, continent, easy,longitude, latitude, hint = result
-# userGuess = Capital(city, country, continent, easy,longitude, latitude, hint)
-# print(userGuess.hint)
-
 def ask_for_hints(user_name):
     """
     Asks user whether they would like to have a hint displayed before their guess
@@ -203,9 +196,13 @@ def post_high_score(user_name, guess_count,total_distance):
     score_sheet.append_row([user_name,guess_count,total_distance])
 
 def get_high_score():
+    """ 
+    Add docstring here
+    """
     score_sheet = SHEET.worksheet("scores")
     scores = score_sheet.get_all_records()
-    return scores
+    sorted_scores = sorted(scores, key=lambda d: d['score'], reverse=True)
+    return sorted_scores
 
 
 
