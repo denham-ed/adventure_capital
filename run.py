@@ -201,7 +201,7 @@ def get_high_score():
     """
     score_sheet = SHEET.worksheet("scores")
     scores = score_sheet.get_all_records()
-    sorted_scores = sorted(scores, key=lambda d: d['score'], reverse=True)
+    sorted_scores = sorted(scores, key=lambda d: (d['score'],d['distance']))
     return sorted_scores
 
 
