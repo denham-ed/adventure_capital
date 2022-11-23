@@ -48,12 +48,13 @@ class Game:
         self.total_miles = total_miles
         self.difficulty = difficulty
         self.hintOn = hintOn
+
     
     def find_distance_between_capitals(self, user_capital,opponent_capital):
         """
         Calculates distance and bearing between two coordinate points.
         Uses World Geodetic System 1984 (WGS84).
-        Returns a DICTIONARY with the azimuth (initial bearing) and distance (in kilometres).
+        Returns a dictionary with the azimuth (initial bearing) and distance (in kilometres).
         """
         geod = Geodesic.WGS84
         lon2 = float(opponent_capital.longitute)
@@ -67,22 +68,7 @@ class Game:
         }
 
         return inverse
-        # https://www.geeksforgeeks.org/program-distance-two-points-earth/
-        # The math module contains a function named
-        # radians which converts from degrees to radians.
-    
-        
-        # # Haversine formula
-        # dlon = lon2 - lon1
-        # dlat = lat2 - lat1
-        # a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-        # c = 2 * asin(sqrt(a))
 
-        # # Radius of earth in kilometers. Use 3956 for miles
-        # r = 3956
-        
-        # # calculate the result
-        # return(c * r)
 
 
 def get_city_by_name(city):
@@ -240,7 +226,7 @@ def main():
 
     while game.inProgress:
         user_capital = get_user_guess(user_name, game.guess_count)
-        # Check for Hints
+        # Check for Hints - MOve??
         if game.hintOn and game.guess_count == 5:
             print ("Not to worry - this is a hard one! Your first hint...\n")
             print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
@@ -254,8 +240,10 @@ def main():
             print (f"I was hiding in {opponent_capital.city.title()}! \n")
             post_high_score(user_name, game.guess_count)
         else:
-            game.guess_count = game.guess_count + 1
             print(f"Nope! I'm not in {user_capital.city.title()}!")
+            # Increment counters
+            game.guess_count = game.guess_count + 1
+
             inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
             # print(inverse)
             print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
