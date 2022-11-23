@@ -2,6 +2,7 @@ import gspread
 import random
 from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
+from pprint import pprint
 from geographiclib.geodesic import Geodesic
 
 
@@ -195,8 +196,18 @@ def get_user_guess(user_name, guess_count):
             continue
 
 def post_high_score(user_name, guess_count,total_distance):
+    """ 
+    Add docstring here!
+    """
     score_sheet = SHEET.worksheet("scores")
     score_sheet.append_row([user_name,guess_count,total_distance])
+
+def get_high_score():
+    score_sheet = SHEET.worksheet("scores")
+    scores = score_sheet.get_all_records()
+    return scores
+
+
 
 def get_user_name():
     print("Firstly, what shall I call you?")
@@ -255,6 +266,8 @@ def main():
                 
 
 
-main()
+# main()
+scores = get_high_score()
+pprint(scores)
 
 
