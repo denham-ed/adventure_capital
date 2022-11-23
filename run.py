@@ -41,11 +41,11 @@ class Game:
     """ 
     Initiates an instance of a new game
     """
-    def __init__(self, inProgress, user_name, guess_count, total_miles, difficulty , hintOn):
+    def __init__(self, inProgress, user_name, guess_count, total_distance, difficulty , hintOn):
         self.inProgress = inProgress
         self.user_name = user_name
         self.guess_count = guess_count
-        self.total_miles = total_miles
+        self.total_distance = total_distance
         self.difficulty = difficulty
         self.hintOn = hintOn
 
@@ -194,9 +194,9 @@ def get_user_guess(user_name, guess_count):
             print("Please have another guess")
             continue
 
-def post_high_score(user_name, guess_count):
+def post_high_score(user_name, guess_count,total_distance):
     score_sheet = SHEET.worksheet("scores")
-    score_sheet.append_row([user_name,guess_count])
+    score_sheet.append_row([user_name,guess_count,total_distance])
 
 def get_user_name():
     print("Firstly, what shall I call you?")
@@ -238,14 +238,15 @@ def main():
             game.inProgress = False
             print("Well done! You found me!")
             print (f"I was hiding in {opponent_capital.city.title()}! \n")
-            post_high_score(user_name, game.guess_count)
+            print(f"You took a total of {game.guess_count} guesses and a cumulative distance of {game.total_distance}km!")
+            post_high_score(user_name, game.guess_count,game.total_distance)
         else:
             print(f"Nope! I'm not in {user_capital.city.title()}!")
+            inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
             # Increment counters
             game.guess_count = game.guess_count + 1
-
-            inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
-            # print(inverse)
+            game.total_distance = game.total_distance + int(inverse['dist'])
+            # Show user distance and direction
             print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse['azimuth'])
             print(f"You'll need to head {bearing} to find me...")
