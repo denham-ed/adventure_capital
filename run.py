@@ -5,6 +5,7 @@ from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
 from pprint import pprint
 from geographiclib.geodesic import Geodesic
+import time
 
 
 def get_ordinal(n):
@@ -174,6 +175,10 @@ def get_random_city():
     return random_city
     
 
+def get_user_ranking(game_id, all_scores):
+    player_game_index = next((i for i, score in enumerate(all_scores) if score['game_id']==str(game_id)), None)
+    player_percentile = int(100 - (player_game_index / len(all_scores)) * 100)
+    return f"You are better than {player_percentile}% of all players! \n"
 
 def get_user_guess(user_name, guess_count):
     print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
@@ -197,7 +202,7 @@ def post_high_score(user_name, guess_count,total_distance,game_id):
     score_sheet = SHEET.worksheet("scores")
     score_sheet.append_row([user_name,guess_count,total_distance,game_id])
 
-def get_high_score():
+def get_all_scores():
     """ 
     Add docstring here
     """
@@ -208,11 +213,11 @@ def get_high_score():
 
 
 def show_high_scores(all_scores):
+    print ('The top 10 players are:')
     for index, score in enumerate(all_scores):
         if index > 9:
             break
-
-        print(f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres" )
+        print (f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres" )
 
     
 
@@ -257,10 +262,17 @@ def main():
                 
         if user_capital.city == opponent_capital.city:
             game.inProgress = False
-            print("Well done! You found me!")
+            post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
+            all_scores = get_all_scores()
+            print("\nWell done! You found me!")
             print (f"I was hiding in {opponent_capital.city.title()}! \n")
-            print(f"You took a total of {game.guess_count} guesses and a cumulative distance of {game.total_distance}km!")
-            post_high_score(user_name, game.guess_count,game.total_distance,str(game.game_id))
+            print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
+            user_ranking = get_user_ranking(str(game.game_id), all_scores)
+            print(user_ranking)
+            show_high_scores(all_scores)
+     
+            
+
         else:
             print(f"Nope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
@@ -276,12 +288,10 @@ def main():
                 
 
 
-# main()
+main()
 # scores = get_high_score()
 # pprint(scores)
 
 # new_game = Game(True,'Ed',0,1,'Easy',True)
 # print(type(new_game.game_id))
 
-scores = get_high_score()
-top_list = show_high_scores(scores)
