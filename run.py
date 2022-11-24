@@ -5,8 +5,6 @@ from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
 from pprint import pprint
 from geographiclib.geodesic import Geodesic
-import time
-
 
 def get_ordinal(n):
     # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
