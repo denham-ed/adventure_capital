@@ -289,9 +289,5 @@ def main():
 
 
 main()
-# scores = get_high_score()
-# pprint(scores)
 
-# new_game = Game(True,'Ed',0,1,'Easy',True)
-# print(type(new_game.game_id))
 
