@@ -7,12 +7,13 @@ from pprint import pprint
 from geographiclib.geodesic import Geodesic
 import time
 
+
 def get_ordinal(n):
     # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
     """
     COMMENT COMMENT
     """
-    ordinal = "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
+    ordinal = "%d%s" % (n, "tsnrhtdd"[(n//10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
     return ordinal
 
 
@@ -27,10 +28,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('whereami')
 
+
 class Capital:
-    """ 
+    """
     Initiates a new instance of a capital city
-    """ 
+    """
     def __init__(self, city, country, continent, easy, longitude, latitude):
         self.city = city
         self.country = country
@@ -39,11 +41,12 @@ class Capital:
         self.longitute = longitude
         self.latitude = latitude
 
+
 class Game:
-    """ 
+    """
     Initiates an instance of a new game
     """
-    def __init__(self,inProgress, user_name, guess_count, total_distance, difficulty , hintOn):
+    def __init__(self, inProgress, user_name, guess_count, total_distance, difficulty, hintOn):
         self.inProgress = inProgress
         self.user_name = user_name
         self.guess_count = guess_count
@@ -52,12 +55,12 @@ class Game:
         self.hintOn = hintOn
         self.game_id = uuid4()
 
-    
-    def find_distance_between_capitals(self, user_capital,opponent_capital):
+    def find_distance_between_capitals(self, user_capital, opponent_capital):
         """
         Calculates distance and bearing between two coordinate points.
         Uses World Geodetic System 1984 (WGS84).
-        Returns a dictionary with the azimuth (initial bearing) and distance (in kilometres).
+        Returns a dictionary with the
+        azimuth (initial bearing) and distance (in kilometres).
         """
         geod = Geodesic.WGS84
         lon2 = float(opponent_capital.longitute)
@@ -66,12 +69,11 @@ class Game:
         lat1 = float(user_capital.latitude)
         g = geod.Inverse(lat1, lon1, lat2, lon2)
         inverse = {
-            "dist":g["s12"]/1000,
-            "azimuth":g["azi1"]
+            "dist": g["s12"]/1000,
+            "azimuth": g["azi1"]
         }
 
         return inverse
-
 
 
 def get_city_by_name(city):
@@ -82,12 +84,13 @@ def get_city_by_name(city):
     """
     capitals_sheet = SHEET.worksheet("capitals")
     # city = input("Please guess a capital city: \n")
-    cell = capitals_sheet.find(city,None,1)
+    cell = capitals_sheet.find(city, None, 1)
     if cell is not None:
         city_stats = capitals_sheet.row_values(cell.row)
         return city_stats
     else:
         return None
+
 
 def get_city_info_by_row(row_num):
     """
@@ -98,14 +101,16 @@ def get_city_info_by_row(row_num):
     city_info = capitals_sheet.row_values(row_num)
     return city_info
 
+
 def get_text_bearing(azimuth):
     """
-    Converts azimut (initial bearing in degrees) and returns a compass point direction as a string
+    Converts azimut (initial bearing in degrees)
+    Returns a compass point direction as a string
     """
     # Handles negative azimuths
     if (azimuth < 0):
         azimuth = azimuth + 360
-    
+    # Returns string depending on azimuth value
     if 11.25 <= azimuth < 33.75:
         return "North North East"
     elif 33.75 <= azimuth < 56.25:
@@ -148,17 +153,17 @@ def ask_for_hints(user_name):
     """
     print(f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
     while True:
-            user_hint = input("Write 'y' for yes, and 'n' for no \n")
-            if (user_hint.lower() == 'y'):
-                print("\nYep, let's have some hints.")
-                return True
-            if (user_hint.lower() == 'n'):
-                print("\nOh wow - no hints for you. Pretty confident eh?")
-                return False
-            else:
-                print("\nI'm sorry I didn't catch that.")
-                continue
-            
+        user_hint = input("Write 'y' for yes, and 'n' for no \n")
+        if (user_hint.lower() == 'y'):
+            print("\nYep, let's have some hints.")
+            return True
+        if (user_hint.lower() == 'n'):
+            print("\nOh wow - no hints for you. Pretty confident eh?")
+            return False
+        else:
+            print("\nI'm sorry I didn't catch that.")
+            continue
+
 
 def get_random_city():
     """
@@ -167,12 +172,12 @@ def get_random_city():
     """
     capitals_sheet = SHEET.worksheet("capitals")
     cities_count = len(capitals_sheet.col_values(1)[1:])
-    index = random.randint(1,cities_count)
+    index = random.randint(1, cities_count)
     city = get_city_info_by_row(index)
-    city, country, continent, easy,longitude, latitude = city
-    random_city = Capital(city, country, continent, easy,longitude, latitude)
+    city, country, continent, easy, longitude, latitude = city
+    random_city = Capital(city, country, continent, easy, longitude, latitude)
     return random_city
-    
+
 
 def get_user_ranking(game_id, all_scores):
     player_game_index = next((i for i, score in enumerate(all_scores) if score['game_id']==str(game_id)), None)
@@ -199,7 +204,7 @@ def post_high_score(user_name, guess_count,total_distance,game_id):
     Add docstring here!
     """
     score_sheet = SHEET.worksheet("scores")
-    score_sheet.append_row([user_name,guess_count,total_distance,game_id])
+    score_sheet.append_row([user_name, guess_count, total_distance, game_id])
 
 def get_all_scores():
     """ 
