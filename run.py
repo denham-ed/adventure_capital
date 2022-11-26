@@ -279,7 +279,7 @@ def main():
             if game.hintOn and game.guess_count == 5:
                 print ("Not to worry - this is a hard one! Your first hint...\n")
                 print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
-            if game.hintOn and game.guess_count == 8:
+            if game.hintOn and game.guess_count == 10:
                 print ("OK, you're struggling - your second hint, coming up...\n")
                 print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
                 print("Have another try...")
