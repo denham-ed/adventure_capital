@@ -256,11 +256,11 @@ def main():
     print("Welcome to Where Am I Hiding? \n")
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
-    user_name = get_user_name()
+    user_name = get_user_name().capitalize()
     hints = ask_for_hints(user_name)
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
-    # print(opponent_capital.city)
+    print(opponent_capital.city)
     game = Game(True,user_name,1,0,'Normal',hints)
 
     while game.inProgress:
