@@ -150,13 +150,13 @@ def ask_for_hints(user_name):
     while True:
             user_hint = input("Write 'y' for yes, and 'n' for no \n")
             if (user_hint.lower() == 'y'):
-                print("Yep, let's have some hints.")
+                print("\nYep, let's have some hints.")
                 return True
             if (user_hint.lower() == 'n'):
-                print("Oh wow - no hints for you. Pretty confident eh?")
+                print("\nOh wow - no hints for you. Pretty confident eh?")
                 return False
             else:
-                print("I'm sorry I didn't catch that.")
+                print("\nI'm sorry I didn't catch that.")
                 continue
             
 
@@ -218,8 +218,10 @@ def show_high_scores(all_scores):
             break
         print (f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres" )
 
-    
 
+def check_play_again():
+    play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.")    
+    return play_again
 
 
 
@@ -228,7 +230,7 @@ def get_user_name():
     while True:
         user_name = input("Please enter your name \n")
         if type(user_name) == str and len(user_name) > 0:
-                print (f"Great, nice to meet you {user_name}")
+                print (f"\nGreat, nice to meet you {user_name}")
                 return user_name
         else:
             print("Sorry! I didn't catch that.")
@@ -237,12 +239,12 @@ def get_user_name():
 def show_hints(guess_count, opponent_capital):
     if guess_count == 5:
         time.sleep(1)
-        print ("Not to worry - this is a hard one! Your first hint...\n")
+        print ("\nNot to worry - this is a hard one! Your first hint...\n")
         time.sleep(1)
         print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
     if guess_count == 10:
         time.sleep(1)
-        print ("OK, you're struggling - your second hint, coming up...\n")
+        print ("\nOK, you're struggling - your second hint, coming up...\n")
         time.sleep(1)
         print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
         print("Have another try...")
@@ -275,6 +277,12 @@ def main():
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
             show_high_scores(all_scores)
+            # Play again?
+            play_again = check_play_again()
+            if play_again == 'y':
+                main()
+            else:
+                print ('No problem! See you again soon!')
      
         else:
             print(f"\nNope! I'm not in {user_capital.city.title()}!")
@@ -283,9 +291,9 @@ def main():
             game.guess_count = game.guess_count + 1
             game.total_distance = game.total_distance + int(inverse['dist'])
             # Show user distance and direction
-            print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
+            print(f"\n{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse['azimuth'])
-            print(f"\nYou'll need to head {bearing} to find me... \n")
+            print(f"You'll need to head {bearing} to find me...")
             # Check for Hints
             if game.hintOn:
                 show_hints(game.guess_count, opponent_capital)
