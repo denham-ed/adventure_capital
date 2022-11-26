@@ -233,6 +233,14 @@ def get_user_name():
             print("Sorry! I didn't catch that.")
             continue
             
+def show_hints(guess_count):
+    if guess_count == 5:
+        print ("Not to worry - this is a hard one! Your first hint...\n")
+        print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
+    if guess_count == 10:
+        print ("OK, you're struggling - your second hint, coming up...\n")
+        print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
+        print("Have another try...")
 
 def main():
     """
@@ -275,14 +283,9 @@ def main():
             print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse['azimuth'])
             print(f"You'll need to head {bearing} to find me... \n")
-                   # Check for Hints - MOve??
-            if game.hintOn and game.guess_count == 5:
-                print ("Not to worry - this is a hard one! Your first hint...\n")
-                print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
-            if game.hintOn and game.guess_count == 10:
-                print ("OK, you're struggling - your second hint, coming up...\n")
-                print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
-                print("Have another try...")
+            # Check for Hints
+            if game.hintOn:
+                show_hints(game.guess_count)
             continue
                 
 
