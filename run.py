@@ -189,9 +189,9 @@ def get_user_guess(user_name, guess_count):
             user_capital = Capital(city,country,continent,easy,longitude,latitude)
             return user_capital
         else: 
-            print("Sorry! I don't think that's a capital city!")
+            print("\nSorry! I don't think that's a capital city!")
             print("I only hide in capitals...")
-            print("Please have another guess")
+            print("\nPlease have another guess")
             continue
 
 def post_high_score(user_name, guess_count,total_distance,game_id):
@@ -294,7 +294,7 @@ def main():
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
             show_high_scores(all_scores)
-            # Play again?
+            #Check Whether User Will Play Again
             play_again = check_play_again()
             if play_again:
                 print("Great! I'll start thinking of another city...")
