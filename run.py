@@ -230,9 +230,9 @@ def check_play_again():
     """
     while True:
         play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.\n")    
-        if play_again == 'y':
+        if play_again.lower() == 'y':
             return True
-        elif play_again == 'n':
+        elif play_again.lower() == 'n':
             return False
         else:
             print("\nI'm sorry I didn't catch that.")
