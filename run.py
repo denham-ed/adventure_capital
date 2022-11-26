@@ -225,10 +225,18 @@ def show_high_scores(all_scores):
 
 def check_play_again():
     """
-
+    Checks whether user wants to play again
+    Returns true of false
     """
-    play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.")    
-    return play_again
+    while True:
+        play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.")    
+        if play_again == 'y':
+            return True
+        elif play_again == 'n':
+            return False
+        else:
+            print("\nI'm sorry I didn't catch that.")
+            continue
 
 
 
@@ -249,12 +257,14 @@ def show_hints(guess_count, opponent_capital):
         print ("\nNot to worry - this is a hard one! Your first hint...\n")
         time.sleep(1)
         print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
-    if guess_count == 10:
+    elif guess_count == 10:
         time.sleep(1)
         print ("\nOK, you're struggling - your second hint, coming up...\n")
         time.sleep(1)
         print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
         print("Have another try...")
+    else:
+        pass
 
 def main():
     """
@@ -286,10 +296,11 @@ def main():
             show_high_scores(all_scores)
             # Play again?
             play_again = check_play_again()
-            if play_again == 'y':
+            if play_again:
+                print("Great! I'll start thinking of another city...")
                 main()
             else:
-                print ('No problem! See you again soon!')
+                print ("\nNo problem! See you again soon!\n")
      
         else:
             print(f"\nNope! I'm not in {user_capital.city.title()}!")
