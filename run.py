@@ -5,6 +5,7 @@ from google.oauth2.service_account import Credentials
 from math import radians, cos, sin, asin, sqrt
 from pprint import pprint
 from geographiclib.geodesic import Geodesic
+import time
 
 def get_ordinal(n):
     # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
@@ -179,7 +180,7 @@ def get_user_ranking(game_id, all_scores):
     return f"You are better than {player_percentile}% of all players! \n"
 
 def get_user_guess(user_name, guess_count):
-    print(f"Ok {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
+    print(f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
         initial_guess = input("Please enter a capital city \n")
         validated_guess = get_city_by_name(initial_guess.lower())
@@ -233,12 +234,16 @@ def get_user_name():
             print("Sorry! I didn't catch that.")
             continue
             
-def show_hints(guess_count):
+def show_hints(guess_count, opponent_capital):
     if guess_count == 5:
+        time.sleep(1)
         print ("Not to worry - this is a hard one! Your first hint...\n")
+        time.sleep(1)
         print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
     if guess_count == 10:
+        time.sleep(1)
         print ("OK, you're struggling - your second hint, coming up...\n")
+        time.sleep(1)
         print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
         print("Have another try...")
 
@@ -257,24 +262,22 @@ def main():
     game = Game(True,user_name,1,0,'Normal',hints)
 
     while game.inProgress:
-        user_capital = get_user_guess(user_name, game.guess_count)
- 
-                
+        user_capital = get_user_guess(user_name, game.guess_count)                
         if user_capital.city == opponent_capital.city:
             game.inProgress = False
             post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
             print("\nWell done! You found me!")
             print (f"I was hiding in {opponent_capital.city.title()}! \n")
+            time.sleep(1)
             print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
+            time.sleep(1)
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
             show_high_scores(all_scores)
      
-            
-
         else:
-            print(f"Nope! I'm not in {user_capital.city.title()}!")
+            print(f"\nNope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
             # Increment counters
             game.guess_count = game.guess_count + 1
@@ -282,10 +285,10 @@ def main():
             # Show user distance and direction
             print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse['azimuth'])
-            print(f"You'll need to head {bearing} to find me... \n")
+            print(f"\nYou'll need to head {bearing} to find me... \n")
             # Check for Hints
             if game.hintOn:
-                show_hints(game.guess_count)
+                show_hints(game.guess_count, opponent_capital)
             continue
                 
 
