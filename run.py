@@ -245,18 +245,12 @@ def main():
     hints = ask_for_hints(user_name)
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
-    print(opponent_capital.city)
+    # print(opponent_capital.city)
     game = Game(True,user_name,1,0,'Normal',hints)
 
     while game.inProgress:
         user_capital = get_user_guess(user_name, game.guess_count)
-        # Check for Hints - MOve??
-        if game.hintOn and game.guess_count == 5:
-            print ("Not to worry - this is a hard one! Your first hint...\n")
-            print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
-        if game.hintOn and game.guess_count == 8:
-            print ("OK, you're struggling - your second hint, coming up...\n")
-            print (f"I'm hiding somewhere in the capital ciry of {opponent_capital.country}!")
+ 
                 
         if user_capital.city == opponent_capital.city:
             game.inProgress = False
@@ -280,8 +274,15 @@ def main():
             # Show user distance and direction
             print(f"{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse['azimuth'])
-            print(f"You'll need to head {bearing} to find me...")
-            print("Have another try...")
+            print(f"You'll need to head {bearing} to find me... \n")
+                   # Check for Hints - MOve??
+            if game.hintOn and game.guess_count == 5:
+                print ("Not to worry - this is a hard one! Your first hint...\n")
+                print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
+            if game.hintOn and game.guess_count == 8:
+                print ("OK, you're struggling - your second hint, coming up...\n")
+                print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
+                print("Have another try...")
             continue
                 
 
