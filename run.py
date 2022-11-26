@@ -212,6 +212,10 @@ def get_all_scores():
 
 
 def show_high_scores(all_scores):
+    """ 
+    Loops through the first ten scores and prints a statement to user.
+    Statement shows name, number of guesses and total kilometers
+    """
     print ('The top 10 players are:')
     for index, score in enumerate(all_scores):
         if index > 9:
@@ -220,6 +224,9 @@ def show_high_scores(all_scores):
 
 
 def check_play_again():
+    """
+
+    """
     play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.")    
     return play_again
 
