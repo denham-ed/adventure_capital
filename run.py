@@ -229,7 +229,7 @@ def check_play_again():
     Returns true of false
     """
     while True:
-        play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.")    
+        play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.\n")    
         if play_again == 'y':
             return True
         elif play_again == 'n':
