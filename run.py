@@ -320,7 +320,7 @@ def main():
     hints = ask_for_hints(user_name)
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
-    print(opponent_capital.city)
+    # print(opponent_capital.city)
     game = Game(True,user_name,1,0,'Normal',hints)
 
     while game.inProgress:

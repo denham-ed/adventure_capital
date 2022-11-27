@@ -1,31 +1,45 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Where Am I Hiding?
+*Where Am I Hiding?* is a command line game written in Python.
+The player is invited to guess which capital city I am hiding; if they are incorrect, I will telll them how far and in which direction they need to go, in order to find me.
 
-Welcome Ed Denham,
+This project was build as part the Full Stack Software Development course with Code Institute.
+## User Stories
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+### Game Designer
 
-## Reminders
+### Player
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
 
-## Creating the Heroku app
+## Game Design
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+### Game Play (Flow Chart)
 
-1. `heroku/python`
-2. `heroku/nodejs`
+### Class Design
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+## Features ??
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+### Username
 
-Connect your GitHub repository and deploy as normal.
+### Toggle Hints
 
-## Constraints
+### User Guess
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+## Testing
 
------
-Happy coding!
+### Validation
+
+### User Testing (Table etc)
+
+### Fixed Bugs
+
+### Unfixed Bugs
+
+## Deployment
+
+## Credits
+
+### Libraries
+
+### Code
+
+### Acknowledgements
