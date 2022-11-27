@@ -83,6 +83,10 @@ class Game:
 def colour_print(style, text):
     if style == 'warning':
         colour = Fore.RED
+    elif style == 'incorrect_answer':
+        colour = Back.RED
+    elif style == 'correct_answer':
+        colour = Back.GREEN
     print(f"{colour}{text}")
 
 def get_city_by_name(city):
@@ -304,8 +308,8 @@ def main():
             game.inProgress = False
             post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
-            print("\nWell done! You found me!")
-            print (f"I was hiding in {opponent_capital.city.title()}! \n")
+            colour_print("correct_answer", "\nWell done! You found me!")
+            colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}! \n")
             time.sleep(1)
             print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
             time.sleep(1)
@@ -321,7 +325,7 @@ def main():
                 print ("\nNo problem! See you again soon!\n")
      
         else:
-            print(f"\nNope! I'm not in {user_capital.city.title()}!")
+            colour_print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
             # Increment counters
             game.guess_count = game.guess_count + 1
