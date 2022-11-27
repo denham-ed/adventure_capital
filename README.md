@@ -14,13 +14,22 @@ The language and tone of the game should be distinctive, cheeky and informal thr
 Simple design (colour, spacing and timing) should be used to provide feedback and prompt the user for information, as well as creating a natural 'flow' to the game.
 
 
-
 ### Game Player
 As a user, I want to experience an enjoyable, easy-to-learn game which will improve my lateral thinking and knowledge of the world's capitals.
 
 The game should be complete-able on early attempts but should offer a scalable challenge that will keep me returning. I want the game to keep track of previous attempts so I can challenge myself and other players.
 
 Any prompts or displayed information should be concise and unambiguous.
+
+## Rules of the Game
+The game is a dialogue between the player(the user) and the hider (the computer)
+
+1. The player enters their name and decides whether they want hints to assist them
+2. The hider hides - they choose a random capital city.
+3. The player guesses a capital city.
+    - If they are correct, they win the game.
+    - If they are incorrect, the hider will them how far away they are and what direction they need to travel. The player repeats this step until they find the hider.
+
 
 
 ## Game Design
