@@ -38,7 +38,7 @@ The logical flow of the game is essentially two loops as shown in the diagram be
 
 The first outer loop encourages the user remain engaged and play consecutive games. It is worth nothign that the user is prompted to provide their name hint preference again - this is to encourage multiple players sharing one terminal to play, without the need to restart the game manually.
 
-The inner loop represents the guess and response dialogue within the game itself - 
+The inner loop represents the guess and response dialogue within the game itself - the user(player) continues to guess until locate the opponent's (hider's) city.
 ### Class Design
 
 ## Features ??
