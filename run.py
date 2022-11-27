@@ -11,17 +11,6 @@ from colorama import init, Fore, Back, Style
 #  Resets Default Colour Scheme
 init(autoreset=True)
 
-
-
-def get_ordinal(n):
-    # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
-    """
-    COMMENT COMMENT
-    """
-    ordinal = "%d%s" % (n, "tsnrhtdd"[(n//10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
-    return ordinal
-
-
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -87,7 +76,26 @@ def colour_print(style, text):
         colour = Back.RED
     elif style == 'correct_answer':
         colour = Back.GREEN
+    elif style == "intro":
+        colour = Back.BLUE
+    
     print(f"{colour}{text}")
+
+
+logo = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . .#######. . . . . . . . . . . . . . . . . .
+. . . . . . . .#. .#### . . . ####. . .###############. . .
+. . . ########. ##. ##. . . ######################### . . .
+. . . . ##########. . . . ######################. . . . . .
+. . . . .######## . . . .   ################### . . . . . .
+. . . . . ### .   . . . .#####. ##############. # . . . . .
+. . . . . . ##### . . . .#######. ##########. . . . . . . .
+. . . . . . .###### . . . .#### . . . . .## . . . . . . . .
+. . . . . . . ##### . . . .#### # . . . . . ##### . . . . .
+. . . . . . . ### . . . . . ##. . . . . . . . ### .#. . . .
+. . . . . . . ##. . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."""
+
 
 def get_city_by_name(city):
     """
@@ -204,6 +212,15 @@ def ask_for_hints(user_name):
             continue
 
 
+def get_ordinal(n):
+    # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
+    """
+    COMMENT COMMENT
+    """
+    ordinal = "%d%s" % (n, "tsnrhtdd"[(n//10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
+    return ordinal
+
+
 def get_user_guess(user_name, guess_count):
     print(f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
@@ -292,7 +309,8 @@ def main():
     """
     Runs game etc.
     """
-    print("Welcome to Where Am I Hiding? \n")
+    colour_print('intro', "Welcome to Where Am I Hiding? \n")
+    colour_print('intro', logo)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
     user_name = get_user_name().capitalize()
@@ -342,5 +360,7 @@ def main():
 
 
 main()
+
+
 
 
