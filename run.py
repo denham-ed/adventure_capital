@@ -27,11 +27,10 @@ class Capital:
     """
     Initiates a new instance of a capital city
     """
-    def __init__(self, city, country, continent, easy, longitude, latitude):
+    def __init__(self, city, country, continent longitude, latitude):
         self.city = city
         self.country = country
         self.continent = continent
-        self.easy = easy
         self.longitute = longitude
         self.latitude = latitude
 
@@ -40,13 +39,13 @@ class Game:
     """
     Initiates an instance of a new game
     """
-    def __init__(self, inProgress, user_name, guess_count, total_distance, difficulty, hintOn):
-        self.inProgress = inProgress
+    def __init__(self, in_progress, user_name, guess_count, total_distance, difficulty, hint_on):
+        self.in_progress = in_progress
         self.user_name = user_name
         self.guess_count = guess_count
         self.total_distance = total_distance
         self.difficulty = difficulty
-        self.hintOn = hintOn
+        self.hint_on = hint_on
         self.game_id = uuid4()
 
     def find_distance_between_capitals(self, user_capital, opponent_capital):
@@ -178,7 +177,7 @@ def get_random_city():
     index = random.randint(1, cities_count)
     city = get_city_info_by_row(index)
     city, country, continent, easy, longitude, latitude = city
-    random_city = Capital(city, country, continent, easy, longitude, latitude)
+    random_city = Capital(city, country, continent, longitude, latitude)
     return random_city
 
 
@@ -230,7 +229,7 @@ def get_user_guess(user_name, guess_count):
         validated_guess = get_city_by_name(initial_guess.lower())
         if validated_guess is not None:
             city, country, continent, easy,longitude, latitude = validated_guess
-            user_capital = Capital(city,country,continent,easy,longitude,latitude)
+            user_capital = Capital(city,country,continent,longitude,latitude)
             return user_capital
         else: 
             colour_print("warning", "\nSorry! I don't think that's a capital city!")
@@ -323,10 +322,10 @@ def main():
     # print(opponent_capital.city)
     game = Game(True,user_name,1,0,'Normal',hints)
 
-    while game.inProgress:
+    while game.in_progress:
         user_capital = get_user_guess(user_name, game.guess_count)                
         if user_capital.city == opponent_capital.city:
-            game.inProgress = False
+            game.in_progress = False
             post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
             colour_print("correct_answer", "\nWell done! You found me!")
@@ -356,7 +355,7 @@ def main():
             bearing = get_text_bearing(inverse['azimuth'])
             print(f"You'll need to head {bearing} to find me...")
             # Check for Hints
-            if game.hintOn:
+            if game.hint_on:
                 show_hints(game.guess_count, opponent_capital)
             continue
                 
