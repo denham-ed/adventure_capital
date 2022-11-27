@@ -40,7 +40,7 @@ The first outer loop encourages the user remain engaged and play consecutive gam
 
 The inner loop represents the guess and response dialogue within the game itself - the user(player) continues to guess until locate the opponent's (hider's) city.
 ### Class Design
-There are two classes used in this game: **Capital** and **Game**. The intial design is shown below.
+There are two classes used in this game: **Capital** and **Game**. The initial design of these classes is shown below.
 
 **Class**
 
