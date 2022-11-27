@@ -6,6 +6,11 @@ from math import radians, cos, sin, asin, sqrt
 from pprint import pprint
 from geographiclib.geodesic import Geodesic
 import time
+from colorama import init, Fore, Back, Style
+
+#  Resets Default Colour Scheme
+init(autoreset=True)
+
 
 
 def get_ordinal(n):
@@ -75,6 +80,10 @@ class Game:
 
         return inverse
 
+def colour_print(style, text):
+    if style == 'warning':
+        colour = Fore.RED
+    print(f"{colour}{text}")
 
 def get_city_by_name(city):
     """
@@ -145,6 +154,32 @@ def get_text_bearing(azimuth):
         return ("North")
 
 
+def get_random_city():
+    """
+    Generates a random number which is used to select a city at random from the API
+    Returns the city's details as an instance of a Capital class
+    """
+    capitals_sheet = SHEET.worksheet("capitals")
+    cities_count = len(capitals_sheet.col_values(1)[1:])
+    index = random.randint(1, cities_count)
+    city = get_city_info_by_row(index)
+    city, country, continent, easy, longitude, latitude = city
+    random_city = Capital(city, country, continent, easy, longitude, latitude)
+    return random_city
+
+
+def get_user_name():
+    print("Firstly, what shall I call you?")
+    while True:
+        user_name = input("Please enter your name \n")
+        if type(user_name) == str and len(user_name) > 0:
+                print (f"\nGreat, nice to meet you {user_name}")
+                return user_name
+        else:
+            colour_print('warning', "Sorry! I didn't catch that.")
+            continue
+
+
 def ask_for_hints(user_name):
     """
     Asks user whether they would like to have a hint displayed before their guess
@@ -165,25 +200,6 @@ def ask_for_hints(user_name):
             continue
 
 
-def get_random_city():
-    """
-    Generates a random number which is used to select a city at random from the API
-    Returns the city's details as an instance of a Capital class
-    """
-    capitals_sheet = SHEET.worksheet("capitals")
-    cities_count = len(capitals_sheet.col_values(1)[1:])
-    index = random.randint(1, cities_count)
-    city = get_city_info_by_row(index)
-    city, country, continent, easy, longitude, latitude = city
-    random_city = Capital(city, country, continent, easy, longitude, latitude)
-    return random_city
-
-
-def get_user_ranking(game_id, all_scores):
-    player_game_index = next((i for i, score in enumerate(all_scores) if score['game_id']==str(game_id)), None)
-    player_percentile = int(100 - (player_game_index / len(all_scores)) * 100)
-    return f"You are better than {player_percentile}% of all players! \n"
-
 def get_user_guess(user_name, guess_count):
     print(f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
@@ -199,12 +215,30 @@ def get_user_guess(user_name, guess_count):
             print("\nPlease have another guess")
             continue
 
+
+def show_hints(guess_count, opponent_capital):
+    if guess_count == 5:
+        time.sleep(1)
+        print ("\nNot to worry - this is a hard one! Your first hint...\n")
+        time.sleep(1)
+        print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
+    elif guess_count == 10:
+        time.sleep(1)
+        print ("\nOK, you're struggling - your second hint, coming up...\n")
+        time.sleep(1)
+        print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
+        print("Have another try...")
+    else:
+        pass
+
+
 def post_high_score(user_name, guess_count,total_distance,game_id):
     """ 
     Add docstring here!
     """
     score_sheet = SHEET.worksheet("scores")
     score_sheet.append_row([user_name, guess_count, total_distance, game_id])
+
 
 def get_all_scores():
     """ 
@@ -228,6 +262,12 @@ def show_high_scores(all_scores):
         print (f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres" )
 
 
+def get_user_ranking(game_id, all_scores):
+    player_game_index = next((i for i, score in enumerate(all_scores) if score['game_id']==str(game_id)), None)
+    player_percentile = int(100 - (player_game_index / len(all_scores)) * 100)
+    return f"You are better than {player_percentile}% of all players! \n"
+
+
 def check_play_again():
     """
     Checks whether user wants to play again
@@ -243,33 +283,6 @@ def check_play_again():
             print("\nI'm sorry I didn't catch that.")
             continue
 
-
-
-def get_user_name():
-    print("Firstly, what shall I call you?")
-    while True:
-        user_name = input("Please enter your name \n")
-        if type(user_name) == str and len(user_name) > 0:
-                print (f"\nGreat, nice to meet you {user_name}")
-                return user_name
-        else:
-            print("Sorry! I didn't catch that.")
-            continue
-            
-def show_hints(guess_count, opponent_capital):
-    if guess_count == 5:
-        time.sleep(1)
-        print ("\nNot to worry - this is a hard one! Your first hint...\n")
-        time.sleep(1)
-        print (f"I'm hiding somewhere in the continent of {opponent_capital.continent}!")
-    elif guess_count == 10:
-        time.sleep(1)
-        print ("\nOK, you're struggling - your second hint, coming up...\n")
-        time.sleep(1)
-        print (f"I'm hiding somewhere in the capital city of {opponent_capital.country}!")
-        print("Have another try...")
-    else:
-        pass
 
 def main():
     """
