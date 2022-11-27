@@ -27,7 +27,7 @@ class Capital:
     """
     Initiates a new instance of a capital city
     """
-    def __init__(self, city, country, continent longitude, latitude):
+    def __init__(self, city, country, continent, longitude, latitude):
         self.city = city
         self.country = country
         self.continent = continent
@@ -39,12 +39,11 @@ class Game:
     """
     Initiates an instance of a new game
     """
-    def __init__(self, in_progress, user_name, guess_count, total_distance, difficulty, hint_on):
+    def __init__(self, in_progress, user_name, guess_count, total_distance, hint_on):
         self.in_progress = in_progress
         self.user_name = user_name
         self.guess_count = guess_count
         self.total_distance = total_distance
-        self.difficulty = difficulty
         self.hint_on = hint_on
         self.game_id = uuid4()
 
@@ -320,7 +319,7 @@ def main():
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
     # print(opponent_capital.city)
-    game = Game(True,user_name,1,0,'Normal',hints)
+    game = Game(True,user_name,1,0,hints)
 
     while game.in_progress:
         user_capital = get_user_guess(user_name, game.guess_count)                
