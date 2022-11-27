@@ -330,7 +330,7 @@ def main():
             post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
             colour_print("correct_answer", "\nWell done! You found me!")
-            colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}! \n")
+            colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
             time.sleep(1)
             print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
             time.sleep(1)
