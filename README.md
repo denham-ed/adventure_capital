@@ -30,15 +30,17 @@ The game is a dialogue between the player(the user) and the hider (the computer)
     - If they are correct, they win the game.
     - If they are incorrect, the hider will them how far away they are and what direction they need to travel. The player repeats this step until they find the hider.
 
-
-
 ## Game Design
 
-### Game Play (Flow Chart)
+### Game Play
+The flow of the game is essentially one large loop
+![Flow Chart of Where Am I Game Play](assets/where_am_i_flow.png)
 
 ### Class Design
 
 ## Features ??
+
+## Upcoming Features
 
 ### Username
 
