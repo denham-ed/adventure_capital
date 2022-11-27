@@ -196,7 +196,7 @@ def ask_for_hints(user_name):
             print("\nOh wow - no hints for you. Pretty confident eh?")
             return False
         else:
-            print("\nI'm sorry I didn't catch that.")
+            colour_print('warning', "\nI'm sorry I didn't catch that.")
             continue
 
 
@@ -210,8 +210,8 @@ def get_user_guess(user_name, guess_count):
             user_capital = Capital(city,country,continent,easy,longitude,latitude)
             return user_capital
         else: 
-            print("\nSorry! I don't think that's a capital city!")
-            print("I only hide in capitals...")
+            colour_print("warning", "\nSorry! I don't think that's a capital city!")
+            colour_print("warning", "I only hide in capitals...")
             print("\nPlease have another guess")
             continue
 
@@ -280,7 +280,7 @@ def check_play_again():
         elif play_again.lower() == 'n':
             return False
         else:
-            print("\nI'm sorry I didn't catch that.")
+            colour_print("warning","\nI'm sorry I didn't catch that.")
             continue
 
 
