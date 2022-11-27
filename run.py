@@ -6,7 +6,7 @@ from math import radians, cos, sin, asin, sqrt
 from pprint import pprint
 from geographiclib.geodesic import Geodesic
 import time
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore, Back
 
 #  Resets Default Colour Scheme
 init(autoreset=True)
@@ -78,6 +78,8 @@ def colour_print(style, text):
         colour = Back.GREEN
     elif style == "intro":
         colour = Back.BLUE
+    elif style == "prompt":
+        colour = Fore.GREEN
     
     print(f"{colour}{text}")
 
@@ -181,7 +183,7 @@ def get_random_city():
 
 
 def get_user_name():
-    print("Firstly, what shall I call you?")
+    colour_print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n")
         if type(user_name) == str and len(user_name) > 0:
@@ -198,7 +200,7 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    print(f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
+    colour_print("prompt",f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
         if (user_hint.lower() == 'y'):
@@ -222,7 +224,7 @@ def get_ordinal(n):
 
 
 def get_user_guess(user_name, guess_count):
-    print(f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
+    colour_print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
         initial_guess = input("Please enter a capital city \n")
         validated_guess = get_city_by_name(initial_guess.lower())
@@ -294,8 +296,9 @@ def check_play_again():
     Checks whether user wants to play again
     Returns true of false
     """
+    colour_print("prompt","\nWould you like to play again?")
     while True:
-        play_again = input("\n Would you like to play again? Enter 'y' for yes, or 'n' for no.\n")    
+        play_again = input("Enter 'y' for yes, or 'n' for no.\n")    
         if play_again.lower() == 'y':
             return True
         elif play_again.lower() == 'n':
