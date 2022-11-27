@@ -67,6 +67,7 @@ class Game:
 
         return inverse
 
+
 def colour_print(style, text):
     if style == 'warning':
         colour = Fore.RED
