@@ -311,7 +311,7 @@ def main():
     """
     Runs game etc.
     """
-    colour_print('intro', "Welcome to Where Am I Hiding? \n")
+    colour_print('intro', "Welcome to Adventure Capital! \n")
     colour_print('intro', logo)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
