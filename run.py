@@ -1,8 +1,8 @@
 import random
 import time
+from uuid import uuid4
 import gspread
 from google.oauth2.service_account import Credentials
-from uuid import uuid4
 from geographiclib.geodesic import Geodesic
 from colorama import init, Fore, Back
 
