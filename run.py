@@ -334,15 +334,20 @@ def check_play_again():
             continue
 
 
-def play_game(game, opponent_capital, user_name):
+def play_game(game):
     """
-    Doc String
+    Initates loop - prompts user to make a guess
+    If the user guesses correctly, calls end game function
+    If the user is incorrect, they are advised of the direction and distance
+    to the correct city.
     """
+    opponent_capital = get_random_city()
+    print(opponent_capital.city)
     while game.in_progress:
-        user_capital = get_user_guess(user_name, game.guess_count)                
+        user_capital = get_user_guess(game.user_name, game.guess_count)                
         if user_capital.city == opponent_capital.city:
             game.in_progress = False
-            post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
+            post_high_score(game.user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
             colour_print("correct_answer", "\nWell done! You found me!")
             colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
@@ -356,13 +361,14 @@ def play_game(game, opponent_capital, user_name):
             play_again = check_play_again()
             if play_again:
                 print("Great! I'll start thinking of another city...")
-                main()
+                new_game = Game(True, game.user_name, 1, 0, game.hint_on)
+                play_game(new_game)
             else:
                 print("\nNo problem! See you again soon!\n")
         
         else:
             colour_print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
-            inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
+            inverse = game.find_distance_between_capitals(user_capital, opponent_capital)
             # Increment counters
             game.guess_count = game.guess_count + 1
             game.total_distance = game.total_distance + int(inverse['dist'])
@@ -390,47 +396,9 @@ def main():
     user_name = get_user_name().capitalize()
     hints = ask_for_hints(user_name)
     print("Ok, let's start!") 
-    opponent_capital = get_random_city()
-    # print(opponent_capital.city)
-    game = Game(True, user_name, 1,0,hints)
-    play_game(game, opponent_capital, user_name)
 
-    # while game.in_progress:
-    #     user_capital = get_user_guess(user_name, game.guess_count)                
-    #     if user_capital.city == opponent_capital.city:
-    #         game.in_progress = False
-    #         post_high_score(user_name, game.guess_count, game.total_distance, str(game.game_id))
-    #         all_scores = get_all_scores()
-    #         colour_print("correct_answer", "\nWell done! You found me!")
-    #         colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
-    #         time.sleep(1)
-    #         print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
-    #         time.sleep(1)
-    #         user_ranking = get_user_ranking(str(game.game_id), all_scores)
-    #         print(user_ranking)
-    #         show_high_scores(all_scores)
-    #         # Check Whether User Will Play Again
-    #         play_again = check_play_again()
-    #         if play_again:
-    #             print("Great! I'll start thinking of another city...")
-    #             main()
-    #         else:
-    #             print("\nNo problem! See you again soon!\n")
-     
-    #     else:
-    #         colour_print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
-    #         inverse = game.find_distance_between_capitals(user_capital,opponent_capital)
-    #         # Increment counters
-    #         game.guess_count = game.guess_count + 1
-    #         game.total_distance = game.total_distance + int(inverse['dist'])
-    #         # Show user distance and direction
-    #         print(f"\n{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
-    #         bearing = get_text_bearing(inverse['azimuth'])
-    #         print(f"You'll need to head {bearing} to find me...")
-    #         # Check for hints
-    #         if game.hint_on:
-    #             show_hints(game.guess_count, opponent_capital)
-    #         continue
+    game = Game(True, user_name, 1, 0, hints)
+    play_game(game)
                 
 
 
