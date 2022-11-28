@@ -1,7 +1,7 @@
-from google.oauth2.service_account import Credentials
-import gspread
 import random
 import time
+import gspread
+from google.oauth2.service_account import Credentials
 from uuid import uuid4
 from geographiclib.geodesic import Geodesic
 from colorama import init, Fore, Back
@@ -276,7 +276,7 @@ def show_hints(guess_count, opponent_capital):
 
 
 def post_high_score(user_name, guess_count, total_distance,game_id):
-    """ 
+    """
     Appends a list of values to the API
     New row contains the user's name, total guesses, 
     cumulative distance and game id.
@@ -286,7 +286,7 @@ def post_high_score(user_name, guess_count, total_distance,game_id):
 
 
 def get_all_scores():
-    """ 
+    """
     Add docstring here
     """
     score_sheet = SHEET.worksheet("scores")
@@ -296,7 +296,7 @@ def get_all_scores():
 
 
 def show_high_scores(all_scores):
-    """ 
+    """
     Loops through the first ten scores and prints a statement to user.
     Statement shows name, number of guesses and total kilometers
     """
