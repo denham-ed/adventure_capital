@@ -1,11 +1,9 @@
+from google.oauth2.service_account import Credentials
 import gspread
 import random
-from uuid import uuid4
-from google.oauth2.service_account import Credentials
-from math import radians, cos, sin, asin, sqrt
-from pprint import pprint
-from geographiclib.geodesic import Geodesic
 import time
+from uuid import uuid4
+from geographiclib.geodesic import Geodesic
 from colorama import init, Fore, Back
 
 #  Resets Default Colour Scheme
