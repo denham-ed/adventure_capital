@@ -67,6 +67,11 @@ class Game:
 
 
 def colour_print(style, text):
+    """
+    Takes a style and text value (both strings)
+    Prints the text with the colour (either foreground or background)
+    corresponding style, from colorama.
+    """
     if style == 'warning':
         colour = Fore.RED
     elif style == 'incorrect_answer':
@@ -77,7 +82,6 @@ def colour_print(style, text):
         colour = Back.BLUE
     elif style == "prompt":
         colour = Fore.GREEN
-    
     print(f"{colour}{text}")
 
 
@@ -99,7 +103,8 @@ logo = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 def get_city_by_name(city):
     """
     Asks for user to guess a capital city.
-    Checks the API for a match and, if found, returns that city's infromation AS CLASS?!?!?!
+    Checks the API for a match
+    If found, returns that city's infromation as a list
     If not found, returns None.
     """
     capitals_sheet = SHEET.worksheet("capitals")
@@ -167,7 +172,8 @@ def get_text_bearing(azimuth):
 
 def get_random_city():
     """
-    Generates a random number which is used to select a city at random from the API
+    Generates a random number which is used to select a city at random 
+    from the API
     Returns the city's details as an instance of a Capital class
     """
     capitals_sheet = SHEET.worksheet("capitals")
@@ -180,11 +186,16 @@ def get_random_city():
 
 
 def get_user_name():
+    """
+    Prompts user to enter their name
+    Validates that the name is a string and has a length of more than 0
+    Returns the name
+    """
     colour_print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n")
         if type(user_name) == str and len(user_name) > 0:
-                print (f"\nGreat, nice to meet you {user_name}")
+                print(f"\nGreat, nice to meet you {user_name}")
                 return user_name
         else:
             colour_print('warning', "Sorry! I didn't catch that.")
@@ -197,7 +208,7 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    colour_print("prompt",f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
+    colour_print("prompt", f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
         if (user_hint.lower() == 'y'):
@@ -214,13 +225,20 @@ def ask_for_hints(user_name):
 def get_ordinal(n):
     # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
     """
-    COMMENT COMMENT
+    Takes a number (n) and returns a string with the number as an ordinal.
+    eg. 1 => 1st, 2 => 2nd
     """
     ordinal = "%d%s" % (n, "tsnrhtdd"[(n//10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
     return ordinal
 
 
 def get_user_guess(user_name, guess_count):
+    """
+    Prompt's user to make a guess
+    Checks that the city appears in the database
+    If yes, returns the city as an instnace of the Capital class
+    If no, prompts the user to make another guess until there is a match
+    """
     colour_print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
         initial_guess = input("Please enter a capital city \n")
@@ -237,6 +255,11 @@ def get_user_guess(user_name, guess_count):
 
 
 def show_hints(guess_count, opponent_capital):
+    """
+    Checks if the user has made exactly 5 or 10 guesses.
+    If yes, prints a hint about the location of the opponent
+    If no, passes
+    """
     if guess_count == 5:
         time.sleep(1)
         print ("\nNot to worry - this is a hard one! Your first hint...\n")
@@ -252,9 +275,11 @@ def show_hints(guess_count, opponent_capital):
         pass
 
 
-def post_high_score(user_name, guess_count,total_distance,game_id):
+def post_high_score(user_name, guess_count, total_distance,game_id):
     """ 
-    Add docstring here!
+    Appends a list of values to the API
+    New row contains the user's name, total guesses, 
+    cumulative distance and game id.
     """
     score_sheet = SHEET.worksheet("scores")
     score_sheet.append_row([user_name, guess_count, total_distance, game_id])
@@ -318,7 +343,7 @@ def main():
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
     # print(opponent_capital.city)
-    game = Game(True,user_name,1,0,hints)
+    game = Game(True, user_name, 1,0,hints)
 
     while game.in_progress:
         user_capital = get_user_guess(user_name, game.guess_count)                
@@ -334,13 +359,13 @@ def main():
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
             show_high_scores(all_scores)
-            #Check Whether User Will Play Again
+            # Check Whether User Will Play Again
             play_again = check_play_again()
             if play_again:
                 print("Great! I'll start thinking of another city...")
                 main()
             else:
-                print ("\nNo problem! See you again soon!\n")
+                print("\nNo problem! See you again soon!\n")
      
         else:
             colour_print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
@@ -352,7 +377,7 @@ def main():
             print(f"\n{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse['azimuth'])
             print(f"You'll need to head {bearing} to find me...")
-            # Check for Hints
+            # Check for hints
             if game.hint_on:
                 show_hints(game.guess_count, opponent_capital)
             continue
