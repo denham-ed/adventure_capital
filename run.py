@@ -17,6 +17,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('adventure_capital')
+SCORE_SHEET = SHEET.worksheet("scores")
 
 
 class Capital:
@@ -229,11 +230,11 @@ def get_ordinal(n):
     return ordinal
 
 
-def get_user_guess(user_name, guess_count):
+def get_user_guess(user_name, guess_count,game):
     """
     Prompt's user to make a guess
     Checks that the city appears in the database
-    If yes, returns the city as an instnace of the Capital class
+    If yes, returns the city as an instance of the Capital class
     If no, prompts the user to make another guess until there is a match
     """
     colour_print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
@@ -249,6 +250,8 @@ def get_user_guess(user_name, guess_count):
             colour_print("warning", "I only hide in capitals...")
             print("\nPlease have another guess")
             continue
+
+
 
 
 def show_hints(guess_count, opponent_capital):
@@ -278,8 +281,7 @@ def post_high_score(user_name, guess_count, total_distance, game_id):
     New row contains the user's name, total guesses, 
     cumulative distance and game id.
     """
-    score_sheet = SHEET.worksheet("scores")
-    score_sheet.append_row([user_name, guess_count, total_distance, game_id])
+    SCORE_SHEET.append_row([user_name, guess_count, total_distance, game_id])
 
 
 def get_all_scores():
@@ -287,8 +289,7 @@ def get_all_scores():
     Add docstring here
     """
     #FINISH THIS!
-    score_sheet = SHEET.worksheet("scores")
-    scores = score_sheet.get_all_records()
+    scores = SCORE_SHEET.get_all_records()
     sorted_scores = sorted(scores, key=lambda d: (d['score'],d['distance']))
     return sorted_scores
 
@@ -344,7 +345,7 @@ def play_game(game):
     print(opponent_capital.city) #COMMENT OUT!
     while game.in_progress:
 
-        user_capital = get_user_guess(game.user_name, game.guess_count)                
+        user_capital = get_user_guess(game.user_name, game.guess_count,game)                
         if user_capital.city == opponent_capital.city:
             game.in_progress = False
             post_high_score(game.user_name, game.guess_count, game.total_distance, str(game.game_id))
