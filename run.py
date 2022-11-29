@@ -208,7 +208,7 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    colour_print("prompt", f"So tell me {user_name}, would you like to have a hint if you haven't guessed correctly after 5 guesses?")
+    colour_print("prompt", f"So tell me {user_name}\nWould you like to have a hint if you haven't guessed correctly after 5 guesses?")
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
         if (user_hint.lower() == 'y'):
@@ -275,7 +275,7 @@ def show_hints(guess_count, opponent_capital):
         pass
 
 
-def post_high_score(user_name, guess_count, total_distance,game_id):
+def post_high_score(user_name, guess_count, total_distance, game_id):
     """
     Appends a list of values to the API
     New row contains the user's name, total guesses, 
@@ -384,12 +384,16 @@ def play_game(game):
             continue
 
 def prepare_game():
-        user_name = get_user_name().capitalize()
-        hints = ask_for_hints(user_name)
-        return {
-            "user_name":user_name,
-            "hints":hints
-        }
+    """
+    Calls preparatory functions (get user name and hints)
+    Returns information in a dictionary
+    """
+    user_name = get_user_name().capitalize()
+    hints = ask_for_hints(user_name)
+    return {
+        "user_name":user_name,
+        "hints":hints
+    }
 
 def main():
     """
