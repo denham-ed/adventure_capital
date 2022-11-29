@@ -284,9 +284,10 @@ def post_high_score(user_name, guess_count, total_distance, game_id):
 
 def get_all_scores():
     """
-    Add docstring here
+    Retrieves all scores from the score sheet
+    Sorts scores by number of guesses, then distance
+    Returns sorted scores as a list
     """
-    #FINISH THIS!
     scores = SCORE_SHEET.get_all_records()
     sorted_scores = sorted(scores, key=lambda d: (d['score'],d['distance']))
     return sorted_scores
