@@ -4,15 +4,7 @@ from uuid import uuid4
 import gspread
 from google.oauth2.service_account import Credentials
 from geographiclib.geodesic import Geodesic
-from colorama import init
 from rich import print as rprint
-from rich.console import Console
-
-#  Resets Default Colour Scheme
-init(autoreset=True)
-
-console = Console()
-
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
