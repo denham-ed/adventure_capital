@@ -4,10 +4,15 @@ from uuid import uuid4
 import gspread
 from google.oauth2.service_account import Credentials
 from geographiclib.geodesic import Geodesic
-from colorama import init, Fore, Back
+from colorama import init
+from rich import print as rprint
+from rich.console import Console
 
 #  Resets Default Colour Scheme
 init(autoreset=True)
+
+console = Console()
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -73,16 +78,16 @@ def colour_print(style, text):
     corresponding style, from colorama.
     """
     if style == 'warning':
-        colour = Fore.RED
+        colour = "[bold red]"
     elif style == 'incorrect_answer':
-        colour = Back.RED
+        colour = "[white on red]"
     elif style == 'correct_answer':
-        colour = Back.GREEN
+        colour = "[white on green]"
     elif style == "intro":
-        colour = Back.BLUE
+        colour = "[white on blue]"
     elif style == "prompt":
-        colour = Fore.GREEN
-    print(f"{colour}{text}")
+        colour = "[bold green]"
+    rprint(f"{colour}{text}")
 
 
 logo = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -191,24 +196,25 @@ def get_user_name():
     Validates that the name is a string and has a length of more than 0
     Returns the name
     """
-    colour_print("prompt", "Firstly, what shall I call you?")
+    print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n")
         if type(user_name) == str and len(user_name) > 0:
                 print(f"\nGreat, nice to meet you {user_name}")
                 return user_name
         else:
-            colour_print('warning', "Sorry! I didn't catch that.")
+            print('warning', "Sorry! I didn't catch that.")
             continue
 
 
 def ask_for_hints(user_name):
     """
-    Asks user whether they would like to have a hint displayed before their guess
+    Asks user whether they would like to have a hint displayed 
+    before their 5th and 10th guess
     Loops until user provides valid input
     Returns True or False
     """
-    colour_print("prompt", f"So tell me {user_name}\nWould you like to have a hint if you haven't guessed correctly after 5 guesses?")
+    print("prompt", f"So tell me {user_name}\nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?")
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
         if (user_hint.lower() == 'y'):
@@ -218,7 +224,7 @@ def ask_for_hints(user_name):
             print("\nOh wow - no hints for you. Pretty confident eh?")
             return False
         else:
-            colour_print('warning', "\nI'm sorry I didn't catch that.")
+            print('warning', "\nI'm sorry I didn't catch that.")
             continue
 
 
@@ -239,7 +245,7 @@ def get_user_guess(user_name, guess_count):
     If yes, returns the city as an instnace of the Capital class
     If no, prompts the user to make another guess until there is a match
     """
-    colour_print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
+    print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
         initial_guess = input("Please enter a capital city \n")
         validated_guess = get_city_by_name(initial_guess.lower())
@@ -248,8 +254,8 @@ def get_user_guess(user_name, guess_count):
             user_capital = Capital(city,country,continent,longitude,latitude)
             return user_capital
         else: 
-            colour_print("warning", "\nSorry! I don't think that's a capital city!")
-            colour_print("warning", "I only hide in capitals...")
+            print("warning", "\nSorry! I don't think that's a capital city!")
+            print("warning", "I only hide in capitals...")
             print("\nPlease have another guess")
             continue
 
@@ -322,7 +328,7 @@ def check_play_again():
     Checks whether user wants to play again
     Returns true of false
     """
-    colour_print("prompt","\nWould you like to play again?")
+    print("prompt","\nWould you like to play again?")
     while True:
         play_again = input("Enter 'y' for yes, or 'n' for no.\n")    
         if play_again.lower() == 'y':
@@ -330,7 +336,7 @@ def check_play_again():
         elif play_again.lower() == 'n':
             return False
         else:
-            colour_print("warning","\nI'm sorry I didn't catch that.")
+            print("warning","\nI'm sorry I didn't catch that.")
             continue
 
 
@@ -351,8 +357,8 @@ def play_game(game):
             game.in_progress = False
             post_high_score(game.user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
-            colour_print("correct_answer", "\nWell done! You found me!")
-            colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
+            print("correct_answer", "\nWell done! You found me!")
+            print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
             time.sleep(1)
             print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
             time.sleep(1)
@@ -369,7 +375,7 @@ def play_game(game):
                 print("\nNo problem! See you again soon!\n")
         
         else:
-            colour_print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
+            print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital, opponent_capital)
             # Increment counters
             game.guess_count = game.guess_count + 1
@@ -401,8 +407,8 @@ def main():
     Calls preparatory game functions
     Calls game function
     """
-    colour_print('intro', "Welcome to Adventure Capital! \n")
-    colour_print('intro', logo)
+    colour_print("intro","Welcome to Adventure Capital! \n")
+    print('intro', logo)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
     prepared_game = prepare_game()
