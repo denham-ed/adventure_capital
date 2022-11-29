@@ -341,9 +341,11 @@ def play_game(game):
     If the user is incorrect, they are advised of the direction and distance
     to the correct city.
     """
+    print("Ok, let's start!") 
     opponent_capital = get_random_city()
-    print(opponent_capital.city)
+    print(opponent_capital.city) #COMMENT OUT!
     while game.in_progress:
+
         user_capital = get_user_guess(game.user_name, game.guess_count)                
         if user_capital.city == opponent_capital.city:
             game.in_progress = False
@@ -381,7 +383,13 @@ def play_game(game):
                 show_hints(game.guess_count, opponent_capital)
             continue
 
-
+def prepare_game():
+        user_name = get_user_name().capitalize()
+        hints = ask_for_hints(user_name)
+        return {
+            "user_name":user_name,
+            "hints":hints
+        }
 
 def main():
     """
@@ -393,15 +401,10 @@ def main():
     colour_print('intro', logo)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
-    user_name = get_user_name().capitalize()
-    hints = ask_for_hints(user_name)
-    print("Ok, let's start!") 
-
-    game = Game(True, user_name, 1, 0, hints)
+    prepared_game = prepare_game()
+    game = Game(True, prepared_game["user_name"], 1, 0, prepared_game["hints"])
     play_game(game)
                 
-
-
 main()
 
 
