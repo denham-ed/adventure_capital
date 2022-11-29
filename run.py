@@ -18,6 +18,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('adventure_capital')
 SCORE_SHEET = SHEET.worksheet("scores")
+CAPITALS_SHEET = SHEET.worksheet("capitals")
 
 
 class Capital:
@@ -105,8 +106,8 @@ def get_city_by_name(city):
     If found, returns that city's infromation as a list
     If not found, returns None.
     """
-    capitals_sheet = SHEET.worksheet("capitals")
-    cell = capitals_sheet.find(city, None, 1)
+
+    cell = CAPITALS_SHEET.find(city, None, 1)
     if cell is not None:
         city_stats = capitals_sheet.row_values(cell.row)
         return city_stats
@@ -119,8 +120,7 @@ def get_city_info_by_row(row_num):
     Takes an index or row number and returns city from API from that row
     Returns city information as a list of values
     """
-    capitals_sheet = SHEET.worksheet("capitals")
-    city_info = capitals_sheet.row_values(row_num)
+    city_info = CAPITALS_SHEET.row_values(row_num)
     return city_info
 
 
@@ -173,8 +173,7 @@ def get_random_city():
     from the API
     Returns the city's details as an instance of a Capital class
     """
-    capitals_sheet = SHEET.worksheet("capitals")
-    cities_count = len(capitals_sheet.col_values(1)[1:])
+    cities_count = len(CAPITALS_SHEET.col_values(1)[1:])
     index = random.randint(1, cities_count)
     city = get_city_info_by_row(index)
     city, country, continent, longitude, latitude = city
