@@ -108,7 +108,7 @@ def get_city_by_name(city):
 
     cell = CAPITALS_SHEET.find(city, None, 1)
     if cell is not None:
-        city_stats = capitals_sheet.row_values(cell.row)
+        city_stats = CAPITALS_SHEET.row_values(cell.row)
         return city_stats
     else:
         return None
@@ -193,7 +193,7 @@ def get_user_name():
             print(f"\nGreat, nice to meet you {user_name}")
             return user_name
         else:
-            print("warning", "Sorry! I didn't catch that.")
+            colour_print("warning", "Sorry! I didn't catch that.")
             continue
 
 
@@ -207,8 +207,7 @@ def ask_for_hints(user_name):
     colour_print(
         "prompt",
         f"""So tell me {user_name}
-        \nWould you like to have hints,
-        if you haven't guessed correctly after 5 and 10 guesses?""",
+        \nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?""",
     )
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
@@ -242,8 +241,7 @@ def get_user_guess(user_name, guess_count):
     """
     colour_print(
         "prompt",
-        f"""\nOk {user_name}.
-        Time to make your {get_ordinal(guess_count)} guess!""",
+        f"\nOk {user_name}.Time to make your {get_ordinal(guess_count)} guess!",
     )
     while True:
         initial_guess = input("Please enter a capital city \n")
@@ -270,8 +268,7 @@ def show_hints(guess_count, opponent_capital):
         print("\nNot to worry - this is a hard one! Your first hint...\n")
         time.sleep(1)
         print(
-            f"""I'm hiding somewhere in the
-        continent of {opponent_capital.continent}!"""
+            f"I'm hiding somewhere in the continent of {opponent_capital.continent}!"
         )
     elif guess_count == 10:
         time.sleep(1)
@@ -316,8 +313,7 @@ def show_high_scores(all_scores):
         if index > 9:
             break
         print(
-            f"""{index +1}: {score['user_name']} - {score['score']} guesses
-        - {score['distance']} total kilometres"""
+            f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres"
         )
 
 
@@ -362,7 +358,7 @@ def play_game(game):
     opponent_capital = get_random_city()
     while game.in_progress:
 
-        user_capital = get_user_guess(game.user_name, game.guess_count, game)
+        user_capital = get_user_guess(game.user_name, game.guess_count)
         if user_capital.city == opponent_capital.city:
             game.in_progress = False
             post_high_score(
