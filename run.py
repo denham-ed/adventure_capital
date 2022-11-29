@@ -180,7 +180,7 @@ def get_random_city():
     cities_count = len(capitals_sheet.col_values(1)[1:])
     index = random.randint(1, cities_count)
     city = get_city_info_by_row(index)
-    city, country, continent, easy, longitude, latitude = city
+    city, country, continent, longitude, latitude = city
     random_city = Capital(city, country, continent, longitude, latitude)
     return random_city
 
@@ -244,7 +244,7 @@ def get_user_guess(user_name, guess_count):
         initial_guess = input("Please enter a capital city \n")
         validated_guess = get_city_by_name(initial_guess.lower())
         if validated_guess is not None:
-            city, country, continent, easy,longitude, latitude = validated_guess
+            city, country, continent,longitude, latitude = validated_guess
             user_capital = Capital(city,country,continent,longitude,latitude)
             return user_capital
         else: 
