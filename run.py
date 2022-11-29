@@ -196,7 +196,7 @@ def get_user_name():
     Validates that the name is a string and has a length of more than 0
     Returns the name
     """
-    print("prompt", "Firstly, what shall I call you?")
+    colour_print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n")
         if type(user_name) == str and len(user_name) > 0:
@@ -214,7 +214,7 @@ def ask_for_hints(user_name):
     Loops until user provides valid input
     Returns True or False
     """
-    print("prompt", f"So tell me {user_name}\nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?")
+    colour_print("prompt", f"So tell me {user_name}\nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?")
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
         if (user_hint.lower() == 'y'):
@@ -245,7 +245,7 @@ def get_user_guess(user_name, guess_count):
     If yes, returns the city as an instnace of the Capital class
     If no, prompts the user to make another guess until there is a match
     """
-    print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
+    colour_print("prompt", f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!")
     while True:
         initial_guess = input("Please enter a capital city \n")
         validated_guess = get_city_by_name(initial_guess.lower())
@@ -254,8 +254,8 @@ def get_user_guess(user_name, guess_count):
             user_capital = Capital(city,country,continent,longitude,latitude)
             return user_capital
         else: 
-            print("warning", "\nSorry! I don't think that's a capital city!")
-            print("warning", "I only hide in capitals...")
+            colour_print("warning", "\nSorry! I don't think that's a capital city!")
+            colour_print("warning", "I only hide in capitals...")
             print("\nPlease have another guess")
             continue
 
@@ -295,6 +295,7 @@ def get_all_scores():
     """
     Add docstring here
     """
+    #FINISH THIS!
     score_sheet = SHEET.worksheet("scores")
     scores = score_sheet.get_all_records()
     sorted_scores = sorted(scores, key=lambda d: (d['score'],d['distance']))
@@ -328,7 +329,7 @@ def check_play_again():
     Checks whether user wants to play again
     Returns true of false
     """
-    print("prompt","\nWould you like to play again?")
+    colour_print("prompt","\nWould you like to play again?")
     while True:
         play_again = input("Enter 'y' for yes, or 'n' for no.\n")    
         if play_again.lower() == 'y':
@@ -357,8 +358,8 @@ def play_game(game):
             game.in_progress = False
             post_high_score(game.user_name, game.guess_count, game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
-            print("correct_answer", "\nWell done! You found me!")
-            print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
+            colour_print("correct_answer", "\nWell done! You found me!")
+            colour_print("correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n")
             time.sleep(1)
             print(f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!")
             time.sleep(1)
@@ -372,10 +373,10 @@ def play_game(game):
                 new_game = Game(True, game.user_name, 1, 0, game.hint_on)
                 play_game(new_game)
             else:
-                print("\nNo problem! See you again soon!\n")
+                colour_print("intro", "\nNo problem! See you again soon!\n")
         
         else:
-            print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
+            colour_print("incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!")
             inverse = game.find_distance_between_capitals(user_capital, opponent_capital)
             # Increment counters
             game.guess_count = game.guess_count + 1
@@ -408,7 +409,7 @@ def main():
     Calls game function
     """
     colour_print("intro","Welcome to Adventure Capital! \n")
-    print('intro', logo)
+    colour_print('intro', logo)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
     prepared_game = prepare_game()
