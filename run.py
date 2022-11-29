@@ -1,4 +1,5 @@
 import random
+import os
 import time
 from uuid import uuid4
 import gspread
@@ -62,7 +63,6 @@ class Game:
 
         return inverse
 
-
 def colour_print(style, text):
     """
     Takes a style and text value (both strings)
@@ -105,7 +105,6 @@ def get_city_by_name(city):
     If not found, returns None.
     """
     capitals_sheet = SHEET.worksheet("capitals")
-    # city = input("Please guess a capital city: \n")
     cell = capitals_sheet.find(city, None, 1)
     if cell is not None:
         city_stats = capitals_sheet.row_values(cell.row)
