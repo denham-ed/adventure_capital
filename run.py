@@ -217,9 +217,8 @@ def ask_for_hints(user_name):
             print('warning', "\nI'm sorry I didn't catch that.")
             continue
 
-
+#Credot: https://tinyurl.com/4z6syf8z
 def get_ordinal(n):
-    # Adapted from : https://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
     """
     Takes a number (n) and returns a string with the number as an ordinal.
     eg. 1 => 1st, 2 => 2nd
@@ -341,7 +340,6 @@ def play_game(game):
     """
     print("Ok, let's start!") 
     opponent_capital = get_random_city()
-    print(opponent_capital.city) #COMMENT OUT!
     while game.in_progress:
 
         user_capital = get_user_guess(game.user_name, game.guess_count,game)                
