@@ -76,7 +76,17 @@ There are two classes used in this game: **Capital** and **Game**. The initial d
 
 ### Fixed Bugs
 
-### SECURITY ISSUE WITH API
+**Credentials**
+
+Regrettably the service account credentials for the Google Drive API were pushed to GitHub in an early commit. This error was discovered by the developer and confirmed by Google, via email. 
+
+The following steps were taken to ensure that the account was not compromised:
+1. A review of activity via the Google Cloud Console
+2. All credentials for the compromised service account was revoked. The account deleted.
+3. The Google Sheet containig the data was duplicated and renamed, and the original was deleted.
+4. A new service account and new credentials were generated for the new sheet.
+
+After following these steps and taking advice from the Code Institute community, I am confident that this account remains secure.
 
 ### Unfixed Bugs
 
