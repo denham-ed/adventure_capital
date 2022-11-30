@@ -421,6 +421,31 @@ def prepare_game():
     return {"user_name": user_name, "hints": hints}
 
 
+def show_instructions():
+    colour_print('prompt', "If it's your first time you may want to see some instructions.")
+    while True:
+        show_instructions = input("Write 'y' for instructions, and 'n' for to skip \n")
+        if show_instructions.lower() == "y":
+            print(
+"""\nI'll be asking you to guess where I am hiding. 
+A few tips:
+    1. I only hide in capital cities
+    2. If you are wrong, I will tell you how far away you are so you can guess again
+    3. Please type city names without any diacritics 
+        eg. For São Paulo, please type Sao Paulo
+    4. You may want to use Google Maps to assist you in your first few games.
+    5. Remember - the world is a globe! 
+That means you can go over the top or bottom or over the international date line!
+""")
+            return True
+        if show_instructions.lower() == "n":
+            print("Ah! You already know the game...")
+            return False
+        else:
+            colour_print("warning", "\nI'm sorry I didn't catch that.")
+            continue
+        return False
+
 def main():
     """
     Displays intro text and offers instructions
@@ -431,6 +456,7 @@ def main():
     colour_print("intro", LOGO)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
+    show_instructions()
     prepared_game = prepare_game()
     game = Game(True, prepared_game["user_name"], 1, 0, prepared_game["hints"])
     play_game(game)
