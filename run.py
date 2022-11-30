@@ -18,6 +18,19 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("adventure_capital")
 SCORE_SHEET = SHEET.worksheet("scores")
 CAPITALS_SHEET = SHEET.worksheet("capitals")
+LOGO = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . .#######. . . . . . . . . . . . . . . . . .
+. . . . . . . .#. .#### . . . ####. . .###############. . .
+. . . ########. ##. ##. . . ######################### . . .
+. . . . ##########. . . . ######################. . . . . .
+. . . . .######## . . . .   ################### . . . . . .
+. . . . . ### .   . . . .#####. ##############. # . . . . .
+. . . . . . ##### . . . .#######. ##########. . . . . . . .
+. . . . . . .###### . . . .#### . . . . .## . . . . . . . .
+. . . . . . . ##### . . . .#### # . . . . . ##### . . . . .
+. . . . . . . ### . . . . . ##. . . . . . . . ### .#. . . .
+. . . . . . . ##. . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."""
 
 
 class Capital:
@@ -83,19 +96,7 @@ def colour_print(style, text):
     rprint(f"{colour}{text}")
 
 
-logo = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-. . . . . . . . .#######. . . . . . . . . . . . . . . . . .
-. . . . . . . .#. .#### . . . ####. . .###############. . .
-. . . ########. ##. ##. . . ######################### . . .
-. . . . ##########. . . . ######################. . . . . .
-. . . . .######## . . . .   ################### . . . . . .
-. . . . . ### .   . . . .#####. ##############. # . . . . .
-. . . . . . ##### . . . .#######. ##########. . . . . . . .
-. . . . . . .###### . . . .#### . . . . .## . . . . . . . .
-. . . . . . . ##### . . . .#### # . . . . . ##### . . . . .
-. . . . . . . ### . . . . . ##. . . . . . . . ### .#. . . .
-. . . . . . . ##. . . . . . . . . . . . . . . . . . . . . .
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."""
+
 
 
 def get_city_by_name(city):
@@ -220,6 +221,7 @@ def ask_for_hints(user_name):
         else:
             print("warning", "\nI'm sorry I didn't catch that.")
             continue
+        return False
 
 
 # Credit: https://tinyurl.com/4z6syf8z
@@ -345,6 +347,7 @@ def check_play_again():
         else:
             print("warning", "\nI'm sorry I didn't catch that.")
             continue
+        return False
 
 
 def play_game(game):
@@ -425,7 +428,7 @@ def main():
     Calls game function
     """
     colour_print("intro", "Welcome to Adventure Capital! \n")
-    colour_print("intro", logo)
+    colour_print("intro", LOGO)
     print("I'm hiding in a capital city, somewhere in the world")
     print("You have to guess where! \n")
     prepared_game = prepare_game()
