@@ -32,6 +32,18 @@ LOGO = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 . . . . . . . ##. . . . . . . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."""
 
+INSTRUCTIONS = """\nI'll be asking you to guess where I am hiding. 
+A few tips:
+    1. I only hide in capital cities
+    2. If you are wrong, I will tell you how far away you are 
+        so you can guess again
+    3. Please type city names without any diacritics 
+        eg. For São Paulo, please type Sao Paulo
+    4. You may want to use Google Maps to assist you in your first few games.
+    5. Remember - the world is a globe! 
+        That means you can go over the top or bottom or over
+        the international date line!
+"""
 
 class Capital:
     """
@@ -426,19 +438,7 @@ def show_instructions():
     while True:
         show_instructions = input("Write 'y' for instructions, and 'n' for to skip \n")
         if show_instructions.lower() == "y":
-            print(
-"""\nI'll be asking you to guess where I am hiding. 
-A few tips:
-    1. I only hide in capital cities
-    2. If you are wrong, I will tell you how far away you are 
-        so you can guess again
-    3. Please type city names without any diacritics 
-        eg. For São Paulo, please type Sao Paulo
-    4. You may want to use Google Maps to assist you in your first few games.
-    5. Remember - the world is a globe! 
-        That means you can go over the top or bottom or over
-        the international date line!
-""")
+            print(INSTRUCTIONS)
             return True
         if show_instructions.lower() == "n":
             print("Ah! You already know the game...")
