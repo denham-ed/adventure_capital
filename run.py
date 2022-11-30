@@ -431,7 +431,7 @@ def show_instructions():
 A few tips:
     1. I only hide in capital cities
     2. If you are wrong, I will tell you how far away you are 
-    so you can guess again
+        so you can guess again
     3. Please type city names without any diacritics 
         eg. For São Paulo, please type Sao Paulo
     4. You may want to use Google Maps to assist you in your first few games.
