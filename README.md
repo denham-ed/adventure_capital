@@ -36,6 +36,8 @@ The game is a dialogue between the player(the user) and the hider (the computer)
 The logical flow of the game is essentially two loops as shown in the diagram below.
 ![Flow Chart of Where Am I Game Play](assets/where_am_i_flow.png)
 
+**This is wrong now - adjust loop!!**
+
 The first outer loop encourages the user remain engaged and play consecutive games. It is worth nothign that the user is prompted to provide their name hint preference again - this is to encourage multiple players sharing one terminal to play, without the need to restart the game manually.
 
 The inner loop represents the guess and response dialogue within the game itself - the user(player) continues to guess until locate the opponent's (hider's) city.
@@ -55,14 +57,22 @@ There are two classes used in this game: **Capital** and **Game**. The initial d
 ### Input Validation
 
 ### Hints
+To assist with guessing more remote and lesser known capitals, the player can opt to have hints (providing the continent and country of the city) after 5 and 10 unsuccessful guesses
 
 ### Logo
+The ASCII image of the world map acts as a eye-catching introduction to new players and immediately indicates the subject of the game.
 
 ### Colour Print
+[Rich](https://rich.readthedocs.io/en/stable/introduction.html#:~:text=Rich%20is%20a%20Python%20library,in%20a%20more%20readable%20way.) is used throughout this project to add colour to key text
 
 ### Geodesic Functions
+The geodesic functions (determining the distance and bearing) in this programme are handled by the library [GeographicLib](https://geographiclib.sourceforge.io/html/python/code.html#module-geographiclib.geodesic)
+The underlying mathematical principles are fascinating, however, and well worth a further explore. A good starting place is [here.](https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/)
 
 ### High Score
+At the end of a successul game, the player will be shown the top 10 scores of all players. Scores are ranked by number of guesses (the lower the better) and then by the cumulative kilometers of error in the incorrect guesses.
+
+The player will also be given a percentile ranking (eg. *You are better than 60% of all players*). This will add a competitive element for players who do not make the top 10.
 
 ## Upcoming Features
 
@@ -75,6 +85,8 @@ There are two classes used in this game: **Capital** and **Game**. The initial d
 ### User Testing (Table etc)
 
 ### Fixed Bugs
+
+**
 
 **Credentials**
 

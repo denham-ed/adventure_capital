@@ -38,7 +38,7 @@ A few tips:
     2. If you are wrong, I will tell you how far away you are 
         so you can guess again
     3. Please type city names without any diacritics 
-        eg. For São Paulo, please type Sao Paulo
+        eg. For Chișinău, please type Chisinau
     4. You may want to use Google Maps to assist you in your first few games.
     5. Remember - the world is a globe! 
         That means you can go over the top or bottom or over
