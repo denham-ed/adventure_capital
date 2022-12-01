@@ -440,6 +440,11 @@ def prepare_game():
 
 
 def show_instructions():
+    """
+    Prompts user to show instructions
+    If yes, prints instructions (defined as constant) to screen
+    Returns nothing
+    """
     colour_print('prompt', "If it's your first time you may want to see some instructions.")
     while True:
         show_instructions = input("Write 'y' for instructions, and 'n' for to skip \n")
@@ -452,7 +457,6 @@ def show_instructions():
         else:
             colour_print("warning", "\nI'm sorry I didn't catch that.")
             continue
-        return False
 
 def main():
     """
