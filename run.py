@@ -202,7 +202,7 @@ def get_user_name():
     colour_print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n")
-        if type(user_name) == str and len(user_name) > 0:
+        if type(user_name) == str and len(user_name.strip()) > 0:
             print(f"\nGreat, nice to meet you {user_name}")
             return user_name
         else:
