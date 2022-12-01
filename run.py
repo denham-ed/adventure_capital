@@ -246,7 +246,7 @@ def get_ordinal(n):
     return ordinal
 
 
-def get_user_guess(user_name, guess_count):
+def get_user_guess(user_name, guess_count,opponent_capital):
     """
     Prompt's user to make a guess
     Checks that the city appears in the database
@@ -260,7 +260,7 @@ def get_user_guess(user_name, guess_count):
     while True:
         initial_guess = input("Please enter a capital city \n")
         if initial_guess.lower() == "i give up":
-            exit_game()
+            exit_game(opponent_capital)
         validated_guess = get_city_by_name(initial_guess.lower())
         if validated_guess is not None:
             city, country, continent, longitude, latitude = validated_guess
@@ -374,7 +374,7 @@ def play_game(game):
     opponent_capital = get_random_city()
     while game.in_progress:
 
-        user_capital = get_user_guess(game.user_name, game.guess_count)
+        user_capital = get_user_guess(game.user_name, game.guess_count, opponent_capital)
         if user_capital.city == opponent_capital.city:
             game.in_progress = False
             post_high_score(
@@ -423,10 +423,20 @@ def play_game(game):
                 show_hints(game.guess_count, opponent_capital)
             continue
 
-def exit_game():
-    colour_print('incorrect_answer', "Bad luck! I was hiding in CAPITAL CITY")
+def exit_game(opponent_capital):
+    """
+    Reveals answer to user, then exits programme.
+    """
+    print("You're giving up!")
     time.sleep(1)
-    colour_print('intro', "Hopefully see you again soon!")
+    print("...")
+    time.sleep(1)
+    print("...")
+    colour_print(
+        "incorrect_answer",
+        f"\nFine - I'll tell you! I was hiding in {opponent_capital.city.capitalize()}")
+    time.sleep(1)
+    colour_print("intro", "\nHopefully see you again soon!")
     exit()
 
 def prepare_game():
