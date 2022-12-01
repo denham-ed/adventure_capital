@@ -462,4 +462,5 @@ def main():
     play_game(game)
 
 
-main()
+if __name__ == '__main__':
+    main()
