@@ -233,7 +233,6 @@ def ask_for_hints(user_name):
         else:
             print("warning", "\nI'm sorry I didn't catch that.")
             continue
-        return False
 
 
 # Credit: https://tinyurl.com/4z6syf8z
@@ -359,7 +358,6 @@ def check_play_again():
         else:
             print("warning", "\nI'm sorry I didn't catch that.")
             continue
-        return False
 
 
 def play_game(game):
