@@ -43,6 +43,7 @@ A few tips:
     5. Remember - the world is a globe! 
         That means you can go over the top or bottom or over
         the international date line!
+    6. You can quit the game by typing "I give up" when asked for a guess
 """
 
 class Capital:
@@ -258,6 +259,8 @@ def get_user_guess(user_name, guess_count):
     )
     while True:
         initial_guess = input("Please enter a capital city \n")
+        if initial_guess.lower() == "i give up":
+            exit_game()
         validated_guess = get_city_by_name(initial_guess.lower())
         if validated_guess is not None:
             city, country, continent, longitude, latitude = validated_guess
@@ -420,6 +423,11 @@ def play_game(game):
                 show_hints(game.guess_count, opponent_capital)
             continue
 
+def exit_game():
+    colour_print('incorrect_answer', "Bad luck! I was hiding in CAPITAL CITY")
+    time.sleep(1)
+    colour_print('intro', "Hopefully see you again soon!")
+    exit()
 
 def prepare_game():
     """
