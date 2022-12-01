@@ -89,6 +89,13 @@ class Game:
 
         return inverse
 
+class GoogleSheetsError(Exception):
+    """
+    Raised if the API with Google Sheets is unresponsive
+    """
+    pass
+
+
 
 def colour_print(style, text):
     """
@@ -126,6 +133,9 @@ def get_city_by_name(city):
         return city_stats
     else:
         return None
+
+
+
 
 
 def get_city_info_by_row(row_num):
