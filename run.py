@@ -279,14 +279,14 @@ def show_hints(guess_count, opponent_capital):
     If yes, prints a hint about the location of the opponent
     If no, passes
     """
-    if guess_count == 5:
+    if guess_count == 6:
         time.sleep(1)
         print("\nNot to worry - this is a hard one! Your first hint...\n")
         time.sleep(1)
         print(
             f"I'm hiding somewhere in the continent of {opponent_capital.continent}!"
         )
-    elif guess_count == 10:
+    elif guess_count == 11:
         time.sleep(1)
         print("\nOK, you're struggling - your second hint, coming up...\n")
         time.sleep(1)
@@ -423,6 +423,7 @@ def play_game(game):
                 show_hints(game.guess_count, opponent_capital)
             continue
 
+
 def exit_game(opponent_capital):
     """
     Reveals answer to user, then exits programme.
@@ -434,7 +435,7 @@ def exit_game(opponent_capital):
     print("...")
     colour_print(
         "incorrect_answer",
-        f"\nFine - I'll tell you! I was hiding in {opponent_capital.city.capitalize()}")
+        f"\nFine - I'll tell you! I was hiding in {opponent_capital.city.title()}")
     time.sleep(1)
     colour_print("intro", "\nHopefully see you again soon!")
     exit()
