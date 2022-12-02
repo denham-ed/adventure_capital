@@ -55,15 +55,23 @@ There are two classes used in this game: **Capital** and **Game**. The initial d
 ## Features
 
 ### Input Validation
+**Yes/No Answers**
+
+When the user is prompted for a yes/no answer (show as 'y'/'n') the will be unable to preoceed until they have given the required answer. It is not case sensitive.
+
+**Names**
+
+Usernames cannot be empty strings or strings comprised of just spaces, but allow letters and numbers. This reflects not only the prevalnce of non-alphabetical characters in usernames but also several examples where legal names include digits. There is no currently no length limit.
 
 ### Hints
 To assist with guessing more remote and lesser known capitals, the player can opt to have hints (providing the continent and country of the city) after 5 and 10 unsuccessful guesses
 
 ### Logo
-The ASCII image of the world map acts as a eye-catching introduction to new players and immediately indicates the subject of the game.
+The ASCII image of the world map acts as a eye-catching introduction to new players and immediately indicates the subject of the game. The original was sourced from [ASCII ART](https://ascii.co.uk/art/world) and credit belongs to *Brice Wellington from Winston Smith*.
 
 ### Colour Print
-[Rich](https://rich.readthedocs.io/en/stable/introduction.html#:~:text=Rich%20is%20a%20Python%20library,in%20a%20more%20readable%20way.) is used throughout this project to add colour to key text
+[Rich](https://rich.readthedocs.io/en/stable/introduction.html#:~:text=Rich%20is%20a%20Python%20library,in%20a%20more%20readable%20way.) is used throughout this project to add colour to key text. 
+This programem uses a custom function that defines a style by keyword (eg. intro, warning etc) and prints the text to the user. This helps keep the text styling consistent by assigning a clear meaning to each type.
 
 ### Geodesic Functions
 The geodesic functions (determining the distance and bearing) in this programme are handled by the library [GeographicLib](https://geographiclib.sourceforge.io/html/python/code.html#module-geographiclib.geodesic)
@@ -74,19 +82,41 @@ At the end of a successul game, the player will be shown the top 10 scores of al
 
 The player will also be given a percentile ranking (eg. *You are better than 60% of all players*). This will add a competitive element for players who do not make the top 10.
 
+### I Give Up Function
+The player can exit the game during any guessing phase by typing "I give up". The answer will be revealed and the programme will exit.
+
+### Instructions
+The player will be offered the chance to see instructions for the game. These explain the rules of the game and also offer further directions about exiting the game, handling capitals with diacritics and a reminder that the world is a globe.
+
 ## Upcoming Features
 
 ### Difficulty Settings
+After feedback from testing, future versions will offer the user an opportunity to vary the difficulty of the game by choosing whether they the mystery location will be a well-known capital or somewhere more obscure. 
+
+However, there is one problem to overcome before implementation. "Well-known" is a relative term and, as the developer is from Europe, likely to mean that the easy mode is more euro-centric. This may, in fact, be more difficult for players from other continents. As one of the objectives of the game is to help users better their knowledge of capital cities, it might be considered self-defeating to omit the lesser-known (again a relative term!) capitals of the world.
+
+### Guess by Continent
+Have made a separate preparatory function so that future factors can fe added n!
+
+### Better Hints
 
 ## Testing
 
-### Validation
+### Validators
 
 ### User Testing (Table etc)
 
 ### Fixed Bugs
+**Invalid Guesses**
+Searched by a single column, rather than whole sheet. **FINISH**
 
-**
+**API Failures**
+Very rare but problematic.
+Hard to recreate so set up an inifite loop to trigger an error.
+Now handled and exits the game. **FINISH**
+
+**Blank Usernames**
+Used strip to fix **FINISH**
 
 **Credentials**
 
@@ -101,6 +131,7 @@ The following steps were taken to ensure that the account was not compromised:
 After following these steps and taking advice from the Code Institute community, I am confident that this account remains secure.
 
 ### Unfixed Bugs
+There are currently no known unfixed bugs.
 
 ## Deployment
 
