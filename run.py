@@ -239,7 +239,7 @@ def ask_for_hints(user_name):
     colour_print(
         "prompt",
         f"""So tell me {user_name}
-        \nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?""",
+\nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?""",
     )
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
@@ -274,7 +274,7 @@ def get_user_guess(user_name, guess_count,opponent_capital):
     try:
         colour_print(
             "prompt",
-            f"\nOk {user_name}.Time to make your {get_ordinal(guess_count)} guess!",
+            f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!",
         )
         while True:
             initial_guess = input("Please enter a capital city \n")
@@ -310,15 +310,16 @@ def show_hints(guess_count, opponent_capital):
         print(
             f"I'm hiding somewhere in the continent of {opponent_capital.continent}!"
         )
+        time.sleep(1.5)
     elif guess_count == 11:
         time.sleep(1)
         print("\nOK, you're struggling - your second hint, coming up...\n")
         time.sleep(1)
         print(
             f"""I'm hiding somewhere in the
-        capital city of {opponent_capital.country}!"""
+capital city of {opponent_capital.country}!"""
         )
-        print("Have another try...")
+        time.sleep(1.5)
     else:
         pass
 
@@ -501,7 +502,7 @@ def main():
     """
     colour_print("intro", "Welcome to Adventure Capital! \n")
     colour_print("intro", LOGO)
-    print("I'm hiding in a capital city, somewhere in the world")
+    print("I'm hiding in a capital city, somewhere in the world.")
     print("You have to guess where! \n")
     show_instructions()
     prepared_game = prepare_game()
