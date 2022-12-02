@@ -89,6 +89,13 @@ class Game:
 
         return inverse
 
+class GoogleSheetsError(Exception):
+    """
+    Raised if the API with Google Sheets is unresponsive
+    """
+    pass
+
+
 
 def colour_print(style, text):
     """
@@ -126,6 +133,9 @@ def get_city_by_name(city):
         return city_stats
     else:
         return None
+
+
+
 
 
 def get_city_info_by_row(row_num):
@@ -186,12 +196,20 @@ def get_random_city():
     from the API
     Returns the city's details as an instance of a Capital class
     """
-    cities_count = len(CAPITALS_SHEET.col_values(1)[1:])
-    index = random.randint(1, cities_count)
-    city = get_city_info_by_row(index)
-    city, country, continent, longitude, latitude = city
-    random_city = Capital(city, country, continent, longitude, latitude)
-    return random_city
+    try:
+        cities_count = len(CAPITALS_SHEET.col_values(1)[1:])
+        index = random.randint(1, cities_count)
+        city = get_city_info_by_row(index)
+        city, country, continent, longitude, latitude = city
+        random_city = Capital(city, country, continent, longitude, latitude)
+        return random_city
+    except gspread.exceptions.APIError:
+        colour_print("warning", "Sorry! Something has gone wrong with my atlas.")
+        colour_print("warning", "Let's say you won this one.")
+        colour_print("intro", "\nLet's play again soon.")
+        exit()
+
+
 
 
 def get_user_name():
@@ -253,24 +271,30 @@ def get_user_guess(user_name, guess_count,opponent_capital):
     If yes, returns the city as an instance of the Capital class
     If no, prompts the user to make another guess until there is a match
     """
-    colour_print(
-        "prompt",
-        f"\nOk {user_name}.Time to make your {get_ordinal(guess_count)} guess!",
-    )
-    while True:
-        initial_guess = input("Please enter a capital city \n")
-        if initial_guess.lower() == "i give up":
-            exit_game(opponent_capital)
-        validated_guess = get_city_by_name(initial_guess.lower())
-        if validated_guess is not None:
-            city, country, continent, longitude, latitude = validated_guess
-            user_capital = Capital(city, country, continent, longitude, latitude)
-            return user_capital
-        else:
-            colour_print("warning", "\nSorry! I don't think that's a capital city!")
-            colour_print("warning", "I only hide in capitals...")
-            print("\nPlease have another guess")
-            continue
+    try:
+        colour_print(
+            "prompt",
+            f"\nOk {user_name}.Time to make your {get_ordinal(guess_count)} guess!",
+        )
+        while True:
+            initial_guess = input("Please enter a capital city \n")
+            if initial_guess.lower() == "i give up":
+                exit_game(opponent_capital)
+            validated_guess = get_city_by_name(initial_guess.lower())
+            if validated_guess is not None:
+                city, country, continent, longitude, latitude = validated_guess
+                user_capital = Capital(city, country, continent, longitude, latitude)
+                return user_capital
+            else:
+                colour_print("warning", "\nSorry! I don't think that's a capital city!")
+                colour_print("warning", "I only hide in capitals...")
+                print("\nPlease have another guess")
+                continue
+    except gspread.exceptions.APIError:
+        colour_print("warning", "Sorry! Something has gone wrong with my atlas.")
+        colour_print("warning", "Let's say you won this one.")
+        colour_print("intro", "\nLet's play again soon.")
+        exit()
 
 
 def show_hints(guess_count, opponent_capital):
