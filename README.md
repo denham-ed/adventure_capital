@@ -151,6 +151,14 @@ There are currently no known unfixed bugs in this program.
 
 ## Credits
 
+### Data Set
+The list of capitals and their coordinates was sourced from [Kaggle](https://www.kaggle.com/datasets/nikitagrec/world-capitals-gps?resource=download).
+
+Some editing was necessary to account for missing coordinates (eg. Hong Kong), areas with no capital (eg. Antarctica) and to remove diacritics (eg.Chișinău)
+
+### Art Work
+FINISH!!!!!!! LOGO!!!! 
+
 ### Libraries & Modules
 **The following libraries are used in this program:**
 
@@ -166,13 +174,22 @@ There are currently no known unfixed bugs in this program.
 
 [random](https://docs.python.org/3/library/random.html) provides psuedo-random values. randint is used in this program to provide a random integer which acts as a row index from the list of capital cities. This allows the program to select a city for the player to guess.
 
-
-
 [time](https://docs.python.org/3/library/time.html) is a module providing various time-related functions. Sleep is used in this program to delay the appearance of messages to the user; this is used purely for dramatic effect in order to build tension.
 
 [uuid](https://docs.python.org/3/library/uuid.html) is used to provide an unique ID for each game. This allows the a game to be indentified in the list of all games, which is important for providing a percentile to the user after a successful game.
 
 
 ### Code
+The following sources were used in the development of this programme:
+
+[Keep Asking User for Input Until Valid](https://bobbyhadz.com/blog/python-keep-asking-for-user-input-until-valid#:~:text=To%20keep%20asking%20for%20user,break%20out%20of%20the%20loop.)
+
+An adapted version of this looping pattern is used throughout the programme (asking for hints, asking for username, asking for a guess).
+
+[How to Sort Objects by Multiple Keys](https://stackoverflow.com/questions/1143671/how-to-sort-objects-by-multiple-keys)
+
+Scott Stafford's answer provides the basis for the function used to sort high scores (by number of guesses and by distance).
+
+Any code that is replicated directly from any source is also credited above the code itself in run.py.
 
 ### Acknowledgements
