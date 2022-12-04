@@ -122,8 +122,8 @@ def colour_print(style, text):
 def get_city_by_name(city):
     """
     Asks for user to guess a capital city.
-    Checks the API for a match
-    If found, returns that city's infromation as a list
+    Checks the database for a match
+    If found, returns that city's information as a list
     If not found, returns None.
     """
 

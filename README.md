@@ -82,7 +82,7 @@ At the end of a successul game, the player will be shown the top 10 scores of al
 
 The player will also be given a percentile ranking (eg. *You are better than 60% of all players*). This will add a competitive element for players who do not make the top 10.
 
-### I Give Up Function
+### 'I Give Up' Function
 The player can exit the game during any guessing phase by typing "I give up". The answer will be revealed and the programme will exit.
 
 ### Instructions
@@ -100,9 +100,6 @@ Players will be able to select a continen at the start of the game; the chosen c
 
 The function that prepares the game (prepare_game) has already been separated from the main game play to allow this prepartory stage to get more complex and responsive to the user.
 
-### Better Hints
-
-
 ## Testing
 
 ### Validators
@@ -111,15 +108,23 @@ The function that prepares the game (prepare_game) has already been separated fr
 
 ### Fixed Bugs
 **Invalid Guesses**
-Searched by a single column, rather than whole sheet. **FINISH**
+
+Initially testing revealed that the player was able to guess a capital city by entering the name of the country. This was due to the GSpread search funciton searching the whole worksheet rathern than a single column. This was corrected by specifying a value for the in_column parameter.
 
 **API Failures**
-Very rare but problematic.
-Hard to recreate so set up an inifite loop to trigger an error.
-Now handled and exits the game. **FINISH**
+
+On very rare occasions, an API error occurs when retrieving the details of cities from the database. Previously, this caused the game to exit abruptly with no explanation. 
+
+The problem was very hard to replicate but through manual testing (creating a infinite loop that requested the details of the same city until the requests were blocked by Google Sheets), the developer was able to simulate this error.
+
+A try/except block has been added which will now exit the programme gracefully. A message, written in the style of the game, is displayed to the user.
+
 
 **Blank Usernames**
-Used strip to fix **FINISH**
+
+Intial testing revealed that users could enter a username that consisted only of a blank spaces. This error would then repeat throughout the game and potentially be posted to the leaderboard.
+
+This was corrected using the .strip() method, ensuring that all blank spaces are removed before checking the length of the entered string.
 
 **Credentials**
 
@@ -133,8 +138,14 @@ The following steps were taken to ensure that the account was not compromised:
 
 After following these steps and taking advice from the Code Institute community, I am confident that this account remains secure.
 
+**Countries with Multiple Capital Cities**
+
+FINISH!!!
+
 ### Unfixed Bugs
-There are currently no known unfixed bugs.
+There are currently no known unfixed bugs in this programme.
+
+
 
 ## Deployment
 
