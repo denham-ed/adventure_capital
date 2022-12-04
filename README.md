@@ -190,6 +190,21 @@ An adapted version of this looping pattern is used throughout the programme (ask
 
 Scott Stafford's answer provides the basis for the function used to sort high scores (by number of guesses and by distance).
 
-Any code that is replicated directly from any source is also credited above the code itself in run.py.
+[Convert Integers to Ordinal Numbers](https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement)
+
+Ben Davis' solution is used in full to show the prompt the user for their 1st, 2nd, 3rd etc guess.
+
+[Python Looping with Index Counters](https://datagy.io/python-enumerate/)
+
+This technique is utilised to efficiently provide an index when printing the top 10 high scores to the user after a successful game.
+
+[Search List of Dictionaries](https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search)
+
+This was used to indentify the current game in the list of all games in order to provide a positional ranking as a percentage to the player.
+
+***Any code that is replicated verbatim from any source is also credited above the code itself in run.py.***
 
 ### Acknowledgements
+- The support of my mentor Spencer Barriball for his advice, guidance and directions to resources is gratefully acknowledged.
+
+- The Code Institute example read me was used as a template for this document.

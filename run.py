@@ -254,7 +254,7 @@ def ask_for_hints(user_name):
             continue
 
 
-# Credit: https://tinyurl.com/4z6syf8z
+# Credit: https://tinyurl.com/3hubkrfm
 def get_ordinal(n):
     """
     Takes a number (n) and returns a string with the number as an ordinal.
