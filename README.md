@@ -96,9 +96,12 @@ After feedback from testing, future versions will offer the user an opportunity 
 However, there is one problem to overcome before implementation. "Well-known" is a relative term and, as the developer is from Europe, likely to mean that the easy mode is more euro-centric. This may, in fact, be more difficult for players from other continents. As one of the objectives of the game is to help users better their knowledge of capital cities, it might be considered self-defeating to omit the lesser-known (again a relative term!) capitals of the world.
 
 ### Guess by Continent
-Have made a separate preparatory function so that future factors can fe added n!
+Players will be able to select a continen at the start of the game; the chosen capital will then be limited to this continent, allowing users to focus their learning and game play on particular areas of the world.
+
+The function that prepares the game (prepare_game) has already been separated from the main game play to allow this prepartory stage to get more complex and responsive to the user.
 
 ### Better Hints
+
 
 ## Testing
 
