@@ -74,7 +74,7 @@ The ASCII image of the world map acts as a eye-catching introduction to new play
 This programem uses a custom function that defines a style by keyword (eg. intro, warning etc) and prints the text to the user. This helps keep the text styling consistent by assigning a clear meaning to each type.
 
 ### Geodesic Functions
-The geodesic functions (determining the distance and bearing) in this programme are handled by the library [GeographicLib](https://geographiclib.sourceforge.io/html/python/code.html#module-geographiclib.geodesic)
+The geodesic functions (determining the distance and bearing) in this program are handled by the library [GeographicLib](https://geographiclib.sourceforge.io/html/python/code.html#module-geographiclib.geodesic)
 The underlying mathematical principles are fascinating, however, and well worth a further explore. A good starting place is [here.](https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/)
 
 ### High Score
@@ -83,7 +83,7 @@ At the end of a successul game, the player will be shown the top 10 scores of al
 The player will also be given a percentile ranking (eg. *You are better than 60% of all players*). This will add a competitive element for players who do not make the top 10.
 
 ### 'I Give Up' Function
-The player can exit the game during any guessing phase by typing "I give up". The answer will be revealed and the programme will exit.
+The player can exit the game during any guessing phase by typing "I give up". The answer will be revealed and the program will exit.
 
 ### Instructions
 The player will be offered the chance to see instructions for the game. These explain the rules of the game and also offer further directions about exiting the game, handling capitals with diacritics and a reminder that the world is a globe.
@@ -117,7 +117,7 @@ On very rare occasions, an API error occurs when retrieving the details of citie
 
 The problem was very hard to replicate but through manual testing (creating a infinite loop that requested the details of the same city until the requests were blocked by Google Sheets), the developer was able to simulate this error.
 
-A try/except block has been added which will now exit the programme gracefully. A message, written in the style of the game, is displayed to the user.
+A try/except block has been added which will now exit the program gracefully. A message, written in the style of the game, is displayed to the user.
 
 
 **Blank Usernames**
@@ -143,7 +143,7 @@ After following these steps and taking advice from the Code Institute community,
 FINISH!!!
 
 ### Unfixed Bugs
-There are currently no known unfixed bugs in this programme.
+There are currently no known unfixed bugs in this program.
 
 
 
@@ -151,7 +151,27 @@ There are currently no known unfixed bugs in this programme.
 
 ## Credits
 
-### Libraries
+### Libraries & Modules
+**The following libraries are used in this program:**
+
+[gspread](https://docs.gspread.org/en/v5.7.0/) is a Python API which handles the retrieving and posting of information to the Google Sheets document containing details of the capitals and the high scores.
+
+[google-auth](https://google-auth.readthedocs.io/en/master/) is used to handle the authentication needed to access the Google Sheets document.
+
+[Rich](https://rich.readthedocs.io/en/stable/introduction.html#:~:text=Rich%20is%20a%20Python%20library,in%20a%20more%20readable%20way.) is used to add colour to the key messages in the terminal.
+
+[geographiclib](https://geographiclib.sourceforge.io/html/python/index.html#) is used, as described above, to solve the geodesic problems on an ellipsoid model of the earth. In this programme it is used to find the distance and azimuth between two sets of coordinates.
+
+**From Python, the following modules are used:**
+
+[random](https://docs.python.org/3/library/random.html) provides psuedo-random values. randint is used in this program to provide a random integer which acts as a row index from the list of capital cities. This allows the program to select a city for the player to guess.
+
+
+
+[time](https://docs.python.org/3/library/time.html) is a module providing various time-related functions. Sleep is used in this program to delay the appearance of messages to the user; this is used purely for dramatic effect in order to build tension.
+
+[uuid](https://docs.python.org/3/library/uuid.html) is used to provide an unique ID for each game. This allows the a game to be indentified in the list of all games, which is important for providing a percentile to the user after a successful game.
+
 
 ### Code
 

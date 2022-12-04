@@ -1,5 +1,5 @@
 import random
-import time
+from time import sleep
 from uuid import uuid4
 import gspread
 from google.oauth2.service_account import Credentials
@@ -304,22 +304,22 @@ def show_hints(guess_count, opponent_capital):
     If no, passes
     """
     if guess_count == 6:
-        time.sleep(1)
+        sleep(1)
         print("\nNot to worry - this is a hard one! Your first hint...\n")
-        time.sleep(1)
+        sleep(1)
         print(
             f"I'm hiding somewhere in the continent of {opponent_capital.continent}!"
         )
-        time.sleep(1.5)
+        sleep(1.5)
     elif guess_count == 11:
-        time.sleep(1)
+        sleep(1)
         print("\nOK, you're struggling - your second hint, coming up...\n")
-        time.sleep(1)
+        sleep(1)
         print(
             f"""I'm hiding somewhere in the
 capital city of {opponent_capital.country}!"""
         )
-        time.sleep(1.5)
+        sleep(1.5)
     else:
         pass
 
@@ -410,11 +410,11 @@ def play_game(game):
             colour_print(
                 "correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n"
             )
-            time.sleep(1)
+            sleep(1)
             print(
                 f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!"
             )
-            time.sleep(1)
+            sleep(1)
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
             show_high_scores(all_scores)
@@ -454,14 +454,14 @@ def exit_game(opponent_capital):
     Reveals answer to user, then exits programme.
     """
     print("You're giving up!")
-    time.sleep(1)
+    sleep(1)
     print("...")
-    time.sleep(1)
+    sleep(1)
     print("...")
     colour_print(
         "incorrect_answer",
         f"\nFine - I'll tell you! I was hiding in {opponent_capital.city.title()}")
-    time.sleep(1)
+    sleep(1)
     colour_print("intro", "\nHopefully see you again soon!")
     exit()
 
