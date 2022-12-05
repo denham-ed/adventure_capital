@@ -236,13 +236,19 @@ To create a local copy of this project:
 
 ### Heroku
 The program is hosted on Heroku. The following steps were followed:
-1. 
+1. Compiled list of dependencies by running <code>pip3 freeze > requirements.txt</code>
 2. Created a new app on Heroku, selecting Europe as the region
-2.
+3. In the Settings tab, under Config Vars, set up the following environment variables:
+    - CREDS with value of the contents of creds.json
+    - PORT with the value of 8000
+4. Under Buildpacks, added build packs for deployment. This project uses:
+    - Python
+    - Node.js
 
-
-
-
+    *The order is important here.*
+5. In the Deploy tab, connected Heroku to GitHub by selecting GitHub under Deployment method
+6. Searched for and selected GitHub repository name.
+7. Enabled Automatic deploys - this means that every push to the main branch on GitHub will deploy a new version of this app. Alternatively, you can select a manual deploy.
 
 ## Credits
 
