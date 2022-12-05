@@ -93,14 +93,6 @@ class Game:
         return inverse
 
 
-class GoogleSheetsError(Exception):
-    """
-    Raised if the API with Google Sheets is unresponsive
-    """
-
-    pass
-
-
 def colour_print(style, text):
     """
     Takes a style and text value (both strings)
@@ -258,8 +250,7 @@ def get_ordinal(n):
     Takes a number (n) and returns a string with the number as an ordinal.
     eg. 1 => 1st, 2 => 2nd
     """
-    ordinal = "%d%s"
-    % (n, "tsnrhtdd"[(n // 10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
+    ordinal = "%d%s" % (n, "tsnrhtdd"[(n // 10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
     return ordinal
 
 
