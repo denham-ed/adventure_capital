@@ -82,8 +82,10 @@ At the end of a successul game, the player will be shown the top 10 scores of al
 
 The player will also be given a percentile ranking (eg. *You are better than 60% of all players*). This will add a competitive element for players who do not make the top 10.
 
-### 'I Give Up' Function
+### 'I Give Up' Functions
 The player can exit the game during any guessing phase by typing "I give up". The answer will be revealed and the program will exit.
+
+If the player uses Ctrl + C to exit the game, an exit message is shown before the program exits. If the hider has hidden, the answer will be revealed.
 
 ### Instructions
 The player will be offered the chance to see instructions for the game. These explain the rules of the game and also offer further directions about exiting the game, handling capitals with diacritics and a reminder that the world is a globe.
