@@ -38,9 +38,7 @@ The game is a dialogue between the player(the user) and the hider (the computer)
 The logical flow of the game is essentially two loops as shown in the diagram below.
 ![Flow Chart of Where Am I Game Play](assets/where_am_i_flow.png)
 
-**This is wrong now - adjust loop!!**
-
-The first outer loop encourages the user remain engaged and play consecutive games. It is worth nothign that the user is prompted to provide their name hint preference again - this is to encourage multiple players sharing one terminal to play, without the need to restart the game manually.
+The first outer loop encourages the user remain engaged and play consecutive games. If a player decides to play again, after a successful game, they do not need to reenter their name or express a hint preference.
 
 The inner loop represents the guess and response dialogue within the game itself - the user(player) continues to guess until locate the opponent's (hider's) city.
 ### Class Design
