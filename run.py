@@ -311,8 +311,7 @@ def show_hints(guess_count, opponent_capital):
         print("\nOK, you're struggling - your second hint, coming up...\n")
         sleep(1)
         print(f"I'm hiding somewhere in the\
- capital city of {opponent_capital.country}!"
-        )
+ capital city of {opponent_capital.country}!")
         sleep(1.5)
     else:
         pass
@@ -436,8 +435,7 @@ def play_game(game):
             game.total_distance = game.total_distance + int(inverse["dist"])
             # Show user distance and direction
             print(f"\n{user_capital.city.title()} is {int(inverse['dist'])}\
- kilometres from where I am hiding!"
-            )
+ kilometres from where I am hiding!")
             bearing = get_text_bearing(inverse["azimuth"])
             print(f"You'll need to head {bearing} to find me...")
             # Check for hints
