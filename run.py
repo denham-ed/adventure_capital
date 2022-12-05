@@ -227,9 +227,9 @@ def ask_for_hints(user_name):
     """
     colour_print(
         "prompt",
-        f"""So tell me {user_name}
-\nWould you like to have hints, if you haven't guessed
- correctly after 5 and 10 guesses?""",
+        f"So tell me, {user_name}, \
+        would you like to have hints, if you haven't guessed \
+        correctly after 5 and 10 guesses?",
     )
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
@@ -264,8 +264,8 @@ def get_user_guess(user_name, guess_count, opponent_capital):
     try:
         colour_print(
             "prompt",
-            f"""\nOk {user_name}.
-Time to make your {get_ordinal(guess_count)} guess!""",
+            f"\nOk {user_name}.\
+            Time to make your {get_ordinal(guess_count)} guess!",
         )
         while True:
             initial_guess = input("Please enter a capital city \n")
@@ -349,9 +349,9 @@ def show_high_scores(all_scores):
         if index > 9:
             break
         print(
-            f"""{index +1}: {score['user_name']}
- - {score['score']} guesses
- - {score['distance']} total kilometres""")
+            f"{index +1}: {score['user_name']}\
+            - {score['score']} guesses\
+            - {score['distance']} total kilometres")
 
 
 def get_user_ranking(game_id, all_scores):
@@ -409,10 +409,9 @@ def play_game(game):
                 f"I was hiding in {opponent_capital.city.title()}!\n"
             )
             sleep(1)
-            print(
-                f"""You took a total of {game.guess_count} guess(es)
-and a cumulative distance of {game.total_distance}km!"""
-            )
+            print(f"You took a total of {game.guess_count} \
+                    guess(es) and a cumulative distance of \
+                    {game.total_distance}km!")
             sleep(1)
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
@@ -438,9 +437,8 @@ and a cumulative distance of {game.total_distance}km!"""
             game.guess_count = game.guess_count + 1
             game.total_distance = game.total_distance + int(inverse["dist"])
             # Show user distance and direction
-            print(
-                f"""\n{user_capital.city.title()} is {int(inverse['dist'])}
-kilometres from where I am hiding!"""
+            print(f"\n{user_capital.city.title()} is {int(inverse['dist'])}\
+                    kilometres from where I am hiding!"
             )
             bearing = get_text_bearing(inverse["azimuth"])
             print(f"You'll need to head {bearing} to find me...")
@@ -461,8 +459,8 @@ def exit_game(opponent_capital):
     print("...")
     colour_print(
         "incorrect_answer",
-        f"""\nFine - I'll tell you!
-I was hiding in {opponent_capital.city.title()}""",
+        f"\nFine - I'll tell you! \
+            I was hiding in {opponent_capital.city.title()}",
     )
     sleep(1)
     colour_print("intro", "\nHopefully see you again soon!")
