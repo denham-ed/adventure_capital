@@ -183,7 +183,7 @@ def get_text_bearing(azimuth):
 def get_random_city():
     """
     Generates a random number which is used to select a city at random
-    from the API
+    from the database
     Returns the city's details as an instance of a Capital class
     """
     try:
