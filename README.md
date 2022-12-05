@@ -274,6 +274,10 @@ This technique is utilised to efficiently provide an index when printing the top
 
 This was used to indentify the current game in the list of all games in order to provide a positional ranking as a percentage to the player.
 
+[String Validators](https://www.hackerrank.com/challenges/string-validators/problem)
+
+The explanations of the built in string methods was extremely useful in fixing the validation of the username.
+
 ***Any code that is replicated verbatim from any source is also credited above the code itself in run.py.***
 
 ### Other Resources and Technologies
