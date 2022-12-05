@@ -210,12 +210,13 @@ def get_user_name():
     colour_print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n").strip()
-        if user_name.isalpha() and len(user_name) > 0:
+        if not len(user_name):
+            colour_print("warning", "Sorry! I didn't catch that.")
+        elif not user_name.isalnum():
+            colour_print("warning", "Sorry! Please only use letters or numbers in your username")
+        else:
             print(f"\nGreat, nice to meet you {user_name}")
             return user_name
-        else:
-            colour_print("warning", "Sorry! I didn't catch that.")
-            continue
 
 
 def ask_for_hints(user_name):
