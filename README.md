@@ -63,7 +63,7 @@ When the user is prompted for a yes/no answer (show as 'y'/'n') the will be unab
 
 **Names**
 
-Usernames cannot be empty strings or strings comprised of just spaces, but allow letters and numbers. This reflects not only the prevalnce of non-alphabetical characters in usernames but also several examples where legal names include digits. There is no currently no length limit.
+Usernames cannot be empty strings or strings comprised of just spaces, but do allow letters and numbers. Non alpha-numeric characters such as punctuation or characters created by keys such as Esc are not valid. There is no currently no length limit.
 
 ### Hints
 To assist with guessing more remote and lesser known capitals, the player can opt to have hints (providing the continent and country of the city) after 5 and 10 unsuccessful guesses
