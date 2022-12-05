@@ -374,7 +374,7 @@ def get_user_ranking(game_id, all_scores):
 def check_play_again():
     """
     Checks whether user wants to play again
-    Returns true of false
+    Returns true or false
     """
     colour_print("prompt", "\nWould you like to play again?")
     while True:

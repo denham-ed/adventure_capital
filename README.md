@@ -1,5 +1,8 @@
 # Adventure Capital
 *Adventure Capital* is a geography-based command line game written in Python.
+
+![Image of Landing Page](assets/landing_page.png)
+
 The player is invited to guess which capital city I am hiding; if they are incorrect, I will telll them how far and in which direction they need to go, in order to find me.
 
 This project was build as part the Full Stack Software Development course with Code Institute.
@@ -193,11 +196,11 @@ A try/except block has been added which will now exit the program gracefully. A 
 
  Testing revealed that users could enter a username that consisted only of a blank spaces. This error would then repeat throughout the game and potentially be posted to the leaderboard.
 
-This was corrected using the .strip() method, ensuring that all blank spaces are removed before checking the length of the entered string.
+This was corrected using the <code>.strip()</code> method, ensuring that all blank spaces are removed before checking the length of the entered string.
 
 Keys that render values to the terminal but are not alphanumeric, such as the Esc key, also caused a blank-seeming username to propagate throughout the game.
 
-This was fixed by checking using the .isalnum() method.
+This was fixed by checking using the <code>.isalnum()</code> method.
 
 **Credentials**
 
