@@ -220,6 +220,30 @@ There are currently no known unfixed bugs in this program.
 
 ## Deployment
 
+### Git, GitHub & Gitpod
+Git and GitHub were used throughout this project to assist with version control and deployment.
+
+The following steps were followed:
+1. A new Git repository was created using <code>git init</code>
+2. Changes were added regularly using <code>git add .</code>
+3. Changes were commited using <code>git commit -m</code> with a clear, imperative message to describe the change
+4. Finally the local repository was uploaded to a remote repository (this one) using the command <code>git push</code>
+
+To create a local copy of this project:
+1. Create a folder where you want the cloned directory to be stored
+2. Open your terminal and navigate to this new directory
+3. In the terminal, run <code> git clone https://github.com/denham-ed/adventure_capital.git</code>
+
+### Heroku
+The program is hosted on Heroku. The following steps were followed:
+1. 
+2. Created a new app on Heroku, selecting Europe as the region
+2.
+
+
+
+
+
 ## Credits
 
 ### Data Set
@@ -291,3 +315,5 @@ The explanations of the built in string methods was extremely useful in fixing t
 - The support of my mentor Spencer Barriball for his advice, guidance and directions to resources is gratefully acknowledged.
 
 - The Code Institute example read me was used as a template for this document.
+
+- The [Code Institue Python Essentials Repo](https://github.com/Code-Institute-Org/python-essentials-template) was used as a template for this project to allow for it to be run on the simulated terminal in the live link above.
