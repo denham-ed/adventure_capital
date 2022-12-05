@@ -110,6 +110,8 @@ The function that prepares the game (prepare_game) has already been separated fr
 
 ### User Testing
 
+Thorough manual testing was completed to check that all user actions work as intended. The tables below show the results of late-stage testing. All of the tests that were found to have failed were fixed in the most recent version - details of the fixes can be found in the [Fixed Bugs](#fixed-bugs) section below.
+
 **Programme Start**
 | **User Action** | **Expected Result** | **Pass / Fail** |
 |---|---|---|
@@ -135,7 +137,7 @@ The function that prepares the game (prepare_game) has already been separated fr
 |---|---|---|
 | User presses 'y' or 'Y' and Enter | Message of acknowledgement printed and game begins with invite for first guess | PASS |
 | User presses 'n' or 'N' and Enter | Message of acknowledgement printed and game begins with invite for first guess| PASS |
-| User presses any other key/keys and presses Enter | User is warned that input is invalid and prompted again | FAIL - Colour print is missing and extraneous 'warning' printed to the screen |
+| User presses any other key/keys and presses Enter | User is warned that input is invalid and prompted again | PASS |
 
 **Prompt for Guess**
 | **User Action** | **Expected Result** | **Pass / Fail** |
@@ -147,6 +149,32 @@ The function that prepares the game (prepare_game) has already been separated fr
 | User enters a value that appears in the database but is not a capital city (eg. Spain) | User is warned that this is not a valid guess and invited to guess again | PASS |
 | User enters a blank string | User is warned that this is not a valid guess and invited to guess again | PASS |
 | User enters a value that has non alpha-numeric values | User is warned that this is not a valid guess and invited to guess again | PASS |
+
+**User Makes Valid Guess**
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User types 'I give up' | Message of acknowledgement displayed | PASS |
+|  | Answer is revealed | PASS |
+|  | Program exits | PASS |
+| User makes a valid but incorrect guess | User is told that answer is incorrect.   | PASS |
+|  | The distance and bearing needed for the next guess. | PASS |
+|  | The user is invited to guess again. | PASS |
+| User makes a valid and correct guess | User is congratulated.  | PASS |
+|  | Their total stats (number of guesses and cumulative distance) are displayed. | PASS |
+|  | User is given a ranking as a percentage. | PASS |
+|  | The top 10 scores are displayed to the screen. | PASS |
+|  | The user is invited to play again. | PASS |
+
+**KeyboardInterrupt Handling**
+
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User press Ctrl+C or equivalent during game play | Message of acknowledgement is displayed | PASS |
+|  | Answer is revealed | PASS |
+|  | Program exits | PASS |
+| User press Ctrl+C or equivalent before or after active game play | Message of acknowledgement is displayed | PASS |
+|  | Program exits | PASS |
+|  |  | PASS |
 
 ### Fixed Bugs
 **Invalid Guesses**
@@ -162,11 +190,15 @@ The problem was very hard to replicate but through manual testing (creating a in
 A try/except block has been added which will now exit the program gracefully. A message, written in the style of the game, is displayed to the user.
 
 
-**Blank Usernames**
+**Invalid Usernames**
 
-Intial testing revealed that users could enter a username that consisted only of a blank spaces. This error would then repeat throughout the game and potentially be posted to the leaderboard.
+ Testing revealed that users could enter a username that consisted only of a blank spaces. This error would then repeat throughout the game and potentially be posted to the leaderboard.
 
 This was corrected using the .strip() method, ensuring that all blank spaces are removed before checking the length of the entered string.
+
+Keys that render values to the terminal but are not alphanumeric, such as the Esc key, also caused a blank-seeming username to propagate throughout the game.
+
+This was fixed by checking using the .isalnum() method.
 
 **Credentials**
 
