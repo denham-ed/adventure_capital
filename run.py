@@ -378,7 +378,7 @@ def check_play_again():
         elif play_again.lower() == "n":
             return False
         else:
-            print("warning", "\nI'm sorry I didn't catch that.")
+            colour_print("warning", "\nI'm sorry I didn't catch that.")
             continue
 
 
