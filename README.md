@@ -133,6 +133,17 @@ The function that prepares the game (prepare_game) has already been separated fr
 | User presses 'n' or 'N' and Enter | Message of acknowledgement printed and game begins with invite for first guess| PASS |
 | User presses any other key/keys and presses Enter | User is warned that input is invalid and prompted again | FAIL - Colour print is missing and extraneous 'warning' printed to the screen |
 
+**Prompt for Guess**
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User enters an in capital city in Title case (eg. London) | Confirmation message is displayed, dependant on whether guess is correct or not (see below) | PASS |
+| User enters a capital city in Lower case (eg. budapest) | Confirmation message is displayed, dependant on whether guess is correct or not (see below) | PASS |
+| User enters a capital city in Upper case (eg. ACCRA) | Confirmation message is displayed, dependant on whether guess is correct or not (see below) | PASS |
+| User enters a value containing only alphabetical characters that does not appear in the database (eg. Manchester, Pancake, singing etc.) | User is warned that this is not a valid guess and invited to guess again | PASS |
+| User enters a value that appears in the database but is not a capital city (eg. Spain) | User is warned that this is not a valid guess and invited to guess again | PASS |
+| User enters a blank string | User is warned that this is not a valid guess and invited to guess again | PASS |
+| User enters a value that has non alpha-numeric values | User is warned that this is not a valid guess and invited to guess again | PASS |
+
 ### Fixed Bugs
 **Invalid Guesses**
 
