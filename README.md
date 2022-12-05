@@ -104,7 +104,34 @@ The function that prepares the game (prepare_game) has already been separated fr
 
 ### Validators
 
-### User Testing (Table etc)
+### User Testing
+
+**Programme Start**
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User starts programme by pressing Run Program | Welcome Title and Image is printed to page. User is asked whether they want to see the instructions | PASS |
+
+**Prompt for Instructions**
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User presses 'y' or 'Y' and Enter | Instructions are printed and user is prompted for name | PASS |
+| User presses 'n' or 'N' and Enter | Message of acknowledgement printed and user is prompted for name  | PASS |
+| User presses any other key/keys and presses Enter | User is warned that input is invalid and prompted again | PASS |
+
+**Prompt for Username**
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User enters a username comprised of alphanumeric characters  | Username is acknowledged and user is asked whether they would like hints | PASS |
+| User enters a username with non-alphanumerica characters | User is warned that input is invalid and prompted again | FAIL - Programme currently accepts punctuation marks and keys such as Esc |
+| User enters no username | User is warned that input is invalid and prompted again | PASS |
+| User enters a username of all spaces | User is warned that input is invalid and prompted again | PASS |
+
+**Prompt for Hints**
+| **User Action** | **Expected Result** | **Pass / Fail** |
+|---|---|---|
+| User presses 'y' or 'Y' and Enter | Message of acknowledgement printed and game begins with invite for first guess | PASS |
+| User presses 'n' or 'N' and Enter | Message of acknowledgement printed and game begins with invite for first guess| PASS |
+| User presses any other key/keys and presses Enter | User is warned that input is invalid and prompted again | FAIL - Colour print is missing and extraneous 'warning' printed to the screen |
 
 ### Fixed Bugs
 **Invalid Guesses**
