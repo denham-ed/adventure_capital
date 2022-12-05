@@ -202,6 +202,12 @@ This was used to indentify the current game in the list of all games in order to
 
 ***Any code that is replicated verbatim from any source is also credited above the code itself in run.py.***
 
+### Other Resources and Technologies
+
+[Code Beautify](https://codebeautify.org/python-formatter-beautifier) was used to assist in the formatting and checking of the run.py file.
+
+[Draw.io](https://app.diagrams.net/) was used to produce the flow charts and class diagrams at the top of this document.
+
 ### Acknowledgements
 - The support of my mentor Spencer Barriball for his advice, guidance and directions to resources is gratefully acknowledged.
 
