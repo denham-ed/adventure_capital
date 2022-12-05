@@ -130,7 +130,7 @@ def get_city_by_name(city):
 
 def get_city_info_by_row(row_num):
     """
-    Takes an index or row number and returns city from API from that row
+    Takes an index or row number and returns city from database from that row
     Returns city information as a list of values
     """
     city_info = CAPITALS_SHEET.row_values(row_num)
