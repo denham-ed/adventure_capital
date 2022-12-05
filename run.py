@@ -254,13 +254,11 @@ def get_ordinal(num):
     eg. 1 => 1st, 2 => 2nd
     """
     SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
-    
     if 10 <= num % 100 <= 20:
         suffix = 'th'
     else:
         suffix = SUFFIXES.get(num % 10, 'th')
     return str(num) + suffix
-
 
 
 def get_user_guess(user_name, guess_count, opponent_capital):
