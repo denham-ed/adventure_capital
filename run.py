@@ -410,7 +410,7 @@ def play_game(game):
                 sleep(1)
                 print(f"You took a total of {game.guess_count}\
  guess(es) and a cumulative distance of\
-{game.total_distance}km!")
+ {game.total_distance}km!")
                 sleep(1)
                 user_ranking = get_user_ranking(str(game.game_id), all_scores)
                 print(user_ranking)
