@@ -502,7 +502,7 @@ def show_instructions():
         if instructions.lower() == "y":
             print(INSTRUCTIONS)
             return True
-        if instructions.lower() == "n":
+        elif instructions.lower() == "n":
             print("Ah! You already know the game...")
             return False
         else:
