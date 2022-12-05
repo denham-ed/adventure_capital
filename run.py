@@ -228,8 +228,8 @@ def ask_for_hints(user_name):
     colour_print(
         "prompt",
         f"So tell me, {user_name}, \
-        would you like to have hints, if you haven't guessed \
-        correctly after 5 and 10 guesses?",
+would you like to have hints, if you haven't guessed \
+correctly after 5 and 10 guesses?",
     )
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
@@ -265,7 +265,7 @@ def get_user_guess(user_name, guess_count, opponent_capital):
         colour_print(
             "prompt",
             f"\nOk {user_name}.\
-            Time to make your {get_ordinal(guess_count)} guess!",
+ Time to make your {get_ordinal(guess_count)} guess!",
         )
         while True:
             initial_guess = input("Please enter a capital city \n")
@@ -303,16 +303,15 @@ def show_hints(guess_count, opponent_capital):
         sleep(1)
         print("\nNot to worry - this is a hard one! Your first hint...\n")
         sleep(1)
-        print(f"""I'm hiding somewhere in the
-continent of {opponent_capital.continent}!""")
+        print(f"I'm hiding somewhere in the\
+ continent of {opponent_capital.continent}!")
         sleep(1.5)
     elif guess_count == 11:
         sleep(1)
         print("\nOK, you're struggling - your second hint, coming up...\n")
         sleep(1)
-        print(
-            f"""I'm hiding somewhere in the
-capital city of {opponent_capital.country}!"""
+        print(f"I'm hiding somewhere in the\
+ capital city of {opponent_capital.country}!"
         )
         sleep(1.5)
     else:
@@ -348,10 +347,9 @@ def show_high_scores(all_scores):
     for index, score in enumerate(all_scores):
         if index > 9:
             break
-        print(
-            f"{index +1}: {score['user_name']}\
-            - {score['score']} guesses\
-            - {score['distance']} total kilometres")
+        print(f"{index +1}: {score['user_name']}\
+ - {score['score']} guesses\
+ - {score['distance']} total kilometres")
 
 
 def get_user_ranking(game_id, all_scores):
@@ -409,9 +407,9 @@ def play_game(game):
                 f"I was hiding in {opponent_capital.city.title()}!\n"
             )
             sleep(1)
-            print(f"You took a total of {game.guess_count} \
-                    guess(es) and a cumulative distance of \
-                    {game.total_distance}km!")
+            print(f"You took a total of {game.guess_count}\
+ guess(es) and a cumulative distance of\
+ {game.total_distance}km!")
             sleep(1)
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
             print(user_ranking)
@@ -438,7 +436,7 @@ def play_game(game):
             game.total_distance = game.total_distance + int(inverse["dist"])
             # Show user distance and direction
             print(f"\n{user_capital.city.title()} is {int(inverse['dist'])}\
-                    kilometres from where I am hiding!"
+ kilometres from where I am hiding!"
             )
             bearing = get_text_bearing(inverse["azimuth"])
             print(f"You'll need to head {bearing} to find me...")
@@ -459,8 +457,8 @@ def exit_game(opponent_capital):
     print("...")
     colour_print(
         "incorrect_answer",
-        f"\nFine - I'll tell you! \
-            I was hiding in {opponent_capital.city.title()}",
+        f"\nFine - I'll tell you!\
+ I was hiding in {opponent_capital.city.title()}",
     )
     sleep(1)
     colour_print("intro", "\nHopefully see you again soon!")
