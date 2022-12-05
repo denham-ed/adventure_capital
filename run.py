@@ -247,14 +247,20 @@ correctly after 5 and 10 guesses?",
             continue
 
 
-# Credit: https://tinyurl.com/3hubkrfm
-def get_ordinal(n):
+# Credit: https://tinyurl.com/ydvndnc6
+def get_ordinal(num):
     """
     Takes a number (n) and returns a string with the number as an ordinal.
     eg. 1 => 1st, 2 => 2nd
     """
-    ordinal = "%d%s" % (n, "tsnrhtdd"[(n // 10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
-    return ordinal
+    SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
+    
+    if 10 <= num % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = SUFFIXES.get(num % 10, 'th')
+    return str(num) + suffix
+
 
 
 def get_user_guess(user_name, guess_count, opponent_capital):

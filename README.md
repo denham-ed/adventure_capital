@@ -262,9 +262,9 @@ An adapted version of this looping pattern is used throughout the programme (ask
 
 Scott Stafford's answer provides the basis for the function used to sort high scores (by number of guesses and by distance).
 
-[Convert Integers to Ordinal Numbers](https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement)
+[Convert Integers to Ordinal Numbers](https://codereview.stackexchange.com/questions/41298/producing-ordinal-numbers)
 
-Ben Davis' solution is used in full to show the prompt the user for their 1st, 2nd, 3rd etc guess.
+Winston Ewert's solution is used in full to show the prompt the user for their 1st, 2nd, 3rd etc guess.
 
 [Python Looping with Index Counters](https://datagy.io/python-enumerate/)
 
