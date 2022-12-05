@@ -320,6 +320,7 @@ The explanations of the built-in string methods were extremely useful in fixing 
 
 [Tables Generator](https://www.tablesgenerator.com/markdown_tables#) was used to create the framework for the testing tables, above.
 
+[Grammarly](https://app.grammarly.com/) was used to correct spelling and grammatical errors, particularly in README.md
 ### Acknowledgements
 - The support of my mentor Spencer Barriball for his advice, guidance and directions to resources is gratefully acknowledged.
 
