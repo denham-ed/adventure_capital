@@ -485,7 +485,7 @@ def show_instructions():
     )
     while True:
         show_instructions = input(
-            "Write 'y' for instructions, and 'n' for to skip \n"
+            "Write 'y' for instructions, and 'n' to skip \n"
             )
         if show_instructions.lower() == "y":
             print(INSTRUCTIONS)
