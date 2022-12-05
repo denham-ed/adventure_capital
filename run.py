@@ -388,63 +388,66 @@ def play_game(game):
     If the user is incorrect, they are advised of the direction and distance
     to the correct city.
     """
-    print("Ok, let's start!")
-    opponent_capital = get_random_city()
-    while game.in_progress:
+    try:
+        print("Ok, let's start!")
+        opponent_capital = get_random_city()
+        while game.in_progress:
+            user_capital = get_user_guess(game.user_name, game.guess_count, opponent_capital)
+            if user_capital.city == opponent_capital.city:
+                game.in_progress = False
+                post_high_score(game.user_name, game.guess_count,
+                                game.total_distance, str(game.game_id))
+                all_scores = get_all_scores()
+                colour_print("correct_answer", "\nWell done! You found me!")
+                colour_print(
+                    "correct_answer",
+                    f"I was hiding in {opponent_capital.city.title()}!\n"
+                )
+                sleep(1)
+                print(f"You took a total of {game.guess_count}\
+    guess(es) and a cumulative distance of\
+    {game.total_distance}km!")
+                sleep(1)
+                user_ranking = get_user_ranking(str(game.game_id), all_scores)
+                print(user_ranking)
+                show_high_scores(all_scores)
+                # Check Whether User Will Play Again
+                play_again = check_play_again()
+                if play_again:
+                    print("Great! I'll start thinking of another city...")
+                    new_game = Game(True, game.user_name, 1, 0, game.hint_on)
+                    play_game(new_game)
+                else:
+                    colour_print("intro", "\nNo problem! See you again soon!\n")
 
-        user_capital = get_user_guess(
-            game.user_name, game.guess_count, opponent_capital
-        )
-        if user_capital.city == opponent_capital.city:
-            game.in_progress = False
-            post_high_score(game.user_name, game.guess_count,
-                            game.total_distance, str(game.game_id))
-            all_scores = get_all_scores()
-            colour_print("correct_answer", "\nWell done! You found me!")
-            colour_print(
-                "correct_answer",
-                f"I was hiding in {opponent_capital.city.title()}!\n"
-            )
-            sleep(1)
-            print(f"You took a total of {game.guess_count}\
- guess(es) and a cumulative distance of\
- {game.total_distance}km!")
-            sleep(1)
-            user_ranking = get_user_ranking(str(game.game_id), all_scores)
-            print(user_ranking)
-            show_high_scores(all_scores)
-            # Check Whether User Will Play Again
-            play_again = check_play_again()
-            if play_again:
-                print("Great! I'll start thinking of another city...")
-                new_game = Game(True, game.user_name, 1, 0, game.hint_on)
-                play_game(new_game)
             else:
-                colour_print("intro", "\nNo problem! See you again soon!\n")
+                colour_print(
+                    "incorrect_answer",
+                    f"\nNope! I'm not in {user_capital.city.title()}!"
+                )
+                inverse = game.find_distance_between_capitals(
+                    user_capital, opponent_capital
+                )
+                # Increment counters
+                game.guess_count = game.guess_count + 1
+                game.total_distance = game.total_distance + int(inverse["dist"])
+                # Show user distance and direction
+                print(f"\n{user_capital.city.title()} is {int(inverse['dist'])}\
+    kilometres from where I am hiding!")
+                bearing = get_text_bearing(inverse["azimuth"])
+                print(f"You'll need to head {bearing} to find me...")
+                # Check for hints
+                if game.hint_on:
+                    show_hints(game.guess_count, opponent_capital)
+                continue
+    except KeyboardInterrupt:
+            exit_game(opponent_capital)
 
-        else:
-            colour_print(
-                "incorrect_answer",
-                f"\nNope! I'm not in {user_capital.city.title()}!"
-            )
-            inverse = game.find_distance_between_capitals(
-                user_capital, opponent_capital
-            )
-            # Increment counters
-            game.guess_count = game.guess_count + 1
-            game.total_distance = game.total_distance + int(inverse["dist"])
-            # Show user distance and direction
-            print(f"\n{user_capital.city.title()} is {int(inverse['dist'])}\
- kilometres from where I am hiding!")
-            bearing = get_text_bearing(inverse["azimuth"])
-            print(f"You'll need to head {bearing} to find me...")
-            # Check for hints
-            if game.hint_on:
-                show_hints(game.guess_count, opponent_capital)
-            continue
 
 
-def exit_game(opponent_capital):
+
+
+def exit_game(opponent_capital=None):
     """
     Reveals answer to user, then exits programme.
     """
@@ -453,12 +456,16 @@ def exit_game(opponent_capital):
     print("...")
     sleep(1)
     print("...")
-    colour_print(
+    if opponent_capital is not None:
+        colour_print(
         "incorrect_answer",
         f"\nFine - I'll tell you!\
  I was hiding in {opponent_capital.city.title()}",
     )
-    sleep(1)
+        sleep(1)
+    else:
+        colour_print('incorrect_answer', "I didn't even start hiding...")
+        sleep(1)
     colour_print("intro", "\nHopefully see you again soon!")
     exit()
 
@@ -504,14 +511,17 @@ def main():
     Calls preparatory game functions
     Calls game function
     """
-    colour_print("intro", "Welcome to Adventure Capital! \n")
-    colour_print("intro", LOGO)
-    print("I'm hiding in a capital city, somewhere in the world.")
-    print("You have to guess where! \n")
-    show_instructions()
-    prepared_game = prepare_game()
-    game = Game(True, prepared_game["user_name"], 1, 0, prepared_game["hints"])
-    play_game(game)
+    try:
+        colour_print("intro", "Welcome to Adventure Capital! \n")
+        colour_print("intro", LOGO)
+        print("I'm hiding in a capital city, somewhere in the world.")
+        print("You have to guess where! \n")
+        show_instructions()
+        prepared_game = prepare_game()
+        game = Game(True, prepared_game["user_name"], 1, 0, prepared_game["hints"])
+        play_game(game)
+    except KeyboardInterrupt:
+        exit_game()
 
 
 if __name__ == "__main__":
