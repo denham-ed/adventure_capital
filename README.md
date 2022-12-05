@@ -104,7 +104,8 @@ The function that prepares the game (prepare_game) has already been separated fr
 
 ## Testing
 
-### Validators
+### Validator
+This program passed the [Code Institue Linter](https://pep8ci.herokuapp.com/) with no errors or warnings.
 
 ### User Testing
 
