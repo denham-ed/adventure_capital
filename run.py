@@ -496,13 +496,13 @@ def show_instructions():
         "If it's your first time you may want to see some instructions."
     )
     while True:
-        show_instructions = input(
+        instructions = input(
             "Write 'y' for instructions, and 'n' to skip \n"
             )
-        if show_instructions.lower() == "y":
+        if instructions.lower() == "y":
             print(INSTRUCTIONS)
             return True
-        if show_instructions.lower() == "n":
+        if instructions.lower() == "n":
             print("Ah! You already know the game...")
             return False
         else:
