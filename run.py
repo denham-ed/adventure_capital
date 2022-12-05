@@ -210,10 +210,12 @@ def get_user_name():
     colour_print("prompt", "Firstly, what shall I call you?")
     while True:
         user_name = input("Please enter your name \n").strip()
-        if not len(user_name):
+        if len(user_name) == 0:
             colour_print("warning", "Sorry! I didn't catch that.")
         elif not user_name.isalnum():
-            colour_print("warning", "Sorry! Please only use letters or numbers in your username")
+            colour_print("warning",
+                         "Sorry! Please only use letters or numbers\
+ in your username")
         else:
             print(f"\nGreat, nice to meet you {user_name}")
             return user_name
@@ -348,8 +350,8 @@ def show_high_scores(all_scores):
         if index > 9:
             break
         print(f"{index +1}: {score['user_name']}\
- - {score['score']} guesses\
- - {score['distance']} total kilometres")
+- {score['score']} guesses\
+- {score['distance']} total kilometres")
 
 
 def get_user_ranking(game_id, all_scores):
@@ -393,7 +395,8 @@ def play_game(game):
         print("Ok, let's start!")
         opponent_capital = get_random_city()
         while game.in_progress:
-            user_capital = get_user_guess(game.user_name, game.guess_count, opponent_capital)
+            user_capital = get_user_guess(game.user_name, game.guess_count,
+                                          opponent_capital)
             if user_capital.city == opponent_capital.city:
                 game.in_progress = False
                 post_high_score(game.user_name, game.guess_count,
@@ -406,8 +409,8 @@ def play_game(game):
                 )
                 sleep(1)
                 print(f"You took a total of {game.guess_count}\
-    guess(es) and a cumulative distance of\
-    {game.total_distance}km!")
+ guess(es) and a cumulative distance of\
+{game.total_distance}km!")
                 sleep(1)
                 user_ranking = get_user_ranking(str(game.game_id), all_scores)
                 print(user_ranking)
@@ -419,7 +422,8 @@ def play_game(game):
                     new_game = Game(True, game.user_name, 1, 0, game.hint_on)
                     play_game(new_game)
                 else:
-                    colour_print("intro", "\nNo problem! See you again soon!\n")
+                    colour_print("intro",
+                                 "\nNo problem! See you again soon!\n")
 
             else:
                 colour_print(
@@ -431,10 +435,11 @@ def play_game(game):
                 )
                 # Increment counters
                 game.guess_count = game.guess_count + 1
-                game.total_distance = game.total_distance + int(inverse["dist"])
+                guess_distance = int(inverse["dist"])
+                game.total_distance = game.total_distance + guess_distance
                 # Show user distance and direction
-                print(f"\n{user_capital.city.title()} is {int(inverse['dist'])}\
-    kilometres from where I am hiding!")
+                print(f"\n{user_capital.city.title()} is\
+ {int(inverse['dist'])} kilometres from where I am hiding!")
                 bearing = get_text_bearing(inverse["azimuth"])
                 print(f"You'll need to head {bearing} to find me...")
                 # Check for hints
@@ -442,10 +447,7 @@ def play_game(game):
                     show_hints(game.guess_count, opponent_capital)
                 continue
     except KeyboardInterrupt:
-            exit_game(opponent_capital)
-
-
-
+        exit_game(opponent_capital)
 
 
 def exit_game(opponent_capital=None):
@@ -458,11 +460,9 @@ def exit_game(opponent_capital=None):
     sleep(1)
     print("...")
     if opponent_capital is not None:
-        colour_print(
-        "incorrect_answer",
-        f"\nFine - I'll tell you!\
- I was hiding in {opponent_capital.city.title()}",
-    )
+        colour_print("incorrect_answer",
+                     f"\nFine - I'll tell you!\
+ I was hiding in {opponent_capital.city.title()}")
         sleep(1)
     else:
         colour_print('incorrect_answer', "I didn't even start hiding...")
@@ -519,7 +519,8 @@ def main():
         print("You have to guess where! \n")
         show_instructions()
         prepared_game = prepare_game()
-        game = Game(True, prepared_game["user_name"], 1, 0, prepared_game["hints"])
+        game = Game(True, prepared_game["user_name"], 1,
+                    0, prepared_game["hints"])
         play_game(game)
     except KeyboardInterrupt:
         exit_game()
