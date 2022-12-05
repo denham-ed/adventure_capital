@@ -3,6 +3,8 @@
 The player is invited to guess which capital city I am hiding; if they are incorrect, I will telll them how far and in which direction they need to go, in order to find me.
 
 This project was build as part the Full Stack Software Development course with Code Institute.
+
+[The game is available to play in a simulated terminal.](https://denham-adventure-capital.herokuapp.com/)
 ## User Stories
 
 ### Game Designer
