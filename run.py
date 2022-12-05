@@ -32,19 +32,20 @@ LOGO = """. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 . . . . . . . ##. . . . . . . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."""
 
-INSTRUCTIONS = """\nI'll be asking you to guess where I am hiding. 
+INSTRUCTIONS = """\nI'll be asking you to guess where I am hiding.
 A few tips:
     1. I only hide in capital cities
-    2. If you are wrong, I will tell you how far away you are 
+    2. If you are wrong, I will tell you how far away you are
         so you can guess again
-    3. Please type city names without any diacritics 
+    3. Please type city names without any diacritics
         eg. For Chișinău, please type Chisinau
     4. You may want to use Google Maps to assist you in your first few games.
-    5. Remember - the world is a globe! 
+    5. Remember - the world is a globe!
         That means you can go over the top or bottom or over
         the international date line!
     6. You can quit the game by typing "I give up" when asked for a guess
 """
+
 
 class Capital:
     """
@@ -64,7 +65,9 @@ class Game:
     Initiates an instance of a new game
     """
 
-    def __init__(self, in_progress, user_name, guess_count, total_distance, hint_on):
+    def __init__(
+            self, in_progress, user_name,
+            guess_count, total_distance, hint_on):
         self.in_progress = in_progress
         self.user_name = user_name
         self.guess_count = guess_count
@@ -89,12 +92,13 @@ class Game:
 
         return inverse
 
+
 class GoogleSheetsError(Exception):
     """
     Raised if the API with Google Sheets is unresponsive
     """
-    pass
 
+    pass
 
 
 def colour_print(style, text):
@@ -116,9 +120,6 @@ def colour_print(style, text):
     rprint(f"{colour}{text}")
 
 
-
-
-
 def get_city_by_name(city):
     """
     Asks for user to guess a capital city.
@@ -133,9 +134,6 @@ def get_city_by_name(city):
         return city_stats
     else:
         return None
-
-
-
 
 
 def get_city_info_by_row(row_num):
@@ -204,12 +202,11 @@ def get_random_city():
         random_city = Capital(city, country, continent, longitude, latitude)
         return random_city
     except gspread.exceptions.APIError:
-        colour_print("warning", "Sorry! Something has gone wrong with my atlas.")
+        colour_print("warning",
+                     "Sorry! Something has gone wrong with my atlas.")
         colour_print("warning", "Let's say you won this one.")
         colour_print("intro", "\nLet's play again soon.")
         exit()
-
-
 
 
 def get_user_name():
@@ -239,7 +236,8 @@ def ask_for_hints(user_name):
     colour_print(
         "prompt",
         f"""So tell me {user_name}
-\nWould you like to have hints, if you haven't guessed correctly after 5 and 10 guesses?""",
+\nWould you like to have hints, if you haven't guessed
+ correctly after 5 and 10 guesses?""",
     )
     while True:
         user_hint = input("Write 'y' for yes, and 'n' for no \n")
@@ -260,11 +258,12 @@ def get_ordinal(n):
     Takes a number (n) and returns a string with the number as an ordinal.
     eg. 1 => 1st, 2 => 2nd
     """
-    ordinal = "%d%s" % (n, "tsnrhtdd"[(n // 10 % 10 != 1) * (n % 10 < 4) * n % 10 :: 4])
+    ordinal = "%d%s"
+    % (n, "tsnrhtdd"[(n // 10 % 10 != 1) * (n % 10 < 4) * n % 10::4])
     return ordinal
 
 
-def get_user_guess(user_name, guess_count,opponent_capital):
+def get_user_guess(user_name, guess_count, opponent_capital):
     """
     Prompt's user to make a guess
     Checks that the city appears in the database
@@ -274,7 +273,8 @@ def get_user_guess(user_name, guess_count,opponent_capital):
     try:
         colour_print(
             "prompt",
-            f"\nOk {user_name}. Time to make your {get_ordinal(guess_count)} guess!",
+            f"""\nOk {user_name}.
+Time to make your {get_ordinal(guess_count)} guess!""",
         )
         while True:
             initial_guess = input("Please enter a capital city \n")
@@ -283,15 +283,20 @@ def get_user_guess(user_name, guess_count,opponent_capital):
             validated_guess = get_city_by_name(initial_guess.lower())
             if validated_guess is not None:
                 city, country, continent, longitude, latitude = validated_guess
-                user_capital = Capital(city, country, continent, longitude, latitude)
+                user_capital = Capital(city, country, continent,
+                                       longitude, latitude)
                 return user_capital
             else:
-                colour_print("warning", "\nSorry! I don't think that's a capital city!")
+                colour_print(
+                    "warning",
+                    "\nSorry! I don't think that's a capital city!")
                 colour_print("warning", "I only hide in capitals...")
                 print("\nPlease have another guess")
                 continue
     except gspread.exceptions.APIError:
-        colour_print("warning", "Sorry! Something has gone wrong with my atlas.")
+        colour_print(
+            "warning",
+            "Sorry! Something has gone wrong with my atlas.")
         colour_print("warning", "Let's say you won this one.")
         colour_print("intro", "\nLet's play again soon.")
         exit()
@@ -307,9 +312,8 @@ def show_hints(guess_count, opponent_capital):
         sleep(1)
         print("\nNot to worry - this is a hard one! Your first hint...\n")
         sleep(1)
-        print(
-            f"I'm hiding somewhere in the continent of {opponent_capital.continent}!"
-        )
+        print(f"""I'm hiding somewhere in the
+continent of {opponent_capital.continent}!""")
         sleep(1.5)
     elif guess_count == 11:
         sleep(1)
@@ -354,8 +358,9 @@ def show_high_scores(all_scores):
         if index > 9:
             break
         print(
-            f"{index +1}: {score['user_name']} - {score['score']} guesses - {score['distance']} total kilometres"
-        )
+            f"""{index +1}: {score['user_name']}
+ - {score['score']} guesses
+ - {score['distance']} total kilometres""")
 
 
 def get_user_ranking(game_id, all_scores):
@@ -363,10 +368,10 @@ def get_user_ranking(game_id, all_scores):
     Finds player's score in relation to all scores
     Returns a string indicating the player's percentile
     """
-    player_game_index = next(
-        (i for i, score in enumerate(all_scores) if score["game_id"] == str(game_id)),
-        None,
-    )
+    player_game_index = next((i for i,
+                              score in enumerate(all_scores)
+                              if score["game_id"] == str(game_id)),
+                             None)
     player_percentile = int(100 - (player_game_index / len(all_scores)) * 100)
     return f"You are better than {player_percentile}% of all players! \n"
 
@@ -399,20 +404,23 @@ def play_game(game):
     opponent_capital = get_random_city()
     while game.in_progress:
 
-        user_capital = get_user_guess(game.user_name, game.guess_count, opponent_capital)
+        user_capital = get_user_guess(
+            game.user_name, game.guess_count, opponent_capital
+        )
         if user_capital.city == opponent_capital.city:
             game.in_progress = False
-            post_high_score(
-                game.user_name, game.guess_count, game.total_distance, str(game.game_id)
-            )
+            post_high_score(game.user_name, game.guess_count,
+                            game.total_distance, str(game.game_id))
             all_scores = get_all_scores()
             colour_print("correct_answer", "\nWell done! You found me!")
             colour_print(
-                "correct_answer", f"I was hiding in {opponent_capital.city.title()}!\n"
+                "correct_answer",
+                f"I was hiding in {opponent_capital.city.title()}!\n"
             )
             sleep(1)
             print(
-                f"You took a total of {game.guess_count} guess(es) and a cumulative distance of {game.total_distance}km!"
+                f"""You took a total of {game.guess_count} guess(es)
+and a cumulative distance of {game.total_distance}km!"""
             )
             sleep(1)
             user_ranking = get_user_ranking(str(game.game_id), all_scores)
@@ -429,7 +437,8 @@ def play_game(game):
 
         else:
             colour_print(
-                "incorrect_answer", f"\nNope! I'm not in {user_capital.city.title()}!"
+                "incorrect_answer",
+                f"\nNope! I'm not in {user_capital.city.title()}!"
             )
             inverse = game.find_distance_between_capitals(
                 user_capital, opponent_capital
@@ -439,7 +448,8 @@ def play_game(game):
             game.total_distance = game.total_distance + int(inverse["dist"])
             # Show user distance and direction
             print(
-                f"\n{user_capital.city.title()} is {int(inverse['dist'])} kilometres from where I am hiding!"
+                f"""\n{user_capital.city.title()} is {int(inverse['dist'])}
+kilometres from where I am hiding!"""
             )
             bearing = get_text_bearing(inverse["azimuth"])
             print(f"You'll need to head {bearing} to find me...")
@@ -460,10 +470,13 @@ def exit_game(opponent_capital):
     print("...")
     colour_print(
         "incorrect_answer",
-        f"\nFine - I'll tell you! I was hiding in {opponent_capital.city.title()}")
+        f"""\nFine - I'll tell you!
+I was hiding in {opponent_capital.city.title()}""",
+    )
     sleep(1)
     colour_print("intro", "\nHopefully see you again soon!")
     exit()
+
 
 def prepare_game():
     """
@@ -481,9 +494,14 @@ def show_instructions():
     If yes, prints instructions (defined as constant) to screen
     Returns nothing
     """
-    colour_print('prompt', "If it's your first time you may want to see some instructions.")
+    colour_print(
+        "prompt",
+        "If it's your first time you may want to see some instructions."
+    )
     while True:
-        show_instructions = input("Write 'y' for instructions, and 'n' for to skip \n")
+        show_instructions = input(
+            "Write 'y' for instructions, and 'n' for to skip \n"
+            )
         if show_instructions.lower() == "y":
             print(INSTRUCTIONS)
             return True
@@ -493,6 +511,7 @@ def show_instructions():
         else:
             colour_print("warning", "\nI'm sorry I didn't catch that.")
             continue
+
 
 def main():
     """
@@ -510,5 +529,5 @@ def main():
     play_game(game)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -140,12 +140,10 @@ After following these steps and taking advice from the Code Institute community,
 
 **Countries with Multiple Capital Cities**
 
-FINISH!!!
+Several counties (notably South Africa, Bolivia, Swaziland and Tanzania) have multiple capital cities. These were added to the list on the Capital Google Sheet after feedback from players.
 
 ### Unfixed Bugs
 There are currently no known unfixed bugs in this program.
-
-
 
 ## Deployment
 
@@ -157,7 +155,7 @@ The list of capitals and their coordinates was sourced from [Kaggle](https://www
 Some editing was necessary to account for missing coordinates (eg. Hong Kong), areas with no capital (eg. Antarctica) and to remove diacritics (eg.Chișinău)
 
 ### Art Work
-FINISH!!!!!!! LOGO!!!! 
+As described above, the image of the world that acts as a logo at the start of the game, in its pure text form, was sourced from [ASCII ART](https://ascii.co.uk/art/world). The original credit is ascribed to *Brice Wellington from Winston Smith*
 
 ### Libraries & Modules
 **The following libraries are used in this program:**
