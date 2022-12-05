@@ -390,7 +390,7 @@ def check_play_again():
 
 def play_game(game):
     """
-    Initates loop - prompts user to make a guess
+    Initiates loop - prompts user to make a guess
     If the user guesses correctly, calls end game function
     If the user is incorrect, they are advised of the direction and distance
     to the correct city.
@@ -456,7 +456,7 @@ def play_game(game):
 
 def exit_game(opponent_capital=None):
     """
-    Reveals answer to user, then exits programme.
+    Reveals answer to user, then exits program.
     """
     print("You're giving up!")
     sleep(1)
