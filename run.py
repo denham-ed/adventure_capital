@@ -240,7 +240,7 @@ correctly after 5 and 10 guesses?",
             print("\nOh wow - no hints for you. Pretty confident eh?")
             return False
         else:
-            print("warning", "\nI'm sorry I didn't catch that.")
+            colour_print("warning", "\nI'm sorry I didn't catch that.")
             continue
 
 
