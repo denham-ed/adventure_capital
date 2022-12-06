@@ -66,11 +66,17 @@ When the user is prompted for a yes/no answer (shown as 'y'/'n') they will be un
 
 Usernames cannot be empty strings or strings comprised of just spaces, but do allow letters and numbers. Non-alpha-numeric characters such as punctuation or characters created by keys such as Esc are not valid. There is no currently no length limit.
 
+![Username Validation](assets/gameplay/username.png)
+
 ### Hints
 To assist with guessing more remote and lesser-known capitals, the player can opt to have hints (providing the continent and country of the city) after 5 and 10 unsuccessful guesses
 
+![Prompt for Hints](assets/gameplay/hints.png)
+
 ### Logo
 The ASCII image of the world map acts as an eye-catching introduction to new players and immediately indicates the subject of the game. The original was sourced from [ASCII ART](https://ascii.co.uk/art/world) and credit belongs to *Brice Wellington from Winston Smith*.
+
+![Logo and Introduction](assets/gameplay/logo.png)
 
 ### Colour Print
 [Rich](https://rich.readthedocs.io/en/stable/introduction.html#:~:text=Rich%20is%20a%20Python%20library,in%20a%20more%20readable%20way.) is used throughout this project to add colour to key text. 
@@ -83,15 +89,21 @@ The underlying mathematical principles are fascinating, however, and well worth 
 ### High Score
 At the end of a successful game, the player will be shown the top 10 scores of all players. Scores are ranked by the number of guesses (the lower the better) and then by the cumulative kilometres of error in the incorrect guesses.
 
-The player will also be given a percentile ranking (eg. *You are better than 60% of all players*). This will add a competitive element for players who do not make the top 10.
+The player will also be given a percentile ranking (eg. *You are better than 60% of all players!*). This will add a competitive element for players who do not make the top 10.
+
+![Highscores](assets/gameplay/highscores.png)
 
 ### 'I Give Up' Functions
 The player can exit the game during any guessing phase by typing "I give up". The answer will be revealed and the program will exit.
 
 If the player uses Ctrl + C to exit the game, an exit message is shown before the program exits. If the hider has hidden, the answer will be revealed.
 
+![I Give Up functions](assets/gameplay/give_up.png)
+
 ### Instructions
 The player will be offered the chance to see instructions for the game. These explain the rules of the game and also offer further directions about exiting the game, handling capitals with diacritics and a reminder that the world is a globe.
+
+![Instructions](assets/gameplay/instructions.png)
 
 ## Upcoming Features
 
