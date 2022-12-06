@@ -22,7 +22,7 @@ Simple design (colour, spacing and timing) should be used to provide feedback an
 ### Game Player
 As a user, I want to experience an enjoyable, easy-to-learn game which will improve my lateral thinking and knowledge of the world's capitals.
 
-The game should be completeable on early attempts but should offer a scalable challenge that will keep me returning. I want the game to keep track of previous attempts so I can challenge myself and other players.
+The game should be able to be completed successfully on early attempts but should offer a scalable challenge that will keep me returning. I want the game to keep track of previous attempts so I can challenge myself and other players.
 
 Any prompts or displayed information should be concise and unambiguous.
 
